@@ -19,6 +19,7 @@ const int timeOutDuration = 20000;
 const String user = "user";
 const String token = "token";
 const String isFirst = "isFirst";
+const String cart = "cart";
 
 initSizeUtilsForApp(BoxConstraints boxConstraints) {
   kheight = boxConstraints.maxHeight;

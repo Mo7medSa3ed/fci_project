@@ -9,7 +9,7 @@ class UserRepository {
 
   Future addProductToFav(id) async {
     final res = await _apiServices!
-        .post(url: '/users/fav/$id', data: null, showAlert: false);
+        .post(url: '/users/fav', data: {"productId": id}, showAlert: false);
     return res;
   }
 

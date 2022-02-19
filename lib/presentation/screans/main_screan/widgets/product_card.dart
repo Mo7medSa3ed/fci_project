@@ -1,6 +1,8 @@
 import 'dart:math';
 
+import 'package:fci_project/bussniss_logic/user_provider.dart';
 import 'package:fci_project/data/models/product.dart';
+import 'package:fci_project/helper/localstorage.dart';
 import 'package:fci_project/helper/navigator.dart';
 import 'package:fci_project/main.dart';
 import 'package:fci_project/presentation/screans/product_details_screan/product_details_screan.dart';
@@ -9,6 +11,7 @@ import 'package:fci_project/presentation/shared_widgets/primary_round_button.dar
 import 'package:fci_project/presentation/shared_widgets/primary_text.dart';
 import 'package:fci_project/style/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class ProductCard extends StatelessWidget {
   const ProductCard({required this.product, Key? key}) : super(key: key);
@@ -17,7 +20,7 @@ class ProductCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextButton(
-      onPressed: () => Nav.goToScrean(ProductDetailsScrean(product:product)),
+      onPressed: () => Nav.goToScrean(ProductDetailsScrean(product: product)),
       style: ButtonStyle(
         padding: MaterialStateProperty.all(EdgeInsets.zero),
         shape: MaterialStateProperty.all(
@@ -44,6 +47,7 @@ class ProductCard extends StatelessWidget {
                   child: PrimaryImage(
                     url: product
                         .images![Random().nextInt(product.images!.length)],
+                    radius: 15,
                   ),
                 )),
             PrimaryText(
@@ -67,12 +71,24 @@ class ProductCard extends StatelessWidget {
                     fontSizeRatio: 0.9,
                   ),
                 ),
-                PrimaryRoundButton(
-                  child: Icon(Icons.add, color: kwhite),
-                  bgColor: kprimary,
-                  borderColor: kprimary,
-                  overlayColor: kwhite.withOpacity(0.4),
-                  onTap: () {},
+                Consumer<UserProvider>(
+                  builder: (context, userProvider, child) {
+                    return PrimaryRoundButton(
+                      child: Icon(
+                          userProvider.isExistInCart(product.id)
+                              ? Icons.done
+                              : Icons.add,
+                          color: kwhite),
+                      bgColor: kprimary,
+                      borderColor: kprimary,
+                      overlayColor: kwhite.withOpacity(0.4),
+                      onTap: userProvider.isExistInCart(product.id)
+                          ? null
+                          : () async {
+                              userProvider.addToCart(product);
+                            },
+                    );
+                  },
                 )
               ],
             ),

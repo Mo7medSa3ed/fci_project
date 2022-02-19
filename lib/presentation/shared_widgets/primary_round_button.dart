@@ -30,7 +30,7 @@ class PrimaryRoundButton extends StatelessWidget {
       style: ButtonStyle(
           elevation: MaterialStateProperty.all(0),
           minimumSize: MaterialStateProperty.all(Size.zero),
-          maximumSize: MaterialStateProperty.all(Size(50, 50)),
+          // maximumSize: MaterialStateProperty.all(Size(50, 50)),
           tapTargetSize: MaterialTapTargetSize.shrinkWrap,
           overlayColor: MaterialStateProperty.all(
               overlayColor ?? kprimary.withOpacity(0.1)),

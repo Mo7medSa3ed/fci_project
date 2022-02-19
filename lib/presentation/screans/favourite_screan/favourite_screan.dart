@@ -4,6 +4,7 @@ import 'package:fci_project/main.dart';
 import 'package:fci_project/presentation/screans/favourite_screan/widgets/favourite_card.dart';
 import 'package:fci_project/presentation/shared_widgets/primary_button.dart';
 import 'package:fci_project/presentation/shared_widgets/primary_future_widget.dart';
+import 'package:fci_project/presentation/shared_widgets/primary_text.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -12,7 +13,6 @@ class FavouriteScrean extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final pro = Provider.of<UserProvider>(context, listen: false);
-    pro.favProducts.clear();
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -24,13 +24,21 @@ class FavouriteScrean extends StatelessWidget {
               },
               future: pro.getAllFavouriteProducts(),
               data: (data) {
-                return ListView.builder(
-                  physics: BouncingScrollPhysics(),
-                  padding: EdgeInsets.symmetric(horizontal: kpadding),
-                  itemCount: data.length,
-                  itemBuilder: (ctx, idx) =>
-                      FavouriteCard(favProduct: data[idx]),
-                );
+                return Consumer<UserProvider>(
+                    builder: (context, userProvider, child) {
+                  if (userProvider.favProducts.isEmpty) {
+                    return Center(
+                        child: PrimaryText(text: 'لا يوجد منتجات مضافة'));
+                  }
+
+                  return ListView.builder(
+                    physics: BouncingScrollPhysics(),
+                    padding: EdgeInsets.symmetric(horizontal: kpadding),
+                    itemCount: userProvider.favProducts.length,
+                    itemBuilder: (ctx, idx) => FavouriteCard(
+                        favProduct: userProvider.favProducts[idx]),
+                  );
+                });
               }),
         ),
         Consumer<UserProvider>(

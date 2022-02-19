@@ -8,6 +8,7 @@ class ProductProvider extends ChangeNotifier {
   int currantIndex = 0;
   List<String> saveCategoryListFilter = [];
   List<cat.Category> categories = [];
+  
 
   clear() {
     saveCategoryListFilter.clear();

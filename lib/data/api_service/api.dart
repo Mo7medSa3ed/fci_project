@@ -94,9 +94,7 @@ class ApiServices {
       }
       response = await _dio!.get('$baseUrl$url',
           options: Options(headers: {"x-auth-token": tok}));
-      print(response);
-      print(_dio!.options.headers);
-      print('$baseUrl$url');
+    
       return _processResponse(
           response: response,
           msg: checkKeyContain(response.data),

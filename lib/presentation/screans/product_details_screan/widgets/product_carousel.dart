@@ -1,8 +1,8 @@
-import 'dart:math';
 
 import 'package:fci_project/bussniss_logic/home_provider.dart';
 import 'package:fci_project/main.dart';
 import 'package:fci_project/presentation/shared_widgets/primary_icon_button.dart';
+import 'package:fci_project/presentation/shared_widgets/primary_image.dart';
 import 'package:fci_project/style/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -48,12 +48,9 @@ class ProductCarousel extends StatelessWidget {
                             .changeIndex,
                     itemBuilder: (ctx, i) => Container(
                       margin: EdgeInsets.symmetric(horizontal: kpadding),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(15),
-                        child: Image.network(
-                          imageList[i],
-                          fit: BoxFit.cover,
-                        ),
+                      child: PrimaryImage(
+                        url: imageList[i],
+                        radius: 15,
                       ),
                     ),
                   ),

@@ -1,3 +1,4 @@
+import 'package:fci_project/bussniss_logic/user_provider.dart';
 import 'package:fci_project/data/models/product.dart';
 import 'package:fci_project/main.dart';
 import 'package:fci_project/presentation/screans/product_details_screan/widgets/expanantial_tile_widget.dart';
@@ -8,6 +9,7 @@ import 'package:fci_project/presentation/shared_widgets/primary_icon_button.dart
 import 'package:fci_project/presentation/shared_widgets/primary_text.dart';
 import 'package:fci_project/style/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class ProductDetailsScrean extends StatelessWidget {
   const ProductDetailsScrean({required this.product, Key? key})
@@ -32,7 +34,15 @@ class ProductDetailsScrean extends StatelessWidget {
               fontWeight: FontWeight.bold,
               color: kgrey,
             ),
-            trailing: PrimaryIconButton(Icons.favorite_border, onTap: () {}),
+            trailing:
+                Consumer<UserProvider>(builder: (context, userProvider, child) {
+              bool isFav = userProvider.favProductsIds.contains(product.id);
+              return PrimaryIconButton(
+                  isFav ? Icons.favorite : Icons.favorite_border,
+                  color: isFav ? kred : null,
+                  onTap: () async =>
+                      await userProvider.addAndRemoveProductFavId(product.id));
+            }),
           ),
           SizedBox(height: defultPadding * 2),
           ListTile(

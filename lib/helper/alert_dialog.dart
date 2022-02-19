@@ -1,4 +1,5 @@
 import 'package:fci_project/helper/navigator.dart';
+import 'package:fci_project/presentation/shared_widgets/primary_text.dart';
 import 'package:fci_project/style/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:cool_alert/cool_alert.dart';
@@ -56,5 +57,15 @@ class Alert {
       title: title ?? 'خطأ',
       text: desc ?? 'حدث خطا فى شئ ما',
     );
+  }
+
+  static showSnackBar(String msg) {
+    var snackBar = SnackBar(
+        content: PrimaryText(
+          text: msg,
+          color: Colors.white,
+        ),
+        backgroundColor: kprimary);
+    ScaffoldMessenger.of(navKey.currentContext!).showSnackBar(snackBar);
   }
 }

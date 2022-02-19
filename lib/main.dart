@@ -26,9 +26,7 @@ late String tok;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
   tok = (await LocalStorage.getString(token));
-
   if (tok.isNotEmpty) isAuth = true;
   isAuth = false;
   runApp(const MyApp());

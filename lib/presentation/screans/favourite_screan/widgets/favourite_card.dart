@@ -4,7 +4,6 @@ import 'package:fci_project/bussniss_logic/user_provider.dart';
 import 'package:fci_project/data/models/product.dart';
 import 'package:fci_project/main.dart';
 import 'package:fci_project/presentation/shared_widgets/primary_icon.dart';
-import 'package:fci_project/presentation/shared_widgets/primary_image.dart';
 import 'package:fci_project/presentation/shared_widgets/primary_text.dart';
 import 'package:fci_project/style/colors.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +16,6 @@ class FavouriteCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final pro = Provider.of<UserProvider>(context, listen: true);
-
     return Card(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       elevation: 2,
@@ -45,7 +43,9 @@ class FavouriteCard extends StatelessWidget {
               ),
             ),
             InkWell(
-              onTap: () {},
+              onTap: () async {
+                await pro.addAndRemoveProductToFav(favProduct.id);
+              },
               borderRadius: BorderRadius.circular(20),
               child: PrimaryIcon(
                 Icons.favorite,

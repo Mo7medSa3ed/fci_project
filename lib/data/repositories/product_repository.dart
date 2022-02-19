@@ -1,5 +1,4 @@
 import 'package:fci_project/data/api_service/api.dart';
-import 'package:fci_project/helper/constants.dart';
 
 class ProductRepository {
   static ApiServices? _apiServices;
