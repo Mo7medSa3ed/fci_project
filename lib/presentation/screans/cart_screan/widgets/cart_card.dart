@@ -18,6 +18,8 @@ class CartCard extends StatelessWidget {
   final Product product;
   @override
   Widget build(BuildContext context) {
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
+
     return Card(
       elevation: 3,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
@@ -29,7 +31,7 @@ class CartCard extends StatelessWidget {
         child: Row(
           children: [
             PrimaryImage(
-              url: product.images![Random().nextInt(product.images!.length)],
+              url: product.images!.first,
               height: kheight * 0.1,
               radius: 15,
             ),
@@ -45,7 +47,7 @@ class CartCard extends StatelessWidget {
                 ),
                 SizedBox(height: kpadding),
                 Consumer<UserProvider>(builder: (context, userProvider, child) {
-                  int totalAmount = product.amount!.available!.toInt();
+                  int totalAmount = product.amount.available.toInt();
                   int cartAmount = product.cartAmount;
                   return Row(
                     mainAxisSize: MainAxisSize.min,
@@ -102,8 +104,7 @@ class CartCard extends StatelessWidget {
                           title: 'عربة التسوق',
                           desc: 'هل انت متأكد من حذف المنتج من السلة؟',
                           onTap: () {
-                        Provider.of<UserProvider>(context, listen: false)
-                            .removeFromCart(product.id!);
+                        userProvider.removeFromCart(product.id!);
                         Nav.pop();
                       });
                     },

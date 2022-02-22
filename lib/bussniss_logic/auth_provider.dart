@@ -1,9 +1,11 @@
 import 'dart:convert';
 
+import 'package:fci_project/data/models/user.dart';
 import 'package:fci_project/data/repositories/auth_repository.dart';
 import 'package:fci_project/helper/constants.dart';
 import 'package:fci_project/helper/localstorage.dart';
 import 'package:fci_project/helper/navigator.dart';
+import 'package:fci_project/main.dart';
 import 'package:fci_project/presentation/screans/home_screan/home_screan.dart';
 import 'package:flutter/foundation.dart';
 
@@ -23,6 +25,7 @@ class AuthProvider extends ChangeNotifier {
     if (response != null) {
       await LocalStorage.setString(token, jsonEncode(response['token']));
       await LocalStorage.setString(user, jsonEncode(response['user']));
+      currantUser = User.fromJson(response['user']);
       Nav.goToScreanAndRemoveUntill(HomeScrean());
       return;
     }
@@ -49,6 +52,7 @@ class AuthProvider extends ChangeNotifier {
     final user = await _authRepository.createUser(data);
     if (user != null) {
       await LocalStorage.setString(user, jsonEncode(user));
+      currantUser = User.fromJson(user);
       Nav.goToScreanAndRemoveUntill(HomeScrean());
       return;
     }

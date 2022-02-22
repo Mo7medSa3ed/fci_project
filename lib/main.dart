@@ -1,7 +1,11 @@
+import 'dart:convert';
+
 import 'package:fci_project/bussniss_logic/auth_provider.dart';
 import 'package:fci_project/bussniss_logic/home_provider.dart';
+import 'package:fci_project/bussniss_logic/order_provider.dart';
 import 'package:fci_project/bussniss_logic/product_provider.dart';
 import 'package:fci_project/bussniss_logic/user_provider.dart';
+import 'package:fci_project/data/models/user.dart';
 import 'package:fci_project/helper/constants.dart';
 import 'package:fci_project/helper/localstorage.dart';
 import 'package:fci_project/presentation/screans/splash_screan/splash_screan.dart';
@@ -23,12 +27,11 @@ late double iconSize;
 late bool isWeb;
 late bool isAuth;
 late String tok;
+late User currantUser;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  tok = (await LocalStorage.getString(token));
-  if (tok.isNotEmpty) isAuth = true;
-  isAuth = false;
+  
   runApp(const MyApp());
 }
 
@@ -41,6 +44,9 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider<HomeProvider>(
           create: (_) => HomeProvider(),
+        ),
+        ChangeNotifierProvider<OrderProvider>(
+          create: (_) => OrderProvider(),
         ),
         ChangeNotifierProvider<AuthProvider>(
           create: (_) => AuthProvider(),

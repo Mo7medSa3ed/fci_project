@@ -1,8 +1,6 @@
 import 'dart:math';
-
 import 'package:fci_project/bussniss_logic/user_provider.dart';
 import 'package:fci_project/data/models/product.dart';
-import 'package:fci_project/helper/localstorage.dart';
 import 'package:fci_project/helper/navigator.dart';
 import 'package:fci_project/main.dart';
 import 'package:fci_project/presentation/screans/product_details_screan/product_details_screan.dart';
@@ -56,7 +54,7 @@ class ProductCard extends StatelessWidget {
               fontWeight: FontWeight.bold,
             ),
             PrimaryText(
-              text: '${product.amount!.available} قطع',
+              text: '${product.amount.available} قطع',
               color: kgrey,
               fontSizeRatio: 0.8,
             ),

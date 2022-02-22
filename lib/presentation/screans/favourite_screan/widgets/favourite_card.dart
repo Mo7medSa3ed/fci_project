@@ -58,7 +58,7 @@ class FavouriteCard extends StatelessWidget {
           children: [
             Expanded(
               child: PrimaryText(
-                text: '${favProduct.amount!.available} قطع',
+                text: '${favProduct.amount.available} قطع',
                 color: kwblack,
                 fontSizeRatio: 0.8,
               ),

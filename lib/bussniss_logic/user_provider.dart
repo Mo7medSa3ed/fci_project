@@ -9,6 +9,19 @@ class UserProvider extends ChangeNotifier {
   Map<String, Product> cart = {};
   List<String> favProductsIds = [];
 
+  clearCart() {
+    cart.clear();
+    notifyListeners();
+  }
+
+  double calcTotalCart() {
+    double total = 0;
+    for (var product in cart.values) {
+      total += product.cartAmount * product.price!;
+    }
+    return total;
+  }
+
   addToCart(Product product) {
     cart.addAll({product.id!: product});
     Alert.showSnackBar("تم الإضافة بنجاح");

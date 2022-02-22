@@ -38,6 +38,10 @@ class PrimaryImage extends StatelessWidget {
             },
           ));
     }
-    return Image.asset(url);
+    return Image.asset(
+      url,
+      fit: fit,
+      height: height,
+    );
   }
 }

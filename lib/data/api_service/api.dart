@@ -94,7 +94,7 @@ class ApiServices {
       }
       response = await _dio!.get('$baseUrl$url',
           options: Options(headers: {"x-auth-token": tok}));
-    
+
       return _processResponse(
           response: response,
           msg: checkKeyContain(response.data),
@@ -122,6 +122,7 @@ class ApiServices {
         url += '?storeName=$storeName';
       }
       response = await _dio!.post('$baseUrl$url', data: data);
+      
       return _processResponse(
           response: response,
           msg: checkKeyContain(response.data),
@@ -134,12 +135,11 @@ class ApiServices {
     }
   }
 
-  Future patch({
-    required url,
-    String? id,
-    bool showAlert = false,
-    required Map<String, dynamic>? data,
-  }) async {
+  Future patch(
+      {required url,
+      String? id,
+      bool showAlert = false,
+      required Map<String, dynamic>? data}) async {
     if (showAlert) Alert.showLoading();
     late Response response;
     try {

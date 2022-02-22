@@ -18,4 +18,6 @@ class UserRepository {
         await _apiServices!.get(url: '/users/all/fav', showAlert: false);
     return res;
   }
+
+  
 }

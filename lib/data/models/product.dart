@@ -1,9 +1,10 @@
+
 class Product {
   String? id;
   String? name;
   String? desc;
   List? category;
-  Amount? amount;
+  Amount amount;
   String? storeName;
   List? images;
   num? price;
@@ -22,7 +23,7 @@ class Product {
     this.id,
     this.name,
     this.category,
-    this.amount,
+    required this.amount,
     this.desc,
     this.images,
     this.ordered,
@@ -39,7 +40,7 @@ class Product {
   factory Product.fromJson(Map json) => Product(
         id: json['_id'],
         name: json['name'],
-        amount: Amount.fromJson(json['amount']),
+        amount: Amount.fromJson(json['amount']??{}),
         cartAmount: 1,
         category: json['category'],
         desc: json['desc'],
@@ -57,7 +58,7 @@ class Product {
   factory Product.fromJsonForCart(Map json) => Product(
         id: json['_id'],
         name: json['name'],
-        amount: Amount.fromJson(json['amount']),
+        amount: Amount.fromJson(json['amount'] ?? {}),
         category: json['category'],
         desc: json['desc'],
         images: json['images'],
@@ -73,7 +74,7 @@ class Product {
     Map<String, dynamic> json = {};
     json['_id'] = id;
     json['name'] = name;
-    json['amount'] = amount!.toJson();
+    json['amount'] = amount.toJson();
     json['category'] = category;
     json['desc'] = desc;
     json['images'] = images;
@@ -88,15 +89,19 @@ class Product {
 }
 
 class Amount {
-  num? alarmAmount;
-  num? available;
-  bool? alarm;
-  String? amountType;
-  Amount({this.alarm, this.alarmAmount, this.available, this.amountType});
+  num alarmAmount;
+  num available;
+  bool alarm;
+  String amountType;
+  Amount(
+      {this.alarm = false,
+      this.alarmAmount = 0,
+      this.available = 0,
+      this.amountType = 'unlimited'});
   factory Amount.fromJson(Map json) => Amount(
-      alarm: json['alarm'],
+      alarm: json['alarm'] ?? false,
       alarmAmount: json['alarmAmount'] ?? 0,
-      amountType: json['amountType'],
+      amountType: json['amountType'] ?? 'unlimited',
       available: json['available'] ?? 0);
   Map<String, dynamic> toJson() {
     Map<String, dynamic> json = {};

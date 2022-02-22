@@ -29,7 +29,7 @@ class ClickText extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         PrimaryText(
-          text:firstText ?? '',
+          text: firstText ?? '',
           textStyle: TStyle.customTextStyle(fontSizeRatio: sizeRatio!),
         ),
         SizedBox(width: defultPadding / 4),
@@ -39,7 +39,7 @@ class ClickText extends StatelessWidget {
             splashColor: kprimary.withOpacity(0.1),
             highlightColor: kprimary.withOpacity(0.1),
             child: PrimaryText(
-              text:clickText ?? "",
+              text: clickText ?? "",
               textStyle: TStyle.customTextStyle(
                   fontColor: kprimary,
                   fontWeight: FontWeight.bold,

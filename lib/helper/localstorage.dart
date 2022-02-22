@@ -11,6 +11,8 @@ class LocalStorage {
     _prefs ??= (await SharedPreferences.getInstance());
   }
 
+ 
+
   static setString(key, value) async {
     await getInstance();
     await _prefs!.setString(key, value);

@@ -30,7 +30,7 @@ class ProductDetailsScrean extends StatelessWidget {
               fontWeight: FontWeight.bold,
             ),
             subtitle: PrimaryText(
-              text: '${product.amount!.available} قطع',
+              text: '${product.amount.available} قطع',
               fontWeight: FontWeight.bold,
               color: kgrey,
             ),
