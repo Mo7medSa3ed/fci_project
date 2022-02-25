@@ -74,6 +74,7 @@ class _PrimaryInputFieldState extends State<PrimaryInputField> {
           },
           validator: widget.validator ??
               (String? value) {
+                
                 if (value!.trim().isEmpty) {
                   return 'مطلوب ${widget.headerText} *';
                 }

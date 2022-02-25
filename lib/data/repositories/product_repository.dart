@@ -30,4 +30,10 @@ class ProductRepository {
         url: '/products/filter/category?categoryId=$term', showAlert: false);
     return res;
   }
+
+  Future rateProduct(String id, Map<String, dynamic> data) async {
+    final res = await _apiServices!
+        .post(url: '/products/rate', id: id, data: data, showAlert: true);
+    return res;
+  }
 }

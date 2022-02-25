@@ -1,7 +1,7 @@
 import 'package:fci_project/main.dart';
-import 'package:fci_project/presentation/screans/main_screan/main.dart';
+import 'package:fci_project/presentation/shared_widgets/primary_text.dart';
 import 'package:fci_project/style/colors.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 const String baseUrl = 'https://fci-proj.herokuapp.com/api';
@@ -36,6 +36,24 @@ setStatusColor({color, isDark = false}) {
   ));
 }
 
-const List<Widget> homePages = [
-  MainScrean(),
-];
+List<Map> convertMapToList(Map data) {
+  List<Map> convertedData = [];
+  data.forEach((key, value) {
+    convertedData.add({key: value});
+  });
+  return convertedData;
+}
+
+AppBar customAppBar(String title, {bool back = false}) {
+  return AppBar(
+      toolbarHeight: 50,
+      centerTitle: true,
+      backgroundColor: kwhite,
+      automaticallyImplyLeading: back,
+      iconTheme: IconThemeData(color: kblack),
+      elevation: 0,
+      title: PrimaryText(
+        text: title,
+        fontWeight: FontWeight.bold,
+      ));
+}

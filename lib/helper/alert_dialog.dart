@@ -1,4 +1,5 @@
 import 'package:fci_project/helper/navigator.dart';
+import 'package:fci_project/presentation/screans/login_screan/login_screan.dart';
 import 'package:fci_project/presentation/shared_widgets/primary_text.dart';
 import 'package:fci_project/style/colors.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +17,7 @@ class Alert {
     );
   }
 
-  static showConfirmDialog(BuildContext context, {title, desc, onTap}) {
+  static showConfirmDialog({title, desc, onTap}) {
     return CoolAlert.show(
         context: navKey.currentContext!,
         type: CoolAlertType.warning,
@@ -39,7 +40,7 @@ class Alert {
         type: CoolAlertType.success,
         loopAnimation: true,
         animType: CoolAlertAnimType.scale,
-        showCancelBtn: true,
+        showCancelBtn: false,
         cancelBtnText: 'الغاء',
         confirmBtnText: 'تم',
         onConfirmBtnTap: ontap,
@@ -67,5 +68,12 @@ class Alert {
         ),
         backgroundColor: kprimary);
     ScaffoldMessenger.of(navKey.currentContext!).showSnackBar(snackBar);
+  }
+
+  static showAuthAlert() {
+    return Alert.showConfirmDialog(
+        title: 'تسجيل الدخول',
+        desc: 'يجب عليك تسجيل الدخول اولاً',
+        onTap: () => Nav.goToScreanAndRemoveUntill(const LoginScrean()));
   }
 }

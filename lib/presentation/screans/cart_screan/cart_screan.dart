@@ -1,6 +1,7 @@
 import 'package:fci_project/bussniss_logic/order_provider.dart';
 import 'package:fci_project/bussniss_logic/user_provider.dart';
 import 'package:fci_project/data/models/product.dart';
+import 'package:fci_project/helper/alert_dialog.dart';
 import 'package:fci_project/helper/navigator.dart';
 import 'package:fci_project/main.dart';
 import 'package:fci_project/presentation/screans/cart_screan/widgets/cart_card.dart';
@@ -22,7 +23,7 @@ class CartScrean extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final userProvider = Provider.of<UserProvider>(context, listen: false);
+    final userProvider = Provider.of<UserProvider>(context, listen: true);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       mainAxisAlignment: MainAxisAlignment.center,
@@ -51,10 +52,12 @@ class CartScrean extends StatelessWidget {
           padding: const EdgeInsets.all(8.0),
           child: PrimaryButton(
             text: 'اذهب الى الحساب',
-            onTap: () async {
-              final total = userProvider.calcTotalCart();
-              return await checkOutSheet(context, total, userProvider);
-            },
+            onTap: userProvider.cart.isEmpty
+                ? null
+                : () async {
+                    final total = userProvider.calcTotalCart();
+                    return await checkOutSheet(context, total, userProvider);
+                  },
           ),
         ),
       ],
@@ -113,6 +116,9 @@ class CartScrean extends StatelessWidget {
               PrimaryButton(
                   text: 'اطلب الآن',
                   onTap: () async {
+                    if (!isAuth) {
+                      return Alert.showAuthAlert();
+                    }
                     Nav.pop();
                     final orderProvider = context.read<OrderProvider>();
                     await orderProvider.makeOrder();

@@ -8,8 +8,20 @@ import 'package:fci_project/presentation/shared_widgets/primary_text.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class FavouriteScrean extends StatelessWidget {
+class FavouriteScrean extends StatefulWidget {
   const FavouriteScrean({Key? key}) : super(key: key);
+
+  @override
+  State<FavouriteScrean> createState() => _FavouriteScreanState();
+}
+
+class _FavouriteScreanState extends State<FavouriteScrean> {
+  @override
+  void initState() {
+   
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     final pro = Provider.of<UserProvider>(context, listen: false);

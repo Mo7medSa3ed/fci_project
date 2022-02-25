@@ -19,9 +19,8 @@ class SplashScrean extends StatelessWidget {
   const SplashScrean({Key? key}) : super(key: key);
 
   initAndRoutePage() async {
-    await LocalStorage.setString(token,
-        'client,eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxZmMzMDljMzE2Mjc0NzgzMTA0YWU1ZiIsInJvbGUiOiJjbGllbnQiLCJpYXQiOjE2NDU1NTcxOTYsImV4cCI6MTY0NTU5MzE5Nn0.C4gIg2I7NDAFtV8PhwYPhOjINhUIyvCi2CbSPvU-qpM');
     tok = (await LocalStorage.getString(token));
+
     final res = (await LocalStorage.getString(user));
     if (res.isNotEmpty) {
       currantUser = User.fromJson(jsonDecode(res));
@@ -37,6 +36,7 @@ class SplashScrean extends StatelessWidget {
     if (!isAuth) {
       return Nav.goToScreanAndRemoveUntill(LoginScrean());
     }
+
     final pro =
         Provider.of<UserProvider>(navKey.currentContext!, listen: false);
     try {

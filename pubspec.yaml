@@ -31,9 +31,8 @@ dependencies:
   cool_alert: ^1.1.0
   provider:
   dio: ^4.0.4
-  dropdown_button2:
   shared_preferences:
-  cached_network_image: 
+  flutter_rating_bar: 
   cupertino_icons: ^1.0.2
 
   flutter:

@@ -107,4 +107,7 @@ class UserProvider extends ChangeNotifier {
     final json = await _userRepository.getAllFavouriteProducts();
     return json.map<Product>((e) => Product.fromJson(e)).toList();
   }
+  
+
+
 }

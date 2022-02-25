@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:fci_project/data/models/user.dart';
 import 'package:fci_project/data/repositories/auth_repository.dart';
+import 'package:fci_project/helper/alert_dialog.dart';
 import 'package:fci_project/helper/constants.dart';
 import 'package:fci_project/helper/localstorage.dart';
 import 'package:fci_project/helper/navigator.dart';
@@ -23,8 +24,10 @@ class AuthProvider extends ChangeNotifier {
     Map<String, dynamic> data = {'email': email, 'password': pass};
     final response = await _authRepository.loginUser(data);
     if (response != null) {
-      await LocalStorage.setString(token, jsonEncode(response['token']));
+      await LocalStorage.setString(token, response['token']);
       await LocalStorage.setString(user, jsonEncode(response['user']));
+      tok = response['token'];
+      isAuth = true;
       currantUser = User.fromJson(response['user']);
       Nav.goToScreanAndRemoveUntill(HomeScrean());
       return;
@@ -54,6 +57,38 @@ class AuthProvider extends ChangeNotifier {
       await LocalStorage.setString(user, jsonEncode(user));
       currantUser = User.fromJson(user);
       Nav.goToScreanAndRemoveUntill(HomeScrean());
+      return;
+    }
+  }
+
+  editUser(
+      {required String email,
+      required String name,
+      required String phone,
+      required String country,
+      required String address,
+      required String pass}) async {
+    if (email.isEmpty || name.isEmpty || country.isEmpty || phone.isEmpty) {
+      return;
+    }
+    User updatedUser = User(
+      email: email,
+      password: pass,
+      phone: phone,
+      country: country,
+      address: address,
+      name: name,
+    );
+    final res = await _authRepository.editUser(updatedUser.toJson());
+    if (res != null) {
+      currantUser = User.fromJson(res);
+      await LocalStorage.setString(user, jsonEncode(currantUser.toJson()));
+      Alert.showSuccessDialog(
+        title: 'تعديل حسابك',
+        desc: 'تم تعديل حسابك بنجاح',
+        ontap: () => Nav.pop(),
+      );
+
       return;
     }
   }

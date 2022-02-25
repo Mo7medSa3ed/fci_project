@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:fci_project/bussniss_logic/auth_provider.dart';
 import 'package:fci_project/bussniss_logic/home_provider.dart';
 import 'package:fci_project/bussniss_logic/order_provider.dart';
@@ -7,7 +5,6 @@ import 'package:fci_project/bussniss_logic/product_provider.dart';
 import 'package:fci_project/bussniss_logic/user_provider.dart';
 import 'package:fci_project/data/models/user.dart';
 import 'package:fci_project/helper/constants.dart';
-import 'package:fci_project/helper/localstorage.dart';
 import 'package:fci_project/presentation/screans/splash_screan/splash_screan.dart';
 import 'package:fci_project/style/colors.dart';
 import 'package:fci_project/style/text_style.dart';
@@ -31,7 +28,7 @@ late User currantUser;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  
+
   runApp(const MyApp());
 }
 
@@ -63,7 +60,7 @@ class MyApp extends StatelessWidget {
         return GestureDetector(
           onTap: () => FocusScope.of(ctx).requestFocus(FocusNode()),
           child: MaterialApp(
-            title: 'Flutter Demo',
+            title: 'Shoppy',
             navigatorKey: navKey,
             debugShowCheckedModeBanner: false,
             theme: ThemeData(
@@ -73,7 +70,6 @@ class MyApp extends StatelessWidget {
               checkboxTheme: CheckboxThemeData(
                 materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                 checkColor: MaterialStateProperty.all(kprimary),
-                // fillColor: MaterialStateProperty.all(Colors.transparent),
               ),
               colorScheme: ColorScheme.fromSwatch().copyWith(
                 secondary: kprimary,

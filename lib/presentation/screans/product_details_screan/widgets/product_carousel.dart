@@ -1,4 +1,3 @@
-
 import 'package:fci_project/bussniss_logic/home_provider.dart';
 import 'package:fci_project/main.dart';
 import 'package:fci_project/presentation/shared_widgets/primary_icon_button.dart';
@@ -8,13 +7,13 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class ProductCarousel extends StatelessWidget {
-  ProductCarousel(this.imageList, this.id,{Key? key}) : super(key: key);
+  const ProductCarousel(this.imageList, this.id, {Key? key}) : super(key: key);
   final List<dynamic> imageList;
   final String id;
-  final _pageController = PageController();
 
   @override
   Widget build(BuildContext context) {
+    final _pageController = PageController(initialPage: imageList.length - 1);
     return Container(
       padding: EdgeInsets.all(defultPadding),
       decoration: BoxDecoration(
@@ -84,10 +83,10 @@ class ProductCarousel extends StatelessWidget {
                       selector: (_, homeProvider) => homeProvider.currantIndex,
                       builder: (_, currantIndex, c) => PrimaryIconButton(
                         Icons.arrow_forward_ios,
-                        onTap: currantIndex == 0
+                        onTap: currantIndex == imageList.length - 1
                             ? null
                             : () {
-                                _pageController.previousPage(
+                                _pageController.nextPage(
                                     duration: Duration(milliseconds: 600),
                                     curve: Curves.easeInOut);
                               },
@@ -101,10 +100,10 @@ class ProductCarousel extends StatelessWidget {
                       selector: (_, homeProvider) => homeProvider.currantIndex,
                       builder: (_, currantIndex, c) => PrimaryIconButton(
                             Icons.arrow_back_ios,
-                            onTap: currantIndex == imageList.length - 1
+                            onTap: currantIndex == 0
                                 ? null
                                 : () {
-                                    _pageController.nextPage(
+                                    _pageController.previousPage(
                                         duration: Duration(milliseconds: 600),
                                         curve: Curves.easeInOut);
                                   },

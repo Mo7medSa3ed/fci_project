@@ -12,4 +12,11 @@ class OrderRepository {
         await _apiServices!.post(url: '/orders', data: data, showAlert: true);
     return res;
   }
+
+  Future getAllOrders() async {
+    final res =
+        await _apiServices!.get(url: '/users/all/orders', showAlert: false);
+
+    return res;
+  }
 }

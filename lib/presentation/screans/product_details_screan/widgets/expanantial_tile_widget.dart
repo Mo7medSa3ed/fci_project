@@ -6,12 +6,16 @@ import 'package:flutter/material.dart';
 class CustomExpanantialTile extends StatelessWidget {
   const CustomExpanantialTile(
       {@required this.title,
-      @required this.children,
+      this.children,
+      this.rate,
       this.isExpand = false,
+      this.childrenWidget,
       Key? key})
       : super(key: key);
   final String? title;
+  final Widget? rate;
   final List<String>? children;
+  final List<Widget>? childrenWidget;
   final bool isExpand;
 
   //'تفاصيل المنتج',
@@ -21,19 +25,26 @@ class CustomExpanantialTile extends StatelessWidget {
       initiallyExpanded: isExpand,
       expandedAlignment: Alignment.centerRight,
       childrenPadding: EdgeInsets.symmetric(horizontal: defultPadding),
-      title: PrimaryText(
-        text: title,
-        fontWeight: FontWeight.bold,
+      title: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          PrimaryText(
+            text: title,
+            fontWeight: FontWeight.bold,
+          ),
+          rate ?? SizedBox()
+        ],
       ),
-      children: List<Widget>.generate(
-            children!.length,
-            (index) => PrimaryText(
-              text: children![index],
-              fontWeight: FontWeight.w500,
-              color: kgrey,
-            ),
-          ) +
-          [SizedBox(height: defultPadding)],
+      children: childrenWidget ??
+          List<Widget>.generate(
+                children!.length,
+                (index) => PrimaryText(
+                  text: children![index],
+                  fontWeight: FontWeight.w500,
+                  color: kgrey,
+                ),
+              ) +
+              [SizedBox(height: defultPadding)],
     );
   }
 }

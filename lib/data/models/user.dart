@@ -48,16 +48,15 @@ class User {
         storeName: json['storeName'],
       );
 
-  // Map<String, dynamic> toJson() {
-  //   Map<String, dynamic> json = {};
-  //   json['_id'] = id;
-  //   json['name'] = name;
-  //   json['email'] = email;
-  //   json['phone'] = phone;
-  //   json['country'] = country;
-  //   json['role'] = role;
-  //   json['createdAt'] = createdAt;
-  //   json['updatedAt'] = updatedAt;
-  //   return json;
-  // }
+  Map<String, dynamic> toJson() {
+    Map<String, dynamic> json = {};
+    if (id != null && id!.isNotEmpty) json['_id'] = id;
+    if (name != null && name!.isNotEmpty) json['name'] = name;
+    if (email != null && email!.isNotEmpty) json['email'] = email;
+    if (phone != null && phone!.isNotEmpty) json['phone'] = phone;
+    if (country != null && country!.isNotEmpty) json['country'] = country;
+    if (address != null && address!.isNotEmpty) json['address'] = address;
+    if (password != null && password!.isNotEmpty) json['password'] = password;
+    return json;
+  }
 }

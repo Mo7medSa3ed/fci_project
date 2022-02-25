@@ -7,4 +7,9 @@ class OrderProvider extends ChangeNotifier {
   Future makeOrder() async {
     await _orderRepository.makeOrder(Order.prepareOrder());
   }
+
+  Future<List<Order>> getAllOrders() async {
+    final json = await _orderRepository.getAllOrders();
+    return json.map<Order>((e) => Order.fromJson(e)).toList();
+  }
 }

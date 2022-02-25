@@ -1,6 +1,7 @@
 import 'package:fci_project/data/models/category.dart' as cat;
 import 'package:fci_project/data/models/product.dart';
 import 'package:fci_project/data/repositories/product_repository.dart';
+import 'package:fci_project/main.dart';
 import 'package:flutter/foundation.dart';
 
 class ProductProvider extends ChangeNotifier {
@@ -8,7 +9,6 @@ class ProductProvider extends ChangeNotifier {
   int currantIndex = 0;
   List<String> saveCategoryListFilter = [];
   List<cat.Category> categories = [];
-  
 
   clear() {
     saveCategoryListFilter.clear();
@@ -60,6 +60,13 @@ class ProductProvider extends ChangeNotifier {
   Future<Product> getOneProducts(id) async {
     final json = await _productRepository.getOneOrAllProducts(id: id);
     return Product.fromJson(json);
+  }
+
+  Future<Map<String, dynamic>> rateProduct(
+      String productId, double rate) async {
+    Map<String, dynamic> data = {'userId': currantUser.id, 'rate': rate};
+    final json = await _productRepository.rateProduct(productId, data);
+    return json;
   }
 
   Future<List<Product>> searchProduct(String term) async {

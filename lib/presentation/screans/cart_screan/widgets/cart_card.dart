@@ -1,4 +1,3 @@
-import 'dart:math';
 
 import 'package:fci_project/bussniss_logic/user_provider.dart';
 import 'package:fci_project/data/models/product.dart';
@@ -100,13 +99,13 @@ class CartCard extends StatelessWidget {
                   PrimaryIconButton(
                     Icons.close,
                     onTap: () {
-                      Alert.showConfirmDialog(context,
+                      Alert.showConfirmDialog(
                           title: 'عربة التسوق',
                           desc: 'هل انت متأكد من حذف المنتج من السلة؟',
                           onTap: () {
-                        userProvider.removeFromCart(product.id!);
-                        Nav.pop();
-                      });
+                            userProvider.removeFromCart(product.id!);
+                            Nav.pop();
+                          });
                     },
                   ),
                   PrimaryText(

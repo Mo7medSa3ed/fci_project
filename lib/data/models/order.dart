@@ -16,9 +16,34 @@ class Status {
 }
 
 class Order {
-  static Map<String, dynamic> prepareOrder()  {
+  String? id;
+  List? items;
+  Map<String, dynamic>? user;
+  String? state;
+  String? createdAt;
+  String? updatedAt;
+
+  Order(
+      {this.id,
+      this.items,
+      this.state,
+      this.user,
+      this.createdAt,
+      this.updatedAt});
+
+  factory Order.fromJson(Map json) => Order(
+        id: json['_id'],
+        items: json['items'],
+        state: json['state'],
+        user: json['user'],
+        createdAt: json['createdAt'],
+        updatedAt: json['updatedAt'],
+      );
+
+  static Map<String, dynamic> prepareOrder() {
     final userProvider =
         Provider.of<UserProvider>(navKey.currentContext!, listen: false);
+
     final data = {
       "state": Status.awaitingReview,
       "items": userProvider.cart.values
@@ -26,7 +51,7 @@ class Order {
                 'name': e.name,
                 'amount': e.cartAmount,
                 'price': e.price,
-                'image': e.images!.first,
+                'img': e.images!.first,
               })
           .toList(),
       "user": {

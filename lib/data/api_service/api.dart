@@ -25,7 +25,6 @@ class ApiServices {
         connectTimeout: timeOutDuration,
         receiveTimeout: timeOutDuration,
         validateStatus: (status) => status! < 500,
-        headers: {"x-auth-token": tok},
       );
     }
   }
@@ -121,8 +120,9 @@ class ApiServices {
       } else {
         url += '?storeName=$storeName';
       }
-      response = await _dio!.post('$baseUrl$url', data: data);
-      
+
+      response = await _dio!.post('$baseUrl$url',
+          data: data, options: Options(headers: {"x-auth-token": tok}));
       return _processResponse(
           response: response,
           msg: checkKeyContain(response.data),
@@ -149,7 +149,9 @@ class ApiServices {
       } else {
         url += '?storeName=$storeName';
       }
-      response = await _dio!.patch('$baseUrl$url', data: data);
+
+      response = await _dio!.patch('$baseUrl$url',
+          data: data, options: Options(headers: {"x-auth-token": tok}));
       return _processResponse(
           response: response,
           msg: checkKeyContain(response.data),

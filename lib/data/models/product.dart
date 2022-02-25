@@ -1,4 +1,3 @@
-
 class Product {
   String? id;
   String? name;
@@ -13,6 +12,7 @@ class Product {
   num? ordered;
   bool? visible;
   List? rating;
+  double? rate;
   String? createdAt;
   String? updatedAt;
   bool selected = false;
@@ -32,6 +32,7 @@ class Product {
     this.storeName,
     this.updatedAt,
     this.url,
+    this.rate,
     this.views,
     this.visible,
     this.cartAmount = 1,
@@ -40,7 +41,7 @@ class Product {
   factory Product.fromJson(Map json) => Product(
         id: json['_id'],
         name: json['name'],
-        amount: Amount.fromJson(json['amount']??{}),
+        amount: Amount.fromJson(json['amount'] ?? {}),
         cartAmount: 1,
         category: json['category'],
         desc: json['desc'],
@@ -51,6 +52,7 @@ class Product {
         storeName: json['storeName'],
         url: json['url'],
         views: json['views'],
+        rate: json['rate']??0,
         visible: json['visible']['app'],
         createdAt: json['createdAt'],
         updatedAt: json['updatedAt'],
@@ -64,6 +66,7 @@ class Product {
         images: json['images'],
         price: json['price'],
         rating: json['rating'],
+        rate: json['rate'],
         storeName: json['storeName'],
         url: json['url'],
         createdAt: json['createdAt'],
@@ -80,6 +83,7 @@ class Product {
     json['images'] = images;
     json['price'] = price;
     json['rating'] = rating;
+    json['rate'] = rate??0;
     json['storeName'] = storeName;
     json['url'] = url;
     json['createdAt'] = createdAt;

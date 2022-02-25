@@ -14,6 +14,7 @@ class PrimaryFutureWidget<T> extends StatelessWidget {
     return FutureBuilder<T>(
       future: future,
       builder: (context, snapshot) {
+        
         if (snapshot.hasData) {
           if (beforeReturn != null) {
             Future.delayed(Duration.zero, () {
@@ -25,7 +26,7 @@ class PrimaryFutureWidget<T> extends StatelessWidget {
         if (snapshot.hasError) {
           return PrimaryErrorWidget();
         }
-        return PrimaryLoading();
+        return Center(child: PrimaryLoading());
       },
     );
   }
