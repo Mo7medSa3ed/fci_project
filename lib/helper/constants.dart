@@ -1,4 +1,8 @@
+import 'package:fci_project/data/models/user.dart';
+import 'package:fci_project/helper/localstorage.dart';
+import 'package:fci_project/helper/navigator.dart';
 import 'package:fci_project/main.dart';
+import 'package:fci_project/presentation/screans/home_screan/home_screan.dart';
 import 'package:fci_project/presentation/shared_widgets/primary_text.dart';
 import 'package:fci_project/style/colors.dart';
 import 'package:flutter/material.dart';
@@ -34,6 +38,14 @@ setStatusColor({color, isDark = false}) {
     statusBarColor: color ?? kwhite,
     statusBarIconBrightness: isDark ? Brightness.dark : Brightness.light,
   ));
+}
+
+logout() async {
+  currantUser = User();
+  tok = '';
+  await LocalStorage.setString(user, '');
+  await LocalStorage.setString(token, '');
+ return Nav.goToScreanAndRemoveUntill(HomeScrean());
 }
 
 List<Map> convertMapToList(Map data) {

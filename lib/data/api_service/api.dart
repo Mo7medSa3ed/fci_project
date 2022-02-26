@@ -91,14 +91,17 @@ class ApiServices {
       } else {
         url += '?storeName=$storeName';
       }
+      print('$baseUrl$url');
       response = await _dio!.get('$baseUrl$url',
           options: Options(headers: {"x-auth-token": tok}));
+      print(response.data);
 
       return _processResponse(
           response: response,
           msg: checkKeyContain(response.data),
           showAlert: showAlert);
     } catch (error) {
+      print(error);
       return _handleError(error,
           msg: checkKeyContain(response.data),
           showAlert: showAlert,

@@ -1,3 +1,4 @@
+import 'package:fci_project/helper/constants.dart';
 import 'package:fci_project/helper/navigator.dart';
 import 'package:fci_project/main.dart';
 import 'package:fci_project/presentation/screans/orders/order_screan.dart';
@@ -62,6 +63,12 @@ class ProfileScrean extends StatelessWidget {
           title: 'عنا',
           image: PrimaryIcon(Icons.error_outline, color: kblack),
           onTap: () {},
+        ),
+        Divider(height: defultPadding),
+        BuildListCardForProfileScrean(
+          title: 'تسجيل خروج',
+          image: PrimaryIcon(Icons.logout, color: kblack),
+          onTap: () async => await logout(),
         ),
       ],
     );

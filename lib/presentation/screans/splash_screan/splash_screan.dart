@@ -33,9 +33,6 @@ class SplashScrean extends StatelessWidget {
     if ((await LocalStorage.getString(isFirst)).isEmpty) {
       return Nav.goToScreanAndRemoveUntill(OnboardScrean());
     }
-    if (!isAuth) {
-      return Nav.goToScreanAndRemoveUntill(LoginScrean());
-    }
 
     final pro =
         Provider.of<UserProvider>(navKey.currentContext!, listen: false);
