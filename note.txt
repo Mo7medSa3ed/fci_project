@@ -1,0 +1,22 @@
+
+
+
+static List categories = [];
+static List servicesForEachCategory = [];
+category = {
+    name , photo , desc , n_o_orders , services [servicesForEachCategory]
+}
+
+user = {
+    name , phone , pass , img  , address[location {lat,lng}] , fav [nurse]
+}  
+
+
+
+nurse = {
+    name , phone , pass , img  , address {lat,lng} , rate , reviews [{user,rate,commit}] , 
+    services [categories] , holidayDays [Days] , availableDays [Days] , gender  , age  , about , n_o_orders  , n_o_views , 
+    certificates [images] 
+}
+
+

@@ -1,3 +1,4 @@
+
 import 'package:fci_project/data/models/user.dart';
 import 'package:fci_project/helper/localstorage.dart';
 import 'package:fci_project/helper/navigator.dart';
@@ -9,7 +10,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 const String baseUrl = 'https://fci-proj.herokuapp.com/api';
-const String storeName = "Sala";
 
 // Error Messages
 const generalErrorMsg = 'حدث خطأ ما. برجاء المحاولة لاحقا';

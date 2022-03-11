@@ -4,7 +4,7 @@ class User {
   String? email;
   String? phone;
   String? country;
-  String? address;
+  dynamic address;
   String? role;
   String? dop;
   String? password;

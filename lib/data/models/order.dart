@@ -1,5 +1,5 @@
 import 'package:fci_project/bussniss_logic/user_provider.dart';
-import 'package:fci_project/helper/constants.dart';
+import 'package:fci_project/config.dart';
 import 'package:fci_project/main.dart';
 import 'package:provider/provider.dart';
 

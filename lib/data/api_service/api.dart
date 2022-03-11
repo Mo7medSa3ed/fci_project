@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 import 'package:dio/dio.dart';
+import 'package:fci_project/config.dart';
 import 'package:fci_project/helper/alert_dialog.dart';
 import 'package:fci_project/helper/constants.dart';
 import 'package:fci_project/helper/navigator.dart';
