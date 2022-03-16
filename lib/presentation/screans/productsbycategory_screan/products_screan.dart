@@ -12,8 +12,34 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class ProductsScrean extends StatelessWidget {
-  const ProductsScrean({required this.category, Key? key}) : super(key: key);
+  const ProductsScrean({required this.category, this.type = '', Key? key})
+      : super(key: key);
   final Category category;
+  final String type;
+
+  Future<List<Product>> switchApiFunction(ProductProvider productProvider) {
+    switch (type) {
+      case 'mostOrderedProducts':
+      case 'mostRatedProducts':
+      case 'mostViewedProducts':
+        return productProvider.getProductsByTerm(type);
+      default:
+        return productProvider.searchProductByCategory(category.id!);
+    }
+  }
+
+  String switchTitleScrean() {
+    switch (type) {
+      case 'mostOrderedProducts':
+        return 'الأكثر طلباَ';
+      case 'mostRatedProducts':
+        return 'الأكثر تقييماً';
+      case 'mostViewedProducts':
+        return 'الاعلى مشاهدة';
+      default:
+        return category.name!;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +48,7 @@ class ProductsScrean extends StatelessWidget {
         appBar: AppBar(
           centerTitle: true,
           title: PrimaryText(
-            text: category.name,
+            text: switchTitleScrean(),
             fontWeight: FontWeight.bold,
           ),
           leading: PrimaryIconButton(
@@ -35,7 +61,7 @@ class ProductsScrean extends StatelessWidget {
         ),
         body: Center(
           child: PrimaryFutureWidget<List<Product>>(
-              future: _pro.searchProductByCategory(category.id!),
+              future: switchApiFunction(_pro),
               data: (products) {
                 if (products.isEmpty) {
                   return Center(child: PrimaryText(text: 'لا يوجد منتجات'));

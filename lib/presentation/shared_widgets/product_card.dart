@@ -1,6 +1,5 @@
 import 'dart:math';
 import 'package:fci_project/bussniss_logic/user_provider.dart';
-import 'package:fci_project/data/models/category.dart';
 import 'package:fci_project/data/models/product.dart';
 import 'package:fci_project/helper/navigator.dart';
 import 'package:fci_project/main.dart';

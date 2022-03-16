@@ -31,6 +31,11 @@ class ProductRepository {
         url: '/products/filter/category?categoryId=$term', showAlert: false);
     return res;
   }
+  Future getProductsByTerm(String term) async {
+    final res = await _apiServices!.get(
+        url: '/products/filter/home?sort=$term', showAlert: false);
+    return res;
+  }
 
   Future rateProduct(String id, Map<String, dynamic> data) async {
     final res = await _apiServices!

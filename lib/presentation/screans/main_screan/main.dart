@@ -1,16 +1,18 @@
 import 'package:fci_project/bussniss_logic/home_provider.dart';
+import 'package:fci_project/data/models/category.dart';
 import 'package:fci_project/data/models/home.dart';
 import 'package:fci_project/data/models/product.dart';
 import 'package:fci_project/helper/constants.dart';
+import 'package:fci_project/helper/navigator.dart';
 import 'package:fci_project/main.dart';
 import 'package:fci_project/presentation/screans/main_screan/widgets/header_text.dart';
+import 'package:fci_project/presentation/screans/productsbycategory_screan/products_screan.dart';
 import 'package:fci_project/presentation/shared_widgets/primary_future_widget.dart';
 import 'package:fci_project/presentation/shared_widgets/product_card.dart';
 import 'package:fci_project/presentation/shared_widgets/app_logo.dart';
 import 'package:fci_project/presentation/shared_widgets/primary_icon.dart';
 import 'package:fci_project/presentation/shared_widgets/primary_text.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
 
 class MainScrean extends StatelessWidget {
@@ -19,6 +21,7 @@ class MainScrean extends StatelessWidget {
   Widget build(BuildContext context) {
     final _pro = Provider.of<HomeProvider>(context, listen: false);
     return ListView(
+      physics: const BouncingScrollPhysics(),
       padding: EdgeInsets.symmetric(vertical: kpadding / 2),
       children: [
         AppLogo(ratio: 0.04),
@@ -66,19 +69,22 @@ class MainScrean extends StatelessWidget {
                 buildProductSection(
                     fText: "الاكثر مشاهدة",
                     lText: "مشاهدة المزيد",
-                    onTap: () {},
+                    onTap: () => Nav.goToScrean(ProductsScrean(
+                        category: Category(), type: 'mostViewedProducts')),
                     data: data.mostViewedProducts),
                 SizedBox(height: defultPadding),
                 buildProductSection(
                     fText: "الأعلى تقييماً",
                     lText: "مشاهدة المزيد",
-                    onTap: () {},
+                    onTap: () => Nav.goToScrean(ProductsScrean(
+                        category: Category(), type: 'mostRatedProducts')),
                     data: data.mostRatedProducts),
                 SizedBox(height: defultPadding),
                 buildProductSection(
                     fText: "الأكثر طلباً",
                     lText: "مشاهدة المزيد",
-                    onTap: () {},
+                    onTap: () => Nav.goToScrean(ProductsScrean(
+                        category: Category(), type: 'mostOrderedProducts')),
                     data: data.mostOrderedProducts),
               ],
             );

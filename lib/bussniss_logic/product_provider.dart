@@ -78,4 +78,8 @@ class ProductProvider extends ChangeNotifier {
     final json = await _productRepository.searchProductByCategory(term);
     return json['products'].map<Product>((e) => Product.fromJson(e)).toList();
   }
+  Future<List<Product>> getProductsByTerm(String term) async {
+    final json = await _productRepository.getProductsByTerm(term);
+    return json.map<Product>((e) => Product.fromJson(e)).toList();
+  }
 }

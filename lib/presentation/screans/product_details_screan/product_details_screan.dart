@@ -18,12 +18,12 @@ class ProductDetailsScrean extends StatelessWidget {
   const ProductDetailsScrean({required this.product, Key? key})
       : super(key: key);
   final Product product;
+  
 
   @override
   Widget build(BuildContext context) {
     final pro = Provider.of<ProductProvider>(context, listen: false);
     double rate = 1;
-    pro.getOneProduct(product.id);
     return Scaffold(
       appBar: PrimaryAppBar(),
       body: ListView(
@@ -112,10 +112,18 @@ class ProductDetailsScrean extends StatelessWidget {
             ),
           ),
           SizedBox(height: defultPadding),
-          CustomExpanantialTile(
-              isExpand: true,
-              title: 'تفاصيل المنتج',
-              children: [product.desc!]),
+          StatefulBuilder(builder: (context, setState) {
+            pro.getOneProduct(product.id).then((value) {
+              if (product.desc == null) {
+                product.desc = value.desc;
+                setState(() {});
+              }
+            });
+            return CustomExpanantialTile(
+                isExpand: true,
+                title: 'تفاصيل المنتج',
+                children: [product.desc ?? ""]);
+          }),
           SizedBox(height: defultPadding),
           StatefulBuilder(builder: (context, setState) {
             return CustomExpanantialTile(
