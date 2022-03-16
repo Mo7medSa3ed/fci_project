@@ -1,4 +1,3 @@
-
 import 'package:fci_project/bussniss_logic/user_provider.dart';
 import 'package:fci_project/data/models/product.dart';
 import 'package:fci_project/helper/alert_dialog.dart';
@@ -43,6 +42,7 @@ class CartCard extends StatelessWidget {
                 PrimaryText(
                   text: product.name,
                   fontWeight: FontWeight.bold,
+                  fontSizeRatio: 0.9,
                 ),
                 SizedBox(height: kpadding),
                 Consumer<UserProvider>(builder: (context, userProvider, child) {

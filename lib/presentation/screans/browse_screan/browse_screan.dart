@@ -1,11 +1,11 @@
 import 'package:fci_project/bussniss_logic/product_provider.dart';
-import 'package:fci_project/data/models/category.dart';
 import 'package:fci_project/data/models/product.dart';
 import 'package:fci_project/main.dart';
 import 'package:fci_project/presentation/screans/browse_screan/widgets/category_card.dart';
 import 'package:fci_project/presentation/screans/browse_screan/widgets/filter_page.dart';
-import 'package:fci_project/presentation/screans/main_screan/widgets/primary_search_widget.dart';
-import 'package:fci_project/presentation/screans/main_screan/widgets/product_card.dart';
+import 'package:fci_project/presentation/screans/browse_screan/widgets/primary_search_widget.dart';
+import 'package:fci_project/presentation/shared_widgets/primary_text.dart';
+import 'package:fci_project/presentation/shared_widgets/product_card.dart';
 import 'package:fci_project/presentation/shared_widgets/primary_future_widget.dart';
 import 'package:fci_project/presentation/shared_widgets/primary_icon_button.dart';
 import 'package:flutter/material.dart';
@@ -47,11 +47,7 @@ class _BrowseScreanState extends State<BrowseScrean> {
                       ? null
                       : () => setState,
                   onChange: (String val) {
-                    if (val.isEmpty) {
-                      setState(() {});
-                    } else if (val.length == 1) {
-                      setState(() {});
-                    }
+                    setState(() {});
                   },
                 ),
               ),
@@ -86,33 +82,34 @@ class _BrowseScreanState extends State<BrowseScrean> {
 
   Widget _buildList() {
     if (_searchController.text.trim().isEmpty) {
-      return PrimaryFutureWidget<List<Category>>(
-          future: _pro.getAllCategories(),
-          data: (data) {
-            return GridView.builder(
-                padding: EdgeInsets.all(kpadding * 2),
-                physics: BouncingScrollPhysics(),
-                itemCount: data.length,
-                keyboardDismissBehavior:
-                    ScrollViewKeyboardDismissBehavior.onDrag,
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  mainAxisExtent: 150,
-                  crossAxisSpacing: kpadding * 2,
-                  mainAxisSpacing: kpadding * 2,
-                ),
-                itemBuilder: (ctx, idx) {
-                  return CategoryCard(category: data[idx]);
-                });
+      if (store.workOn!.isEmpty) {
+        return Center(child: PrimaryText(text: 'لا يوجد تصنيفات'));
+      }
+      return GridView.builder(
+          padding: EdgeInsets.all(kpadding * 2),
+          physics: BouncingScrollPhysics(),
+          itemCount: store.workOn!.length,
+          keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            mainAxisExtent: 150,
+            crossAxisSpacing: kpadding * 2,
+            mainAxisSpacing: kpadding * 2,
+          ),
+          itemBuilder: (ctx, idx) {
+            return CategoryCard(category: store.workOn![idx]);
           });
     } else {
       return PrimaryFutureWidget<List<Product>>(
           future: _pro.searchProduct(_searchController.text.trim()),
           data: (data) {
+            if (data.isEmpty) {
+              return Center(child: PrimaryText(text: 'لا يوجد منتجات'));
+            }
             if (_pro.saveCategoryListFilter.isNotEmpty) {
               data = data
                   .where((e) =>
-                      _pro.saveCategoryListFilter.contains(e.category!.first))
+                      _pro.saveCategoryListFilter.contains(e.category!.id))
                   .toList();
             }
             return GridView.builder(
@@ -123,7 +120,7 @@ class _BrowseScreanState extends State<BrowseScrean> {
                     ScrollViewKeyboardDismissBehavior.onDrag,
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
-                  mainAxisExtent: kheight * 0.35,
+                  mainAxisExtent: kheight * 0.45,
                   crossAxisSpacing: kpadding * 2,
                   mainAxisSpacing: kpadding * 2,
                 ),

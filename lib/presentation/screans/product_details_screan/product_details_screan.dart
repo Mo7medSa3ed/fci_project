@@ -23,6 +23,7 @@ class ProductDetailsScrean extends StatelessWidget {
   Widget build(BuildContext context) {
     final pro = Provider.of<ProductProvider>(context, listen: false);
     double rate = 1;
+    pro.getOneProduct(product.id);
     return Scaffold(
       appBar: PrimaryAppBar(),
       body: ListView(
@@ -31,7 +32,7 @@ class ProductDetailsScrean extends StatelessWidget {
           ListTile(
             title: PrimaryText(
               text: product.name,
-              fontSizeRatio: 2,
+              fontSizeRatio: 1.2,
               fontWeight: FontWeight.bold,
             ),
             subtitle: PrimaryText(
@@ -122,12 +123,12 @@ class ProductDetailsScrean extends StatelessWidget {
               rate: Directionality(
                 textDirection: TextDirection.ltr,
                 child: RatingBarIndicator(
-                  rating: product.rate!,
+                  rating: product.rate!.toDouble(),
                   itemBuilder: (context, index) =>
                       Icon(Icons.star, color: Colors.amber),
                   itemCount: 5,
                   itemSize: 20.0,
-                  unratedColor: Colors.amber.withAlpha(50),
+                  unratedColor: kwgrey,
                 ),
               ),
               childrenWidget: [
@@ -138,12 +139,15 @@ class ProductDetailsScrean extends StatelessWidget {
                   children: [
                     ElevatedButton(
                       onPressed: () async {
-                        final res = await pro.rateProduct(product.id! , rate);
+                        if (!isAuth) {
+                          return Alert.showAuthAlert();
+                        }
+                        final res = await pro.rateProduct(product.id!, rate);
                         product.rate = res['rate'];
                         setState(() {});
                       },
                       child: PrimaryText(
-                        text: 'اضف تعليق',
+                        text: 'قيم الآن',
                         color: kwhite,
                         fontSizeRatio: 0.8,
                       ),

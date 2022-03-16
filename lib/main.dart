@@ -2,7 +2,9 @@ import 'package:fci_project/bussniss_logic/auth_provider.dart';
 import 'package:fci_project/bussniss_logic/home_provider.dart';
 import 'package:fci_project/bussniss_logic/order_provider.dart';
 import 'package:fci_project/bussniss_logic/product_provider.dart';
+import 'package:fci_project/bussniss_logic/store_provider.dart';
 import 'package:fci_project/bussniss_logic/user_provider.dart';
+import 'package:fci_project/data/models/store.dart';
 import 'package:fci_project/data/models/user.dart';
 import 'package:fci_project/helper/constants.dart';
 import 'package:fci_project/presentation/screans/splash_screan/splash_screan.dart';
@@ -19,12 +21,13 @@ late double kheight;
 late double kweidth;
 late double defultPadding = 16.0;
 late double kpadding;
-late double kdefaultTextSize = 16.0;
+late double kdefaultTextSize = 15.0;
 late double iconSize;
 late bool isWeb;
 late bool isAuth;
 late String tok;
 late User currantUser;
+late Store store;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -41,6 +44,9 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider<HomeProvider>(
           create: (_) => HomeProvider(),
+        ),
+        ChangeNotifierProvider<StoreProvider>(
+          create: (_) => StoreProvider(),
         ),
         ChangeNotifierProvider<OrderProvider>(
           create: (_) => OrderProvider(),

@@ -7,11 +7,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class LocalStorage {
   static SharedPreferences? _prefs;
-  static Future<LocalStorage?> getInstance() async {
+  static Future getInstance() async {
     _prefs ??= (await SharedPreferences.getInstance());
   }
-
- 
 
   static setString(key, value) async {
     await getInstance();
@@ -50,5 +48,11 @@ class LocalStorage {
     return products
         .map<Product>((e) => Product.fromJsonForCart(jsonDecode(e)))
         .toList();
+  }
+
+  static Future clear() async {
+    await getInstance();
+
+    await _prefs!.clear();
   }
 }

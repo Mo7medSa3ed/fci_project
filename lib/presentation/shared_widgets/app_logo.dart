@@ -7,11 +7,22 @@ class AppLogo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return UnconstrainedBox(
-      child: Image.asset(
-        'assets/images/logo.png',
-        fit: BoxFit.fill,
-        height: kheight * ratio,
-        width: kheight * ratio,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Image.asset(
+            'assets/images/logo.png',
+            fit: BoxFit.fill,
+            height: kheight * ratio,
+            width: kheight * ratio,
+          ),
+          // SizedBox(height: defultPadding / 2),
+          // PrimaryText(
+          //   text: 'السوق الإلكترونى',
+          //   fontWeight: FontWeight.w600,
+          //   fontSizeRatio: 0.8,
+          // )
+        ],
       ),
     );
   }

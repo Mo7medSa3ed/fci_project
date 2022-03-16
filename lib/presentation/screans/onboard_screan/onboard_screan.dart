@@ -24,7 +24,7 @@ class _OnboardScreanState extends State<OnboardScrean> {
         children: [
           Positioned.fill(
             child: Image.asset(
-              assetImage,
+              'assets/images/farmer2.jpg',
               fit: BoxFit.cover,
             ),
           ),
@@ -46,10 +46,10 @@ class _OnboardScreanState extends State<OnboardScrean> {
                     fontWeight: FontWeight.bold,
                     fontSizeRatio: 2,
                   ),
-                  const PrimaryText(
+                  PrimaryText(
                     text: 'احصل ع كل م تريده فى اسرع وقت',
                     textAlign: TextAlign.center,
-                    color: kgrey,
+                    color: kwgrey,
                   ),
                   SizedBox(height: defultPadding * 1.5),
                   PrimaryButton(

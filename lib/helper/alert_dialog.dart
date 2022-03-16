@@ -26,7 +26,7 @@ class Alert {
         onConfirmBtnTap: onTap,
         confirmBtnText: 'نعم',
         barrierDismissible: false,
-        cancelBtnText: 'لا',
+        cancelBtnText: '\t\t\t\tلا\t\t\t\t',
         confirmBtnColor: kprimary,
         onCancelBtnTap: () => Nav.pop(),
         showCancelBtn: true,

@@ -7,12 +7,14 @@ class PrimaryImage extends StatelessWidget {
   final double radius;
   final double? height;
   final BoxFit fit;
+  final BorderRadius? borderRadius;
 
   const PrimaryImage(
       {required this.url,
       this.radius = 0.0,
       this.fit = BoxFit.cover,
       this.height,
+      this.borderRadius ,
       Key? key})
       : super(key: key);
 
@@ -20,7 +22,7 @@ class PrimaryImage extends StatelessWidget {
   Widget build(BuildContext context) {
     if (url.contains('https')) {
       return ClipRRect(
-          borderRadius: BorderRadius.circular(radius.toDouble()),
+          borderRadius:borderRadius?? BorderRadius.circular(radius.toDouble()),
           child: Image.network(
             url,
             fit: fit,

@@ -1,4 +1,3 @@
-
 import 'package:fci_project/data/models/user.dart';
 import 'package:fci_project/helper/localstorage.dart';
 import 'package:fci_project/helper/navigator.dart';
@@ -10,7 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 const String baseUrl = 'https://fci-proj.herokuapp.com/api';
-
+const String randomImagesUrl = 'https://placeimg.com/800/480/tech';
 // Error Messages
 const generalErrorMsg = 'حدث خطأ ما. برجاء المحاولة لاحقا';
 const serverNotResponsedErrorMsg = 'API not responded in time';
@@ -45,7 +44,7 @@ logout() async {
   tok = '';
   await LocalStorage.setString(user, '');
   await LocalStorage.setString(token, '');
- return Nav.goToScreanAndRemoveUntill(HomeScrean());
+  return Nav.goToScreanAndRemoveUntill(HomeScrean());
 }
 
 List<Map> convertMapToList(Map data) {

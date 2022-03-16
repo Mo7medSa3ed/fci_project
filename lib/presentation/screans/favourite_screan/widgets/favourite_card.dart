@@ -40,6 +40,7 @@ class FavouriteCard extends StatelessWidget {
               child: PrimaryText(
                 text: favProduct.name,
                 fontWeight: FontWeight.bold,
+                fontSizeRatio: 0.9,
               ),
             ),
             InkWell(

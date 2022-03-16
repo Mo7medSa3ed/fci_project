@@ -1,8 +1,10 @@
+import 'package:fci_project/data/models/category.dart';
+
 class Product {
   String? id;
   String? name;
   String? desc;
-  List? category;
+  Category? category;
   Amount amount;
   String? storeName;
   List? images;
@@ -12,7 +14,7 @@ class Product {
   num? ordered;
   bool? visible;
   List? rating;
-  double? rate;
+  num? rate;
   String? createdAt;
   String? updatedAt;
   bool selected = false;
@@ -43,7 +45,7 @@ class Product {
         name: json['name'],
         amount: Amount.fromJson(json['amount'] ?? {}),
         cartAmount: 1,
-        category: json['category'],
+        category: Category.fromJson( json['category']),
         desc: json['desc'],
         images: json['images'],
         ordered: json['ordered'],
@@ -52,8 +54,7 @@ class Product {
         storeName: json['storeName'],
         url: json['url'],
         views: json['views'],
-        rate: json['rate']??0,
-        visible: json['visible']['app'],
+        rate: json['actualRating'] ?? 0,
         createdAt: json['createdAt'],
         updatedAt: json['updatedAt'],
       );
@@ -83,7 +84,7 @@ class Product {
     json['images'] = images;
     json['price'] = price;
     json['rating'] = rating;
-    json['rate'] = rate??0;
+    json['rate'] = rate ?? 0;
     json['storeName'] = storeName;
     json['url'] = url;
     json['createdAt'] = createdAt;

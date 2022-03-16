@@ -60,6 +60,14 @@ class _PrimaryInputFieldState extends State<PrimaryInputField> {
           autovalidateMode: AutovalidateMode.onUserInteraction,
           keyboardType: widget.keyboardType,
           onChanged: (String? value) {
+            if (widget.max == 10 &&
+                widget.keyboardType == TextInputType.phone) {
+              if (value!.trim().isNotEmpty && value.startsWith('0')) {
+                widget.controller!.clear();
+                return;
+              }
+            }
+
             if (value!.trim().isNotEmpty &&
                 value.trim().contains('@') &&
                 value.trim().contains('.')) {
@@ -74,7 +82,6 @@ class _PrimaryInputFieldState extends State<PrimaryInputField> {
           },
           validator: widget.validator ??
               (String? value) {
-                
                 if (value!.trim().isEmpty) {
                   return 'مطلوب ${widget.headerText} *';
                 }
@@ -87,11 +94,10 @@ class _PrimaryInputFieldState extends State<PrimaryInputField> {
               isDense: true,
               hintText: widget.hintText,
               counterText: '',
-              suffixText: widget.keyboardType == TextInputType.phone
-                  ? widget.max == 11
+              suffixText:
+                  widget.keyboardType == TextInputType.phone && widget.max == 10
                       ? '02+'
-                      : '966+'
-                  : null,
+                      : null,
               suffixIcon: widget.isSecure! == false && isValid
                   ? PrimaryIcon(Icons.done)
                   : widget.isSecure!

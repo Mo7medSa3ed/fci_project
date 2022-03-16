@@ -49,10 +49,10 @@ class _RegisterScreanState extends State<RegisterScrean> {
         key: formKey,
         child: ListView(
           padding: EdgeInsets.symmetric(
-              horizontal: kpadding, vertical: kpadding * 2),
+              horizontal: kpadding * 2, vertical: kpadding * 2),
           children: [
             AppLogo(),
-            SizedBox(height: defultPadding * 4),
+            SizedBox(height: defultPadding * 2),
             PrimaryText(
               text: widget.edit ? 'تعديل حسابك' : 'انشاء حساب',
               color: kblack,
@@ -78,38 +78,23 @@ class _RegisterScreanState extends State<RegisterScrean> {
                 selector: (p0, p1) => p1.egyptSelected,
                 builder: (ctx, egyptSelected, c) {
                   return Row(
+                    crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       Expanded(
                         child: PrimaryInputField(
                           controller: _phoneController,
                           hintText: 'ادخل رقم الهاتف',
                           headerText: 'رقم الهاتف',
-                          max: egyptSelected ? 11 : 13,
+                          max: egyptSelected ? 10 : 13,
                           validator: (String? value) => null,
                           keyboardType: TextInputType.phone,
+                          
                         ),
                       ),
                       SizedBox(width: kpadding),
-                      Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          PrimaryRoundButton(
-                            child: PrimaryText(text: '\u{1F1F8}\u{1F1E6}'),
-                            borderColor: egyptSelected ? kwgrey : kprimary,
-                            onTap: () => _pro.changeSelected(false),
-                          ),
-                          SizedBox(height: kpadding),
-                          PrimaryRoundButton(
-                            child: PrimaryText(text: '\u{1F1FE}\u{1F1EA}'),
-                            borderColor: egyptSelected ? Colors.red : kwgrey,
-                            onTap: () {
-                              if (_phoneController.text.trim().length > 11) {
-                                _phoneController.clear();
-                              }
-                              _pro.changeSelected(true);
-                            },
-                          ),
-                        ],
+                      PrimaryRoundButton(
+                        child: PrimaryText(text: '\u{1F1FE}\u{1F1EA}'),
+                        borderColor: egyptSelected ? Colors.red : kwgrey,
                       )
                     ],
                   );

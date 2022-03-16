@@ -81,7 +81,11 @@ class ApiServices {
     return '';
   }
 
-  Future get({required String url, String? id, bool showAlert = false}) async {
+  Future get(
+      {required String url,
+      String? id,
+      bool showAlert = false,
+      containBaseUrl = true}) async {
     if (showAlert) Alert.showLoading();
 
     late Response response;
@@ -92,17 +96,15 @@ class ApiServices {
       } else {
         url += '?storeName=$storeName';
       }
-      print('$baseUrl$url');
-      response = await _dio!.get('$baseUrl$url',
-          options: Options(headers: {"x-auth-token": tok}));
+      print(baseUrl + url);
+      response = await _dio!.get(containBaseUrl ? baseUrl + url : url,
+          options: Options(headers: {"x-auth-token": tok, 'device': 'app'}));
       print(response.data);
-
       return _processResponse(
           response: response,
           msg: checkKeyContain(response.data),
           showAlert: showAlert);
     } catch (error) {
-      print(error);
       return _handleError(error,
           msg: checkKeyContain(response.data),
           showAlert: showAlert,
@@ -126,7 +128,8 @@ class ApiServices {
       }
 
       response = await _dio!.post('$baseUrl$url',
-          data: data, options: Options(headers: {"x-auth-token": tok}));
+          data: data,
+          options: Options(headers: {"x-auth-token": tok, 'device': 'app'}));
       return _processResponse(
           response: response,
           msg: checkKeyContain(response.data),
@@ -155,7 +158,8 @@ class ApiServices {
       }
 
       response = await _dio!.patch('$baseUrl$url',
-          data: data, options: Options(headers: {"x-auth-token": tok}));
+          data: data,
+          options: Options(headers: {"x-auth-token": tok, 'device': 'app'}));
       return _processResponse(
           response: response,
           msg: checkKeyContain(response.data),

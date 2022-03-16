@@ -3,7 +3,7 @@ import 'package:fci_project/data/models/category.dart';
 import 'package:fci_project/data/models/product.dart';
 import 'package:fci_project/helper/navigator.dart';
 import 'package:fci_project/main.dart';
-import 'package:fci_project/presentation/screans/main_screan/widgets/product_card.dart';
+import 'package:fci_project/presentation/shared_widgets/product_card.dart';
 import 'package:fci_project/presentation/shared_widgets/primary_future_widget.dart';
 import 'package:fci_project/presentation/shared_widgets/primary_icon_button.dart';
 import 'package:fci_project/presentation/shared_widgets/primary_text.dart';
@@ -37,6 +37,9 @@ class ProductsScrean extends StatelessWidget {
           child: PrimaryFutureWidget<List<Product>>(
               future: _pro.searchProductByCategory(category.id!),
               data: (products) {
+                if (products.isEmpty) {
+                  return Center(child: PrimaryText(text: 'لا يوجد منتجات'));
+                }
                 return GridView.builder(
                     padding: EdgeInsets.all(kpadding),
                     physics: BouncingScrollPhysics(),
@@ -46,7 +49,7 @@ class ProductsScrean extends StatelessWidget {
                         ScrollViewKeyboardDismissBehavior.onDrag,
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2,
-                      mainAxisExtent: kheight * 0.35,
+                      mainAxisExtent: kheight * 0.45,
                       crossAxisSpacing: kpadding,
                       mainAxisSpacing: kpadding,
                     ),

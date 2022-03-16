@@ -52,10 +52,10 @@ class AuthProvider extends ChangeNotifier {
       'country': country,
       'name': name
     };
-    final user = await _authRepository.createUser(data);
-    if (user != null) {
-      await LocalStorage.setString(user, jsonEncode(user));
-      currantUser = User.fromJson(user);
+    final newUser = await _authRepository.createUser(data);
+    if (newUser != null) {
+      await LocalStorage.setString(user, jsonEncode(newUser));
+      currantUser = User.fromJson(newUser);
       Nav.goToScreanAndRemoveUntill(HomeScrean());
       return;
     }

@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:fci_project/bussniss_logic/store_provider.dart';
 import 'package:fci_project/bussniss_logic/user_provider.dart';
 import 'package:fci_project/data/models/user.dart';
 import 'package:fci_project/data/repositories/user_repository.dart';
@@ -8,7 +9,6 @@ import 'package:fci_project/helper/localstorage.dart';
 import 'package:fci_project/helper/navigator.dart';
 import 'package:fci_project/main.dart';
 import 'package:fci_project/presentation/screans/home_screan/home_screan.dart';
-import 'package:fci_project/presentation/screans/login_screan/login_screan.dart';
 import 'package:fci_project/presentation/screans/onboard_screan/onboard_screan.dart';
 import 'package:fci_project/presentation/screans/splash_screan/widgets/splash_logo.dart';
 import 'package:fci_project/style/colors.dart';
@@ -33,6 +33,10 @@ class SplashScrean extends StatelessWidget {
     if ((await LocalStorage.getString(isFirst)).isEmpty) {
       return Nav.goToScreanAndRemoveUntill(OnboardScrean());
     }
+
+    store =
+        await Provider.of<StoreProvider>(navKey.currentContext!, listen: false)
+            .getStore();
 
     final pro =
         Provider.of<UserProvider>(navKey.currentContext!, listen: false);

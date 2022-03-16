@@ -26,6 +26,7 @@ class OrderScrean extends StatelessWidget {
               if (orders.isEmpty) {
                 return Center(child: PrimaryText(text: 'ليس لديك طلبات'));
               }
+              
               return ListView.builder(
                 physics: BouncingScrollPhysics(),
                 padding: EdgeInsets.symmetric(horizontal: kpadding),

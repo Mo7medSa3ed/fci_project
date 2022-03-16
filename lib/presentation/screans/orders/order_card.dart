@@ -1,6 +1,5 @@
 import 'package:fci_project/data/models/order.dart';
 import 'package:fci_project/main.dart';
-import 'package:fci_project/presentation/shared_widgets/card_item.dart';
 import 'package:fci_project/presentation/shared_widgets/primary_image.dart';
 import 'package:fci_project/presentation/shared_widgets/primary_text.dart';
 import 'package:fci_project/style/colors.dart';
@@ -25,10 +24,10 @@ class OrderCard extends StatelessWidget {
                 text: '\u{25CF}\tتفاصيل المستخدم:',
                 fontWeight: FontWeight.w600),
             SizedBox(height: defultPadding),
-            buildRowForDetails('الاسم', currantUser.name),
-            buildRowForDetails('الايميل', currantUser.email),
-            buildRowForDetails('الموبايل', currantUser.phone),
-            buildRowForDetails('العنوان', currantUser.address),
+            buildRowForDetails('الاسم', order.user!['name']),
+            buildRowForDetails('الموبايل', order.user!['tel']),
+            buildRowForDetails('العنوان', order.user!['address']),
+            buildRowForDetails('طريقة الدفع', order.user!['payment']),
             SizedBox(height: defultPadding),
             ExpansionTile(
               tilePadding: EdgeInsets.zero,
@@ -37,15 +36,31 @@ class OrderCard extends StatelessWidget {
                 text: '\u{25CF}\tتفاصيل الطلب:',
                 fontWeight: FontWeight.w600,
               ),
-              children: List.generate(
-                5,
-                (index) => BuildListCardForProfileScrean(
-                    title: 'منتج 1',
-                    image: PrimaryImage(
-                      url: networkImage,
-                    ),
-                    onTap: () {}),
-              ),
+              children: order.items!
+                  .map(
+                    (e) => ListTile(
+                        contentPadding: EdgeInsets.zero,
+                        title: PrimaryText(
+                          text: e['name'],
+                          fontSizeRatio: 0.85,
+                        ),
+                        subtitle: PrimaryText(
+                          text: 'الكمية: ${e['amount']}  قطع',
+                          color: kgrey,
+                          fontSizeRatio: 0.8,
+                        ),
+                        leading: PrimaryImage(
+                          url: e['img'],
+                          radius: 8,
+                          height: defultPadding * 3,
+                          fit: BoxFit.cover,
+                        ),
+                        trailing: PrimaryText(
+                          text: '${e['price'] * e['amount']} ج.م',
+                        ),
+                        onTap: () {}),
+                  )
+                  .toList(),
             ),
           ],
         ),

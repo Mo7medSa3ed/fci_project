@@ -12,6 +12,7 @@ class ProductRepository {
         await _apiServices!.get(url: '/categories', id: id, showAlert: false);
     return res;
   }
+  
 
   Future getOneOrAllProducts({id}) async {
     final res =
@@ -36,4 +37,6 @@ class ProductRepository {
         .post(url: '/products/rate', id: id, data: data, showAlert: true);
     return res;
   }
+
+  
 }

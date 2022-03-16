@@ -22,7 +22,7 @@ class ProductCarousel extends StatelessWidget {
             bottomLeft: Radius.circular(30),
             bottomRight: Radius.circular(30),
           )),
-      height: kheight * 0.4,
+      height: kheight * 0.45,
       child: Hero(
         tag: ObjectKey(id),
         child: Column(
@@ -50,6 +50,7 @@ class ProductCarousel extends StatelessWidget {
                       child: PrimaryImage(
                         url: imageList[i],
                         radius: 15,
+                        fit: BoxFit.fill,
                       ),
                     ),
                   ),
