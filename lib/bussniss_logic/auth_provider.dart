@@ -8,6 +8,7 @@ import 'package:fci_project/helper/localstorage.dart';
 import 'package:fci_project/helper/navigator.dart';
 import 'package:fci_project/main.dart';
 import 'package:fci_project/presentation/screans/home_screan/home_screan.dart';
+import 'package:fci_project/presentation/screans/login_screan/login_screan.dart';
 import 'package:flutter/foundation.dart';
 
 class AuthProvider extends ChangeNotifier {
@@ -48,7 +49,7 @@ class AuthProvider extends ChangeNotifier {
     Map<String, dynamic> data = {
       'email': email,
       'password': pass,
-      'phone': phone,
+      'phone': phone.startsWith('0') ? phone : '0' + phone,
       'country': country,
       'name': name
     };
@@ -56,7 +57,7 @@ class AuthProvider extends ChangeNotifier {
     if (newUser != null) {
       await LocalStorage.setString(user, jsonEncode(newUser));
       currantUser = User.fromJson(newUser);
-      Nav.goToScreanAndRemoveUntill(HomeScrean());
+      Nav.goToScreanWithReplaceMent(LoginScrean());
       return;
     }
   }

@@ -45,7 +45,9 @@ class Product {
         name: json['name'],
         amount: Amount.fromJson(json['amount'] ?? {}),
         cartAmount: 1,
-        category: Category.fromJson( json['category']),
+        category: Category.fromJson(json['category'].runtimeType == String
+            ? Category(name: '', id: json['category']).toJson()
+            : json['category']),
         desc: json['desc'],
         images: json['images'],
         ordered: json['ordered'],

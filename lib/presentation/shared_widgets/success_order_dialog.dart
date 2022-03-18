@@ -1,6 +1,7 @@
 import 'package:fci_project/helper/navigator.dart';
 import 'package:fci_project/main.dart';
 import 'package:fci_project/presentation/screans/home_screan/home_screan.dart';
+import 'package:fci_project/presentation/screans/orders/order_screan.dart';
 import 'package:fci_project/presentation/shared_widgets/primary_button.dart';
 import 'package:fci_project/presentation/shared_widgets/primary_image.dart';
 import 'package:fci_project/presentation/shared_widgets/primary_text.dart';
@@ -44,7 +45,12 @@ class SuccessOrder extends StatelessWidget {
                       color: kgrey,
                     ),
                     Spacer(),
-                    PrimaryButton(text: 'الذهاب للطلب', onTap: () {}),
+                    PrimaryButton(
+                        text: 'الذهاب للطلب',
+                        onTap: () {
+                          Nav.goToScreanAndRemoveUntill(HomeScrean());
+                          Nav.goToScrean(OrderScrean());
+                        }),
                     SizedBox(height: defultPadding),
                     PrimaryButton(
                         text: 'الرجوع للرئيسئة',

@@ -32,7 +32,10 @@ dependencies:
   provider:
   dio: ^4.0.4
   shared_preferences:
-  flutter_rating_bar: 
+  flutter_rating_bar:
+  cached_network_image: 
+  url_launcher: ^6.0.20
+  font_awesome_flutter: ^10.0.0
   cupertino_icons: ^1.0.2
 
   flutter:

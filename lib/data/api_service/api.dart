@@ -33,6 +33,7 @@ class ApiServices {
   _handleError(error, {required msg, required url, bool showAlert = false}) {
     if (showAlert) Nav.pop();
     late String message;
+
     if (error is DioError) {
       switch (error.type) {
         case DioErrorType.receiveTimeout:
@@ -56,7 +57,11 @@ class ApiServices {
     } else if (error is TimeoutException) {
       message = serverNotResponsedErrorMsg + ' $timeOutDuration';
     } else {
-      message = generalErrorMsg;
+      if (msg.isEmpty) {
+        message = generalErrorMsg;
+      } else {
+        message = msg;
+      }
     }
     if (showAlert) Alert.showErrorDialog(desc: message);
     return throw Error();
@@ -69,7 +74,9 @@ class ApiServices {
       case 201:
         return response.data;
       default:
-        if (showAlert) Alert.showErrorDialog(desc: msg ?? generalErrorMsg);
+        if (showAlert) {
+          Alert.showErrorDialog(desc: msg.isEmpty ? generalErrorMsg : msg);
+        }
         return throw Error();
     }
   }
@@ -87,7 +94,6 @@ class ApiServices {
       bool showAlert = false,
       containBaseUrl = true}) async {
     if (showAlert) Alert.showLoading();
-
     late Response response;
     try {
       if (id != null) url += '/$id';
@@ -96,10 +102,14 @@ class ApiServices {
       } else {
         url += '?storeName=$storeName';
       }
-      print(baseUrl + url);
+
       response = await _dio!.get(containBaseUrl ? baseUrl + url : url,
-          options: Options(headers: {"x-auth-token": tok, 'device': 'app'}));
-      print(response.data);
+          options: Options(
+            headers: {
+              "x-auth-token": tok,
+              'device': 'app',
+            },
+          ));
       return _processResponse(
           response: response,
           msg: checkKeyContain(response.data),

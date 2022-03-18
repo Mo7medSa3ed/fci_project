@@ -48,7 +48,7 @@ class Order {
       "state": Status.awaitingReview,
       "items": userProvider.cart.values
           .map<Map<String, dynamic>>((e) => {
-                '_id':e.id,
+                '_id': e.id,
                 'name': e.name,
                 'amount': e.cartAmount,
                 'price': e.price,
@@ -57,8 +57,10 @@ class Order {
           .toList(),
       "user": {
         "name": currantUser.name,
-        "tel": currantUser.phone,
-        "address": 'منيا القمح الشرقية',
+        "tel": currantUser.phone!.startsWith('0')
+            ? currantUser.phone
+            : '0' + currantUser.phone!,
+        "address": currantUser.address??'لا يوجد',
         "payment": 'كاش',
       },
       'storeName': storeName

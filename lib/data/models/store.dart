@@ -98,4 +98,12 @@ class Social {
         tiktok: json['tiktok'],
         id: json['_id'],
       );
+  Map toJson() => {
+        'insta': insta,
+        'twitter': twitter,
+        'fb': fb,
+        'yt': yt,
+        'snap': snap,
+        'tiktok': tiktok,
+      };
 }

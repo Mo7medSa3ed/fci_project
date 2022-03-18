@@ -13,9 +13,12 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class ProductCard extends StatelessWidget {
-  const ProductCard({required this.product, Key? key}) : super(key: key);
+  const ProductCard(
+      {required this.product, this.enableTabToCategory = false, Key? key})
+      : super(key: key);
 
   final Product product;
+  final bool enableTabToCategory;
   @override
   Widget build(BuildContext context) {
     return TextButton(
@@ -70,8 +73,10 @@ class ProductCard extends StatelessWidget {
                       children: [
                         Expanded(
                           child: InkWell(
-                            onTap: () => Nav.goToScrean(
-                                ProductsScrean(category: product.category!)),
+                            onTap: !enableTabToCategory
+                                ? null
+                                : () => Nav.goToScrean(ProductsScrean(
+                                    category: product.category!)),
                             child: PrimaryText(
                               text: '${product.category!.name} ',
                               color: kgrey,

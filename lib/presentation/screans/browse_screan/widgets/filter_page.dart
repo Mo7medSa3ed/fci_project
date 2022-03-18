@@ -61,7 +61,10 @@ class FilterPage extends StatelessWidget {
                   SizedBox(height: kpadding),
                   Expanded(
                       child: PrimaryFutureWidget<List<Category>>(
-                    future: _pro.getAllCategories(),
+                    future: Future.delayed(
+                        Duration.zero,
+                        () => List<Category>.generate(store.workOn!.length,
+                            (index) => store.workOn![index])),
                     beforeReturn: (data) {
                       _pro.initCategories(data);
                     },

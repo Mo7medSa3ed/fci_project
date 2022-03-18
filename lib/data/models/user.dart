@@ -53,7 +53,13 @@ class User {
     if (id != null && id!.isNotEmpty) json['_id'] = id;
     if (name != null && name!.isNotEmpty) json['name'] = name;
     if (email != null && email!.isNotEmpty) json['email'] = email;
-    if (phone != null && phone!.isNotEmpty) json['phone'] = phone;
+    if (phone != null && phone!.isNotEmpty) {
+      if (phone!.startsWith('0')) {
+        json['phone'] = phone;
+      } else {
+        json['phone'] = '0' + phone!;
+      }
+    }
     if (country != null && country!.isNotEmpty) json['country'] = country;
     if (address != null && address!.isNotEmpty) json['address'] = address;
     if (password != null && password!.isNotEmpty) json['password'] = password;

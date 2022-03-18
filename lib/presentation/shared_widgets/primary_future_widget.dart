@@ -23,6 +23,7 @@ class PrimaryFutureWidget<T> extends StatelessWidget {
           return data(snapshot.data!);
         }
         if (snapshot.hasError) {
+          print(snapshot.error);
           return PrimaryErrorWidget();
         }
         return Center(child: PrimaryLoading());

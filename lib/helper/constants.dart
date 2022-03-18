@@ -1,4 +1,5 @@
 import 'package:fci_project/data/models/user.dart';
+import 'package:fci_project/helper/alert_dialog.dart';
 import 'package:fci_project/helper/localstorage.dart';
 import 'package:fci_project/helper/navigator.dart';
 import 'package:fci_project/main.dart';
@@ -40,17 +41,25 @@ setStatusColor({color, isDark = false}) {
 }
 
 logout() async {
-  currantUser = User();
-  tok = '';
-  await LocalStorage.setString(user, '');
-  await LocalStorage.setString(token, '');
-  return Nav.goToScreanAndRemoveUntill(HomeScrean());
+  return Alert.showConfirmDialog(
+      title: 'تسجيل خروج',
+      desc: 'هل انت متأكد من تسجيل خروجك من التطبيق ؟',
+      onTap: () async {
+        currantUser = User();
+        tok = '';
+        isAuth = false;
+        await LocalStorage.setString(user, '');
+        await LocalStorage.setString(token, '');
+        return Nav.goToScreanAndRemoveUntill(HomeScrean());
+      });
 }
 
 List<Map> convertMapToList(Map data) {
   List<Map> convertedData = [];
   data.forEach((key, value) {
-    convertedData.add({key: value});
+    if (value.isNotEmpty && value != null) {
+      convertedData.add({key: value});
+    }
   });
   return convertedData;
 }

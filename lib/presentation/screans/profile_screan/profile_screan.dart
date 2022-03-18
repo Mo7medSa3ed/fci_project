@@ -1,6 +1,7 @@
 import 'package:fci_project/helper/constants.dart';
 import 'package:fci_project/helper/navigator.dart';
 import 'package:fci_project/main.dart';
+import 'package:fci_project/presentation/screans/about_us/about_us.dart';
 import 'package:fci_project/presentation/screans/orders/order_screan.dart';
 import 'package:fci_project/presentation/shared_widgets/card_item.dart';
 import 'package:fci_project/presentation/screans/register_screan/register_screan.dart';
@@ -62,7 +63,7 @@ class ProfileScrean extends StatelessWidget {
         BuildListCardForProfileScrean(
           title: 'عنا',
           image: PrimaryIcon(Icons.error_outline, color: kblack),
-          onTap: () {},
+          onTap: () => Nav.goToScrean(AboutUsScrean()),
         ),
         Divider(height: defultPadding),
         BuildListCardForProfileScrean(

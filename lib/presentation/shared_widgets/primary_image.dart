@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fci_project/presentation/shared_widgets/primary_error.dart';
 import 'package:fci_project/presentation/shared_widgets/primary_loading.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +15,7 @@ class PrimaryImage extends StatelessWidget {
       this.radius = 0.0,
       this.fit = BoxFit.cover,
       this.height,
-      this.borderRadius ,
+      this.borderRadius,
       Key? key})
       : super(key: key);
 
@@ -22,17 +23,17 @@ class PrimaryImage extends StatelessWidget {
   Widget build(BuildContext context) {
     if (url.contains('https')) {
       return ClipRRect(
-          borderRadius:borderRadius?? BorderRadius.circular(radius.toDouble()),
-          child: Image.network(
-            url,
+          borderRadius:
+              borderRadius ?? BorderRadius.circular(radius.toDouble()),
+          child: CachedNetworkImage(
+            imageUrl: url,
             fit: fit,
             height: height,
             width: height != null ? height! * 1.1 : height,
-            errorBuilder: (context, error, stackTrace) {
+            errorWidget: (context, error, stackTrace) {
               return PrimaryErrorWidget(iconRatiaSize: 2.5, hasText: false);
             },
-            loadingBuilder: (context, child, loadingProgress) {
-              if (loadingProgress == null) return child;
+            placeholder: (context, child) {
               return SizedBox(
                   height: height,
                   width: height != null ? height! * 1.1 : height,

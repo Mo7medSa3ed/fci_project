@@ -124,22 +124,14 @@ class MainScrean extends StatelessWidget {
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 1, childAspectRatio: 16 / 9),
                 itemBuilder: (context, index) {
-                  return ProductCard(product: data[index]);
+                  return ProductCard(
+                    product: data[index],
+                    enableTabToCategory: true,
+                  );
                 },
               ),
             )
           ],
         ));
-  }
-
-  Widget buildProductCarousel(List<Product> data) {
-    return SingleChildScrollView(
-      padding: EdgeInsets.symmetric(horizontal: kpadding),
-      scrollDirection: Axis.horizontal,
-      physics: BouncingScrollPhysics(),
-      child: Row(
-        children: (data).map((e) => ProductCard(product: e)).toList(),
-      ),
-    );
   }
 }
