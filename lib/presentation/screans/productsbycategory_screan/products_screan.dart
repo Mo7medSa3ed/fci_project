@@ -22,6 +22,7 @@ class ProductsScrean extends StatelessWidget {
       case 'mostOrderedProducts':
       case 'mostRatedProducts':
       case 'mostViewedProducts':
+      case 'mostLovedProducts':
         return productProvider.getProductsByTerm(type);
       default:
         return productProvider.searchProductByCategory(category.id!);

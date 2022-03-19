@@ -46,26 +46,26 @@ class ProfileScrean extends StatelessWidget {
           ],
         ),
         SizedBox(height: defultPadding),
-        Divider(height: defultPadding),
+        Divider(height: defultPadding / 2),
         BuildListCardForProfileScrean(
             title: 'تعديل حسابك',
             image: PrimaryIcon(Icons.edit_outlined, color: kblack),
             onTap: () => Nav.goToScrean(
                   RegisterScrean(edit: true),
                 )),
-        Divider(height: defultPadding),
+        Divider(height: defultPadding / 2),
         BuildListCardForProfileScrean(
           title: 'طلباتى',
           image: PrimaryIcon(Icons.shopping_bag_outlined, color: kblack),
           onTap: () => Nav.goToScrean(OrderScrean()),
         ),
-        Divider(height: defultPadding),
+        Divider(height: defultPadding / 2),
         BuildListCardForProfileScrean(
           title: 'عنا',
           image: PrimaryIcon(Icons.error_outline, color: kblack),
           onTap: () => Nav.goToScrean(AboutUsScrean()),
         ),
-        Divider(height: defultPadding),
+        Divider(height: 0),
         BuildListCardForProfileScrean(
           title: 'تسجيل خروج',
           image: PrimaryIcon(Icons.logout, color: kblack),

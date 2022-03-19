@@ -2,9 +2,11 @@ import 'package:fci_project/bussniss_logic/product_provider.dart';
 import 'package:fci_project/bussniss_logic/user_provider.dart';
 import 'package:fci_project/data/models/product.dart';
 import 'package:fci_project/helper/alert_dialog.dart';
+import 'package:fci_project/helper/navigator.dart';
 import 'package:fci_project/main.dart';
 import 'package:fci_project/presentation/screans/product_details_screan/widgets/expanantial_tile_widget.dart';
 import 'package:fci_project/presentation/screans/product_details_screan/widgets/product_carousel.dart';
+import 'package:fci_project/presentation/screans/productsbycategory_screan/products_screan.dart';
 import 'package:fci_project/presentation/shared_widgets/primary_appbar.dart';
 import 'package:fci_project/presentation/shared_widgets/primary_button.dart';
 import 'package:fci_project/presentation/shared_widgets/primary_icon_button.dart';
@@ -18,7 +20,6 @@ class ProductDetailsScrean extends StatelessWidget {
   const ProductDetailsScrean({required this.product, Key? key})
       : super(key: key);
   final Product product;
-  
 
   @override
   Widget build(BuildContext context) {
@@ -35,11 +36,6 @@ class ProductDetailsScrean extends StatelessWidget {
               fontSizeRatio: 1.2,
               fontWeight: FontWeight.bold,
             ),
-            subtitle: PrimaryText(
-              text: '${product.amount.available} قطع',
-              fontWeight: FontWeight.bold,
-              color: kgrey,
-            ),
             trailing:
                 Consumer<UserProvider>(builder: (context, userProvider, child) {
               bool isFav = userProvider.favProductsIds.contains(product.id);
@@ -52,6 +48,30 @@ class ProductDetailsScrean extends StatelessWidget {
                 await userProvider.addAndRemoveProductFavId(product.id);
               });
             }),
+          ),
+          SizedBox(height: defultPadding),
+          Row(
+            children: [
+              SizedBox(width: defultPadding),
+              Expanded(
+                child: PrimaryText(
+                  text: '${product.category!.name}',
+                  fontWeight: FontWeight.w500,
+                  color: kgrey,
+                  onTap: () => Nav.goToScrean(
+                      ProductsScrean(category: product.category!)),
+                ),
+              ),
+              Icon(Icons.store, size: 20, color: kprimary),
+              SizedBox(width: defultPadding / 2),
+              PrimaryText(
+                text: '${product.storeName}',
+                fontWeight: FontWeight.w500,
+                color: kgrey,
+                onTap: () {},
+              ),
+              SizedBox(width: defultPadding),
+            ],
           ),
           SizedBox(height: defultPadding * 2),
           ListTile(

@@ -5,12 +5,14 @@ class Home {
   List<Product> mostViewedProducts;
   List<Product> mostOrderedProducts;
   List<Product> mostRatedProducts;
+  List<Product> mostLovedProducts;
   List<Category> categories;
 
   Home({
     required this.mostOrderedProducts,
     required this.mostRatedProducts,
     required this.mostViewedProducts,
+    required this.mostLovedProducts,
     required this.categories,
   });
 
@@ -22,6 +24,9 @@ class Home {
           .map<Product>((e) => Product.fromJson(e))
           .toList(),
       mostViewedProducts: (json['mostViewedProducts'] ?? [])
+          .map<Product>((e) => Product.fromJson(e))
+          .toList(),
+      mostLovedProducts: (json['mostViewedProducts'] ?? [])
           .map<Product>((e) => Product.fromJson(e))
           .toList(),
       categories: (json['categories'] ?? [])

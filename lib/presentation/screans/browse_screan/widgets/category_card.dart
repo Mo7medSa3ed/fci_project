@@ -1,7 +1,6 @@
 import 'dart:math';
 
 import 'package:fci_project/data/models/category.dart';
-import 'package:fci_project/helper/constants.dart';
 import 'package:fci_project/helper/navigator.dart';
 import 'package:fci_project/main.dart';
 import 'package:fci_project/presentation/screans/productsbycategory_screan/products_screan.dart';

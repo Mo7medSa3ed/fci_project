@@ -42,9 +42,9 @@ class CategoriesSection extends StatelessWidget {
             scrollDirection: Axis.horizontal,
             itemCount: (categories).length,
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 1,
-              mainAxisExtent: kweidth * 0.7,
-            ),
+                crossAxisCount: 1,
+                mainAxisExtent: kweidth * 0.7,
+                mainAxisSpacing: 8.0),
             itemBuilder: (context, index) {
               return CategoryHomeCard(category: categories[index]);
             },

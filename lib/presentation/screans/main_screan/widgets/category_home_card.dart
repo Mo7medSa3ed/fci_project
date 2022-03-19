@@ -1,8 +1,9 @@
 import 'dart:math';
 
 import 'package:fci_project/data/models/category.dart';
-import 'package:fci_project/helper/constants.dart';
+import 'package:fci_project/helper/navigator.dart';
 import 'package:fci_project/main.dart';
+import 'package:fci_project/presentation/screans/productsbycategory_screan/products_screan.dart';
 import 'package:fci_project/presentation/shared_widgets/primary_text.dart';
 import 'package:fci_project/style/colors.dart';
 import 'package:flutter/material.dart';
@@ -14,14 +15,14 @@ class CategoryHomeCard extends StatelessWidget {
   Widget build(BuildContext context) {
     int length = Colors.primaries.length;
     final color = Colors.primaries[Random().nextInt(length)];
-    return Container(
-      alignment: Alignment.center,
-      padding: EdgeInsets.all(defultPadding / 2),
-      margin: EdgeInsets.all(4),
-      decoration: BoxDecoration(
-        color: color.withOpacity(0.15),
-        borderRadius: BorderRadius.circular(defultPadding),
-      ),
+    return TextButton(
+      onPressed: () => Nav.goToScrean(ProductsScrean(category: category)),
+      style: ButtonStyle(
+          shape: MaterialStateProperty.all(RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(defultPadding))),
+          backgroundColor: MaterialStateProperty.all(color.withOpacity(0.1)),
+          padding:
+              MaterialStateProperty.all(EdgeInsets.all(defultPadding / 2))),
       child: Row(
         mainAxisSize: MainAxisSize.max,
         crossAxisAlignment: CrossAxisAlignment.center,

@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:fci_project/bussniss_logic/store_provider.dart';
 import 'package:fci_project/bussniss_logic/user_provider.dart';
 import 'package:fci_project/data/models/user.dart';
 import 'package:fci_project/data/repositories/user_repository.dart';

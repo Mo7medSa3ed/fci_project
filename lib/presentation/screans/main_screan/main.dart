@@ -8,9 +8,6 @@ import 'package:fci_project/presentation/screans/main_screan/widgets/categories_
 import 'package:fci_project/presentation/screans/main_screan/widgets/product_section.dart';
 import 'package:fci_project/presentation/screans/productsbycategory_screan/products_screan.dart';
 import 'package:fci_project/presentation/shared_widgets/primary_future_widget.dart';
-import 'package:fci_project/presentation/shared_widgets/app_logo.dart';
-import 'package:fci_project/presentation/shared_widgets/primary_icon.dart';
-import 'package:fci_project/presentation/shared_widgets/primary_text.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -68,6 +65,13 @@ class MainScrean extends StatelessWidget {
                     onTap: () => Nav.goToScrean(ProductsScrean(
                         category: Category(), type: 'mostOrderedProducts')),
                     products: data.mostOrderedProducts),
+                SizedBox(height: defultPadding),
+                ProductSection(
+                    fText: "الأكثر اعجاباً",
+                    lText: "مشاهدة المزيد",
+                    onTap: () => Nav.goToScrean(ProductsScrean(
+                        category: Category(), type: 'mostLovedProducts')),
+                    products: data.mostLovedProducts),
               ],
             );
           },
