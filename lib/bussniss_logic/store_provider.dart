@@ -5,8 +5,8 @@ import 'package:flutter/foundation.dart';
 class StoreProvider extends ChangeNotifier {
   final _storeRepository = StoreRepository();
 
-  Future<Store> getStore() async {
-    final response = await _storeRepository.getStore();
+  Future<Store> getStore(String storeName) async {
+    final response = await _storeRepository.getStore(storeName);
     return Store.fromJson(response);
   }
 }

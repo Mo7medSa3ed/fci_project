@@ -27,7 +27,6 @@ late bool isWeb;
 late bool isAuth;
 late String tok;
 late User currantUser;
-late Store store;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

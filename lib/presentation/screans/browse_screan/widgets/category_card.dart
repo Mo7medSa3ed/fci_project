@@ -1,8 +1,11 @@
 import 'dart:math';
 
 import 'package:fci_project/data/models/category.dart';
+import 'package:fci_project/helper/constants.dart';
 import 'package:fci_project/helper/navigator.dart';
+import 'package:fci_project/main.dart';
 import 'package:fci_project/presentation/screans/productsbycategory_screan/products_screan.dart';
+import 'package:fci_project/presentation/shared_widgets/primary_image.dart';
 import 'package:fci_project/presentation/shared_widgets/primary_text.dart';
 import 'package:flutter/material.dart';
 
@@ -23,13 +26,26 @@ class CategoryCard extends StatelessWidget {
               side: BorderSide(color: color.withOpacity(0.8), width: 1.8),
               borderRadius: BorderRadius.circular(25))),
           backgroundColor: MaterialStateProperty.all(color.withOpacity(0.09))),
-      child: PrimaryText(
-        text: category.name,
-        fontWeight: FontWeight.w800,
-        textAlign: TextAlign.center,
-        overflow: TextOverflow.ellipsis,
-        maxlines: 2,
-        fontSizeRatio: 1,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Spacer(),
+          PrimaryImage(
+            url: category.img!,
+            height: kheight * 0.15,
+            fit: BoxFit.fill,
+          ),
+          Spacer(),
+          PrimaryText(
+            text: category.name,
+            fontWeight: FontWeight.w800,
+            textAlign: TextAlign.center,
+            overflow: TextOverflow.ellipsis,
+            maxlines: 2,
+            fontSizeRatio: 0.9,
+          ),
+          Spacer(),
+        ],
       ),
     );
   }

@@ -1,4 +1,5 @@
 import 'package:fci_project/bussniss_logic/product_provider.dart';
+import 'package:fci_project/data/models/category.dart';
 import 'package:fci_project/data/models/product.dart';
 import 'package:fci_project/main.dart';
 import 'package:fci_project/presentation/screans/browse_screan/widgets/category_card.dart';
@@ -82,22 +83,33 @@ class _BrowseScreanState extends State<BrowseScrean> {
 
   Widget _buildList() {
     if (_searchController.text.trim().isEmpty) {
-      if (store.workOn!.isEmpty) {
-        return Center(child: PrimaryText(text: 'لا يوجد تصنيفات'));
-      }
-      return GridView.builder(
-          padding: EdgeInsets.all(kpadding * 2),
-          physics: BouncingScrollPhysics(),
-          itemCount: store.workOn!.length,
-          keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            mainAxisExtent: 150,
-            crossAxisSpacing: kpadding * 2,
-            mainAxisSpacing: kpadding * 2,
-          ),
-          itemBuilder: (ctx, idx) {
-            return CategoryCard(category: store.workOn![idx]);
+      return PrimaryFutureWidget<List<Category>>(
+          future: _pro.getAllCategories(),
+          data: (data) {
+            if (data.isEmpty) {
+              return Center(child: PrimaryText(text: 'لا يوجد تصنيفات'));
+            }
+            if (_pro.saveCategoryListFilter.isNotEmpty) {
+              data = data
+                  .where((e) => _pro.saveCategoryListFilter.contains(e.id))
+                  .toList();
+            }
+
+            return GridView.builder(
+                padding: EdgeInsets.all(kpadding * 2),
+                physics: BouncingScrollPhysics(),
+                itemCount: data.length,
+                keyboardDismissBehavior:
+                    ScrollViewKeyboardDismissBehavior.onDrag,
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  mainAxisExtent: kheight * 0.25,
+                  crossAxisSpacing: kpadding * 2,
+                  mainAxisSpacing: kpadding * 2,
+                ),
+                itemBuilder: (ctx, idx) {
+                  return CategoryCard(category: data[idx]);
+                });
           });
     } else {
       return PrimaryFutureWidget<List<Product>>(

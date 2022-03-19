@@ -1,14 +1,13 @@
 import 'package:fci_project/bussniss_logic/home_provider.dart';
 import 'package:fci_project/data/models/category.dart';
 import 'package:fci_project/data/models/home.dart';
-import 'package:fci_project/data/models/product.dart';
 import 'package:fci_project/helper/constants.dart';
 import 'package:fci_project/helper/navigator.dart';
 import 'package:fci_project/main.dart';
-import 'package:fci_project/presentation/screans/main_screan/widgets/header_text.dart';
+import 'package:fci_project/presentation/screans/main_screan/widgets/categories_section.dart';
+import 'package:fci_project/presentation/screans/main_screan/widgets/product_section.dart';
 import 'package:fci_project/presentation/screans/productsbycategory_screan/products_screan.dart';
 import 'package:fci_project/presentation/shared_widgets/primary_future_widget.dart';
-import 'package:fci_project/presentation/shared_widgets/product_card.dart';
 import 'package:fci_project/presentation/shared_widgets/app_logo.dart';
 import 'package:fci_project/presentation/shared_widgets/primary_icon.dart';
 import 'package:fci_project/presentation/shared_widgets/primary_text.dart';
@@ -24,30 +23,6 @@ class MainScrean extends StatelessWidget {
       physics: const BouncingScrollPhysics(),
       padding: EdgeInsets.symmetric(vertical: kpadding / 2),
       children: [
-        AppLogo(ratio: 0.04),
-        SizedBox(height: defultPadding / 4),
-        Row(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            PrimaryIcon(
-              Icons.location_on,
-            ),
-            SizedBox(width: defultPadding / 4),
-            Flexible(
-              child: PrimaryText(
-                text: 'منيا القمح,الشرقية',
-                fontSizeRatio: 0.8,
-                textAlign: TextAlign.start,
-                fontWeight: FontWeight.w600,
-                maxlines: 1,
-                overflow: TextOverflow.ellipsis,
-              ),
-            ),
-          ],
-        ),
-        SizedBox(height: defultPadding / 2),
         SizedBox(height: defultPadding),
         Container(
           height: kheight * 0.2,
@@ -66,72 +41,38 @@ class MainScrean extends StatelessWidget {
             return Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                buildProductSection(
+                CategoriesSection(
+                  fText: "التصنيفات",
+                  lText: "مشاهدة المزيد",
+                  onTap: () => _pro.changeIndex(1),
+                  categories: data.categories,
+                ),
+                SizedBox(height: defultPadding),
+                ProductSection(
                     fText: "الاكثر مشاهدة",
                     lText: "مشاهدة المزيد",
                     onTap: () => Nav.goToScrean(ProductsScrean(
                         category: Category(), type: 'mostViewedProducts')),
-                    data: data.mostViewedProducts),
+                    products: data.mostViewedProducts),
                 SizedBox(height: defultPadding),
-                buildProductSection(
+                ProductSection(
                     fText: "الأعلى تقييماً",
                     lText: "مشاهدة المزيد",
                     onTap: () => Nav.goToScrean(ProductsScrean(
                         category: Category(), type: 'mostRatedProducts')),
-                    data: data.mostRatedProducts),
+                    products: data.mostRatedProducts),
                 SizedBox(height: defultPadding),
-                buildProductSection(
+                ProductSection(
                     fText: "الأكثر طلباً",
                     lText: "مشاهدة المزيد",
                     onTap: () => Nav.goToScrean(ProductsScrean(
                         category: Category(), type: 'mostOrderedProducts')),
-                    data: data.mostOrderedProducts),
+                    products: data.mostOrderedProducts),
               ],
             );
           },
         ),
       ],
     );
-  }
-
-  Widget buildProductSection({
-    @required fText,
-    @required lText,
-    @required onTap,
-    @required data,
-  }) {
-    return SizedBox(
-        height: kheight * 0.5,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: kpadding * 2),
-              child: HeaderText(
-                fText: fText ?? '',
-                lText: lText ?? '',
-                onTap: onTap,
-              ),
-            ),
-            SizedBox(height: defultPadding / 1.5),
-            Expanded(
-              child: GridView.builder(
-                physics: BouncingScrollPhysics(),
-                scrollDirection: Axis.horizontal,
-                itemCount: data.length,
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 1, childAspectRatio: 16 / 9),
-                itemBuilder: (context, index) {
-                  return ProductCard(
-                    product: data[index],
-                    enableTabToCategory: true,
-                  );
-                },
-              ),
-            )
-          ],
-        ));
   }
 }

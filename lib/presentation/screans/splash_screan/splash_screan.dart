@@ -34,10 +34,6 @@ class SplashScrean extends StatelessWidget {
       return Nav.goToScreanAndRemoveUntill(OnboardScrean());
     }
 
-    store =
-        await Provider.of<StoreProvider>(navKey.currentContext!, listen: false)
-            .getStore();
-
     final pro =
         Provider.of<UserProvider>(navKey.currentContext!, listen: false);
     try {

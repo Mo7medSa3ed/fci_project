@@ -97,11 +97,6 @@ class ApiServices {
     late Response response;
     try {
       if (id != null) url += '/$id';
-      if (url.contains('?')) {
-        url += '&&storeName=$storeName';
-      } else {
-        url += '?storeName=$storeName';
-      }
 
       response = await _dio!.get(containBaseUrl ? baseUrl + url : url,
           options: Options(
@@ -131,11 +126,6 @@ class ApiServices {
     late Response response;
     try {
       if (id != null) url += '/$id';
-      if (url.contains('?')) {
-        url += '&&storeName=$storeName';
-      } else {
-        url += '?storeName=$storeName';
-      }
 
       response = await _dio!.post('$baseUrl$url',
           data: data,
@@ -161,11 +151,6 @@ class ApiServices {
     late Response response;
     try {
       if (id != null) url += '/$id';
-      if (url.contains('?')) {
-        url += '&&storeName=$storeName';
-      } else {
-        url += '?storeName=$storeName';
-      }
 
       response = await _dio!.patch('$baseUrl$url',
           data: data,

@@ -53,6 +53,7 @@ class Order {
                 'amount': e.cartAmount,
                 'price': e.price,
                 'img': e.images!.first,
+                'storeName':e.storeName
               })
           .toList(),
       "user": {
@@ -63,7 +64,7 @@ class Order {
         "address": currantUser.address??'لا يوجد',
         "payment": 'كاش',
       },
-      'storeName': storeName
+ 
     };
     return data;
   }
