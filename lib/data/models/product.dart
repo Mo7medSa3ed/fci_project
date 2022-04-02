@@ -52,7 +52,7 @@ class Product {
         images: json['images'],
         ordered: json['ordered'],
         price: json['price'],
-        rating: json['rating'],
+        rating: (json['rating']??[]),
         storeName: json['storeName'],
         url: json['url'],
         views: json['views'],

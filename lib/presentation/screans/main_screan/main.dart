@@ -1,7 +1,6 @@
 import 'package:fci_project/bussniss_logic/home_provider.dart';
 import 'package:fci_project/data/models/category.dart';
 import 'package:fci_project/data/models/home.dart';
-import 'package:fci_project/helper/constants.dart';
 import 'package:fci_project/helper/navigator.dart';
 import 'package:fci_project/main.dart';
 import 'package:fci_project/presentation/screans/main_screan/widgets/categories_section.dart';
@@ -27,7 +26,7 @@ class MainScrean extends StatelessWidget {
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
               image: DecorationImage(
-                image: NetworkImage(randomImagesUrl),
+                image: AssetImage('assets/images/offer_ramadan.jpg'),
                 fit: BoxFit.fill,
               )),
         ),
@@ -41,13 +40,14 @@ class MainScrean extends StatelessWidget {
                 CategoriesSection(
                   fText: "التصنيفات",
                   lText: "مشاهدة المزيد",
-                  onTap: () => _pro.changeIndex(1),
+                  onTap: () => _pro.changeIndexForHome(1),
                   categories: data.categories,
                 ),
                 SizedBox(height: defultPadding),
                 ProductSection(
                     fText: "الاكثر مشاهدة",
                     lText: "مشاهدة المزيد",
+                    type: 'mostViewedProducts',
                     onTap: () => Nav.goToScrean(ProductsScrean(
                         category: Category(), type: 'mostViewedProducts')),
                     products: data.mostViewedProducts),
@@ -55,6 +55,7 @@ class MainScrean extends StatelessWidget {
                 ProductSection(
                     fText: "الأعلى تقييماً",
                     lText: "مشاهدة المزيد",
+                    type: 'mostRatedProducts',
                     onTap: () => Nav.goToScrean(ProductsScrean(
                         category: Category(), type: 'mostRatedProducts')),
                     products: data.mostRatedProducts),
@@ -62,6 +63,8 @@ class MainScrean extends StatelessWidget {
                 ProductSection(
                     fText: "الأكثر طلباً",
                     lText: "مشاهدة المزيد",
+                    type: 'mostOrderedProducts',
+
                     onTap: () => Nav.goToScrean(ProductsScrean(
                         category: Category(), type: 'mostOrderedProducts')),
                     products: data.mostOrderedProducts),
@@ -69,6 +72,7 @@ class MainScrean extends StatelessWidget {
                 ProductSection(
                     fText: "الأكثر اعجاباً",
                     lText: "مشاهدة المزيد",
+                    type: 'mostLovedProducts',
                     onTap: () => Nav.goToScrean(ProductsScrean(
                         category: Category(), type: 'mostLovedProducts')),
                     products: data.mostLovedProducts),

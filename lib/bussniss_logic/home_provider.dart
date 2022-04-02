@@ -6,14 +6,20 @@ import 'package:flutter/foundation.dart';
 
 class HomeProvider extends ChangeNotifier {
   int currantIndex = 0;
+  int currantIndexForCarousel = 0;
 
   final _homeRepository = HomeRepository();
 
-  changeIndex(int index) {
+  changeIndexForHome(int index) {
     currantIndex = index;
     if (!isAuth && index > 2) {
       return Alert.showAuthAlert();
     }
+    notifyListeners();
+  }
+
+  changeIndexForCarousel(int index) {
+    currantIndexForCarousel = index;
     notifyListeners();
   }
 

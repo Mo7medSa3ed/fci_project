@@ -49,10 +49,9 @@ class SplashScrean extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    setStatusColor(color: kprimary, isDark: false);
+    setStatusColor(color: kwhite, isDark: false);
     initAndRoutePage();
     return Scaffold(
-      backgroundColor: kprimary,
       body: Center(child: SplashLogo()),
     );
   }

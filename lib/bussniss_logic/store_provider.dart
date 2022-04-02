@@ -7,6 +7,7 @@ class StoreProvider extends ChangeNotifier {
 
   Future<Store> getStore(String storeName) async {
     final response = await _storeRepository.getStore(storeName);
-    return Store.fromJson(response);
+    
+    return Store.fromJson(response['store'] , response['products']);
   }
 }

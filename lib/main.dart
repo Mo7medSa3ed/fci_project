@@ -63,7 +63,7 @@ class MyApp extends StatelessWidget {
         return GestureDetector(
           onTap: () => FocusScope.of(ctx).requestFocus(FocusNode()),
           child: MaterialApp(
-            title: 'Shoppy',
+            title: 'السوق اللإلكترونى',
             navigatorKey: navKey,
             debugShowCheckedModeBanner: false,
             theme: ThemeData(

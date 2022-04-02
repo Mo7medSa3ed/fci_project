@@ -7,13 +7,15 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class ProductCarousel extends StatelessWidget {
-  const ProductCarousel(this.imageList, this.id, {Key? key}) : super(key: key);
+  const ProductCarousel(this.imageList, this.id, this.uniqueId, {Key? key})
+      : super(key: key);
   final List<dynamic> imageList;
   final String id;
+  final String uniqueId;
 
   @override
   Widget build(BuildContext context) {
-    final _pageController = PageController(initialPage: imageList.length - 1);
+    final _pageController = PageController(initialPage: 0);
     return Container(
       padding: EdgeInsets.all(defultPadding),
       decoration: BoxDecoration(
@@ -24,7 +26,7 @@ class ProductCarousel extends StatelessWidget {
           )),
       height: kheight * 0.45,
       child: Hero(
-        tag: ObjectKey(id),
+        tag: ObjectKey(uniqueId),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -44,7 +46,7 @@ class ProductCarousel extends StatelessWidget {
                     physics: BouncingScrollPhysics(),
                     onPageChanged:
                         Provider.of<HomeProvider>(context, listen: false)
-                            .changeIndex,
+                            .changeIndexForCarousel,
                     itemBuilder: (ctx, i) => Container(
                       margin: EdgeInsets.symmetric(horizontal: kpadding),
                       child: PrimaryImage(
@@ -58,7 +60,8 @@ class ProductCarousel extends StatelessWidget {
                 Positioned(
                   bottom: 0,
                   child: Selector<HomeProvider, int>(
-                    selector: (_, homeProvider) => homeProvider.currantIndex,
+                    selector: (_, homeProvider) =>
+                        homeProvider.currantIndexForCarousel,
                     builder: (_, currantIndex, c) => Row(
                       children: List.generate(
                         imageList.length,
@@ -81,7 +84,8 @@ class ProductCarousel extends StatelessWidget {
                     top: 0,
                     bottom: 50,
                     child: Selector<HomeProvider, int>(
-                      selector: (_, homeProvider) => homeProvider.currantIndex,
+                      selector: (_, homeProvider) =>
+                          homeProvider.currantIndexForCarousel,
                       builder: (_, currantIndex, c) => PrimaryIconButton(
                         Icons.arrow_forward_ios,
                         onTap: currantIndex == imageList.length - 1
@@ -98,7 +102,8 @@ class ProductCarousel extends StatelessWidget {
                   bottom: 50,
                   top: 0,
                   child: Selector<HomeProvider, int>(
-                      selector: (_, homeProvider) => homeProvider.currantIndex,
+                      selector: (_, homeProvider) =>
+                          homeProvider.currantIndexForCarousel,
                       builder: (_, currantIndex, c) => PrimaryIconButton(
                             Icons.arrow_back_ios,
                             onTap: currantIndex == 0

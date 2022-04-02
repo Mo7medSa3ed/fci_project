@@ -15,6 +15,7 @@ class PrimaryInputField extends StatefulWidget {
     this.validator,
     this.onSaved,
     this.controller,
+    this.maxLines,
     this.max,
     this.headerText,
     this.keyboardType = TextInputType.text,
@@ -30,6 +31,7 @@ class PrimaryInputField extends StatefulWidget {
   final TextEditingController? controller;
   final TextInputType? keyboardType;
   final int? max;
+  final int? maxLines;
 
   @override
   State<PrimaryInputField> createState() => _PrimaryInputFieldState();
@@ -56,6 +58,7 @@ class _PrimaryInputFieldState extends State<PrimaryInputField> {
           onSaved: widget.onSaved,
           obscureText: showPass,
           maxLength: widget.max,
+          maxLines: widget.maxLines,
           maxLengthEnforcement: MaxLengthEnforcement.enforced,
           autovalidateMode: AutovalidateMode.onUserInteraction,
           keyboardType: widget.keyboardType,

@@ -53,7 +53,7 @@ class SuccessOrder extends StatelessWidget {
                         }),
                     SizedBox(height: defultPadding),
                     PrimaryButton(
-                        text: 'الرجوع للرئيسئة',
+                        text: 'الرجوع للرئيسية',
                         outline: true,
                         onTap: () =>
                             Nav.goToScreanAndRemoveUntill(HomeScrean()))

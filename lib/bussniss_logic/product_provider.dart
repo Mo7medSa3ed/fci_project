@@ -63,8 +63,12 @@ class ProductProvider extends ChangeNotifier {
   }
 
   Future<Map<String, dynamic>> rateProduct(
-      String productId, double rate) async {
-    Map<String, dynamic> data = {'userId': currantUser.id, 'rate': rate};
+      String productId, double rate, String comment) async {
+    Map<String, dynamic> data = {
+      'userId': currantUser.id,
+      'rate': rate,
+      'comment': comment
+    };
     final json = await _productRepository.rateProduct(productId, data);
     return json;
   }
@@ -78,6 +82,7 @@ class ProductProvider extends ChangeNotifier {
     final json = await _productRepository.searchProductByCategory(term);
     return json['products'].map<Product>((e) => Product.fromJson(e)).toList();
   }
+
   Future<List<Product>> getProductsByTerm(String term) async {
     final json = await _productRepository.getProductsByTerm(term);
     return json.map<Product>((e) => Product.fromJson(e)).toList();

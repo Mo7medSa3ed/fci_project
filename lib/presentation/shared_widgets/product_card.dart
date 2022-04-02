@@ -1,4 +1,3 @@
-import 'dart:math';
 import 'package:fci_project/bussniss_logic/user_provider.dart';
 import 'package:fci_project/data/models/product.dart';
 import 'package:fci_project/helper/navigator.dart';
@@ -12,17 +11,32 @@ import 'package:fci_project/style/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class ProductCard extends StatelessWidget {
+class ProductCard extends StatefulWidget {
   const ProductCard(
-      {required this.product, this.enableTabToCategory = false, Key? key})
+      {required this.product,
+      required this.uniqueId,
+      this.enableTabToCategory = false,
+      Key? key})
       : super(key: key);
 
   final Product product;
   final bool enableTabToCategory;
+  final String uniqueId;
+
+  @override
+  State<ProductCard> createState() => _ProductCardState();
+}
+
+class _ProductCardState extends State<ProductCard> {
   @override
   Widget build(BuildContext context) {
     return TextButton(
-      onPressed: () => Nav.goToScrean(ProductDetailsScrean(product: product)),
+      onPressed: () async {
+        await Nav.goToScrean(ProductDetailsScrean(
+          product: widget.product,
+          uniqueId: widget.uniqueId,
+        )).then((val) => setState(() {}));
+      },
       style: ButtonStyle(
         padding: MaterialStateProperty.all(EdgeInsets.zero),
         shape: MaterialStateProperty.all(
@@ -40,14 +54,15 @@ class ProductCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Hero(
-              tag: ObjectKey(product.id),
+              tag: ObjectKey(widget.uniqueId),
               child: PrimaryImage(
                 borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(15.0),
                     topRight: Radius.circular(15.0)),
                 height: kheight * 0.28,
                 fit: BoxFit.fill,
-                url: product.images![Random().nextInt(product.images!.length)],
+                // url: product.images![Random().nextInt(product.images!.length)],
+                url: widget.product.images!.first ?? '',
                 radius: 15,
               ),
             ),
@@ -61,7 +76,7 @@ class ProductCard extends StatelessWidget {
                   children: [
                     Spacer(),
                     PrimaryText(
-                      text: product.name,
+                      text: widget.product.name,
                       color: kblack,
                       fontWeight: FontWeight.bold,
                       fontSizeRatio: 0.8,
@@ -73,12 +88,12 @@ class ProductCard extends StatelessWidget {
                       children: [
                         Expanded(
                           child: InkWell(
-                            onTap: !enableTabToCategory
+                            onTap: !widget.enableTabToCategory
                                 ? null
                                 : () => Nav.goToScrean(ProductsScrean(
-                                    category: product.category!)),
+                                    category: widget.product.category!)),
                             child: PrimaryText(
-                              text: '${product.category!.name} ',
+                              text: '${widget.product.category!.name} ',
                               color: kgrey,
                               fontSizeRatio: 0.8,
                               maxlines: 1,
@@ -90,14 +105,16 @@ class ProductCard extends StatelessWidget {
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             PrimaryText(
-                              text: product.rate.toString(),
+                              text: widget.product.rate.toString(),
                               color: kgrey,
                               fontSizeRatio: 0.8,
                             ),
                             Icon(
                               Icons.star,
                               size: 15,
-                              color: product.rate! > 0 ? Colors.amber : kgrey,
+                              color: widget.product.rate! > 0
+                                  ? Colors.amber
+                                  : kgrey,
                             ),
                           ],
                         )
@@ -108,7 +125,7 @@ class ProductCard extends StatelessWidget {
                       children: [
                         Expanded(
                           child: PrimaryText(
-                            text: '${product.price}' ' ' 'ج م',
+                            text: '${widget.product.price}' ' ' 'ج م',
                             color: kblack,
                             fontWeight: FontWeight.bold,
                             fontSizeRatio: 0.9,
@@ -120,17 +137,18 @@ class ProductCard extends StatelessWidget {
                           builder: (context, userProvider, child) {
                             return PrimaryRoundButton(
                               child: Icon(
-                                  userProvider.isExistInCart(product.id)
+                                  userProvider.isExistInCart(widget.product.id)
                                       ? Icons.done
                                       : Icons.add,
                                   color: kwhite),
                               bgColor: kprimary,
                               borderColor: kprimary,
                               overlayColor: kwhite.withOpacity(0.4),
-                              onTap: userProvider.isExistInCart(product.id)
+                              onTap: userProvider
+                                      .isExistInCart(widget.product.id)
                                   ? null
                                   : () async {
-                                      userProvider.addToCart(product);
+                                      userProvider.addToCart(widget.product);
                                     },
                             );
                           },

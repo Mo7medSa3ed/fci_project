@@ -9,11 +9,12 @@ import 'package:fci_project/style/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-// const String baseUrl = 'https://fci-proj.herokuapp.com/api';
-const String baseUrl = 'http://192.168.1.5:3000/api';
+const String baseUrl = 'https://fci-proj.herokuapp.com/api';
+// const String baseUrl = 'http://192.168.1.5:3000/api';
 const String randomImagesUrl = 'https://placeimg.com/800/480/tech';
 // Error Messages
 const generalErrorMsg = 'حدث خطأ ما. برجاء المحاولة لاحقا';
+
 const serverNotResponsedErrorMsg = 'API not responded in time';
 const noInternetErrorMsg = 'No Internet Connection !!';
 const validateError = 'Error in api!!';

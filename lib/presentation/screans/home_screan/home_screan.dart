@@ -11,9 +11,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class HomeScrean extends StatelessWidget {
-  const HomeScrean({Key? key}) : super(key: key);
+  HomeScrean({Key? key}) : super(key: key);
 
-  final List<Map<String, dynamic>> screanList = const [
+  final List<Map<String, dynamic>> screanList = [
     {"screan": MainScrean(), 'title': 'الرئيسية'},
     {"screan": BrowseScrean(), 'title': 'ابحث عن المنتجات'},
     {"screan": CartScrean(), 'title': 'عربة التسوق'},

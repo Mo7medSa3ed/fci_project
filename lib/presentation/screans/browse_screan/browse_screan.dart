@@ -44,7 +44,13 @@ class _BrowseScreanState extends State<BrowseScrean> {
                 child: PrimarySearchWidget(
                   controller: _searchController,
                   margin: 0,
-                  onSearchPressed: _searchController.text.trim().isEmpty
+                  onClosePressed: _searchController.text.trim().isEmpty
+                      ? null
+                      : () {
+                          _searchController.clear();
+                          setState(() {});
+                        },
+                  onSearchPressed: _searchController.text.trim().length < 3
                       ? null
                       : () => setState,
                   onChange: (String val) {
@@ -52,7 +58,9 @@ class _BrowseScreanState extends State<BrowseScrean> {
                   },
                 ),
               ),
-              if (_searchController.text.isNotEmpty) ...[
+              if (_searchController.text.trim().length < 3)
+                SizedBox(width: defultPadding),
+              if (_searchController.text.trim().length > 2) ...[
                 PrimaryIconButton(
                   Icons.filter_alt,
                   onTap: () {
@@ -82,7 +90,7 @@ class _BrowseScreanState extends State<BrowseScrean> {
   }
 
   Widget _buildList() {
-    if (_searchController.text.trim().isEmpty) {
+    if (_searchController.text.trim().length < 3) {
       return PrimaryFutureWidget<List<Category>>(
           future: _pro.getAllCategories(),
           data: (data) {
@@ -137,7 +145,7 @@ class _BrowseScreanState extends State<BrowseScrean> {
                   mainAxisSpacing: kpadding * 2,
                 ),
                 itemBuilder: (ctx, idx) {
-                  return ProductCard(product: data[idx]);
+                  return ProductCard(product: data[idx] , uniqueId: 'Browse$idx',);
                 });
           });
     }

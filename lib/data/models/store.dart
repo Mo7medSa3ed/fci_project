@@ -1,4 +1,5 @@
 import 'package:fci_project/data/models/category.dart';
+import 'package:fci_project/data/models/product.dart';
 
 class Store {
   String? id;
@@ -8,6 +9,7 @@ class Store {
   Contacts? contacts;
   OtherLinks? otherLinks;
   Social? social;
+  List<Product>? products;
 
   Store(
       {this.id,
@@ -15,10 +17,11 @@ class Store {
       this.createdAt,
       this.desc,
       this.otherLinks,
+      this.products,
       this.social,
       this.workOn});
 
-  factory Store.fromJson(Map json) => Store(
+  factory Store.fromJson(Map json, List storeProducts) => Store(
         id: json['_id'],
         contacts: Contacts.fromJson(json['contacts']),
         createdAt: json['createdAt'],
@@ -28,6 +31,8 @@ class Store {
         workOn: (json['workOn'] ?? [])
             .map<Category>((e) => Category.fromJson(e))
             .toList(),
+        products:
+            storeProducts.map<Product>((e) => Product.fromJson(e)).toList(),
       );
 }
 

@@ -1,4 +1,4 @@
-package com.example.fci_project
+package com.mo7med.fci_project
 
 import io.flutter.embedding.android.FlutterActivity
 

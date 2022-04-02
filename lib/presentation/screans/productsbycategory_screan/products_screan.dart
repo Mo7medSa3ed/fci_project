@@ -11,11 +11,13 @@ import 'package:fci_project/style/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+// ignore: must_be_immutable
 class ProductsScrean extends StatelessWidget {
-  const ProductsScrean({required this.category, this.type = '', Key? key})
+  ProductsScrean({this.category, this.products, this.type = '', Key? key})
       : super(key: key);
-  final Category category;
+  final Category? category;
   final String type;
+  List<Product>? products;
 
   Future<List<Product>> switchApiFunction(ProductProvider productProvider) {
     switch (type) {
@@ -24,8 +26,10 @@ class ProductsScrean extends StatelessWidget {
       case 'mostViewedProducts':
       case 'mostLovedProducts':
         return productProvider.getProductsByTerm(type);
+      case 'AllProducts':
+        return Future.value(products);
       default:
-        return productProvider.searchProductByCategory(category.id!);
+        return productProvider.searchProductByCategory(category!.id!);
     }
   }
 
@@ -37,8 +41,10 @@ class ProductsScrean extends StatelessWidget {
         return 'الأكثر تقييماً';
       case 'mostViewedProducts':
         return 'الاعلى مشاهدة';
+      case 'AllProducts':
+        return 'جميع المنتجات';
       default:
-        return category.name!;
+        return category!.name!;
     }
   }
 
@@ -80,8 +86,10 @@ class ProductsScrean extends StatelessWidget {
                       crossAxisSpacing: kpadding,
                       mainAxisSpacing: kpadding,
                     ),
-                    itemBuilder: (ctx, idx) =>
-                        ProductCard(product: products[idx]));
+                    itemBuilder: (ctx, idx) => ProductCard(
+                          product: products[idx],
+                          uniqueId: '$type$idx',
+                        ));
               }),
         ));
   }

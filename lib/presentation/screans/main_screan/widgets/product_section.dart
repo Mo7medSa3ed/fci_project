@@ -6,10 +6,11 @@ import 'package:flutter/material.dart';
 
 class ProductSection extends StatelessWidget {
   const ProductSection(
-      {this.fText='', this.lText='', this.onTap, this.products, Key? key})
+      {this.fText='', this.lText='', this.onTap, required this.type, this.products, Key? key})
       : super(key: key);
   final String fText;
   final String lText;
+  final String type;
   final VoidCallback? onTap;
   final List<Product>? products ;
   @override
@@ -41,6 +42,7 @@ class ProductSection extends StatelessWidget {
                   return ProductCard(
                     product: products![index],
                     enableTabToCategory: true,
+                    uniqueId: '$type$index',
                   );
                 },
               ),

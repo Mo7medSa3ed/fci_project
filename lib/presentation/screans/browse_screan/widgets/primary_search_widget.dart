@@ -10,11 +10,13 @@ class PrimarySearchWidget extends StatelessWidget {
     this.controller,
     this.margin,
     this.onSearchPressed,
+    this.onClosePressed,
   }) : super(key: key);
 
   final double? margin;
   final Function? onChange;
   final VoidCallback? onSearchPressed;
+  final VoidCallback? onClosePressed;
   final TextEditingController? controller;
 
   @override
@@ -31,11 +33,15 @@ class PrimarySearchWidget extends StatelessWidget {
         decoration: InputDecoration(
           border: InputBorder.none,
           enabledBorder: InputBorder.none,
-          hintText: 'ابحث هنا ...',
+          hintText: ' ابحث هنا على الأقل 3 حروف  ...',
           counterText: '',
           prefixIcon: IconButton(
             icon: const PrimaryIcon(Icons.search),
             onPressed: onSearchPressed ?? () {},
+          ),
+          suffixIcon: IconButton(
+            icon: const PrimaryIcon(Icons.close),
+            onPressed: onClosePressed,
           ),
         ),
       ),

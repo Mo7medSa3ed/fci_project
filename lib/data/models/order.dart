@@ -52,7 +52,7 @@ class Order {
                 'amount': e.cartAmount,
                 'price': e.price,
                 'img': e.images!.first,
-                'storeName':e.storeName
+                'storeName': e.storeName
               })
           .toList(),
       "user": {
@@ -60,10 +60,9 @@ class Order {
         "tel": currantUser.phone!.startsWith('0')
             ? currantUser.phone
             : '0' + currantUser.phone!,
-        "address": currantUser.address??'لا يوجد',
+        "address": currantUser.address ?? 'لا يوجد',
         "payment": 'كاش',
       },
- 
     };
     return data;
   }

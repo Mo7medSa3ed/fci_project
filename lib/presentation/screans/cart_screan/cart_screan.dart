@@ -9,6 +9,7 @@ import 'package:fci_project/presentation/screans/register_screan/widgets/click_t
 import 'package:fci_project/presentation/shared_widgets/primary_button.dart';
 import 'package:fci_project/presentation/shared_widgets/primary_future_widget.dart';
 import 'package:fci_project/presentation/shared_widgets/primary_icon_button.dart';
+import 'package:fci_project/presentation/shared_widgets/primary_inputfield.dart';
 import 'package:fci_project/presentation/shared_widgets/primary_text.dart';
 import 'package:fci_project/presentation/shared_widgets/success_order_dialog.dart';
 import 'package:fci_project/style/colors.dart';
@@ -68,6 +69,7 @@ class CartScrean extends StatelessWidget {
       context, double total, UserProvider userProvider) async {
     return await showModalBottomSheet(
       context: context,
+      isScrollControlled: true,
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
         topLeft: Radius.circular(25),
@@ -76,10 +78,8 @@ class CartScrean extends StatelessWidget {
       builder: (context) {
         return Container(
           padding: EdgeInsets.all(defultPadding),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            mainAxisAlignment: MainAxisAlignment.start,
+          child: ListView(
+            shrinkWrap: true,
             children: [
               Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
                 const PrimaryText(

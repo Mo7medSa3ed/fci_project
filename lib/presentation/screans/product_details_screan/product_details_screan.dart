@@ -1,89 +1,125 @@
 import 'package:fci_project/bussniss_logic/product_provider.dart';
 import 'package:fci_project/bussniss_logic/user_provider.dart';
 import 'package:fci_project/data/models/product.dart';
+import 'package:fci_project/data/models/store.dart';
 import 'package:fci_project/helper/alert_dialog.dart';
 import 'package:fci_project/helper/navigator.dart';
 import 'package:fci_project/main.dart';
+import 'package:fci_project/presentation/screans/product_details_screan/widgets/comment_widget.dart';
 import 'package:fci_project/presentation/screans/product_details_screan/widgets/expanantial_tile_widget.dart';
 import 'package:fci_project/presentation/screans/product_details_screan/widgets/product_carousel.dart';
 import 'package:fci_project/presentation/screans/productsbycategory_screan/products_screan.dart';
+import 'package:fci_project/presentation/screans/store_Screan/store_screan.dart';
 import 'package:fci_project/presentation/shared_widgets/primary_appbar.dart';
 import 'package:fci_project/presentation/shared_widgets/primary_button.dart';
 import 'package:fci_project/presentation/shared_widgets/primary_icon_button.dart';
+import 'package:fci_project/presentation/shared_widgets/primary_inputfield.dart';
 import 'package:fci_project/presentation/shared_widgets/primary_text.dart';
 import 'package:fci_project/style/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:provider/provider.dart';
 
-class ProductDetailsScrean extends StatelessWidget {
-  const ProductDetailsScrean({required this.product, Key? key})
+class ProductDetailsScrean extends StatefulWidget {
+  const ProductDetailsScrean(
+      {required this.product, required this.uniqueId, Key? key})
       : super(key: key);
   final Product product;
+  final String uniqueId;
+
+  @override
+  State<ProductDetailsScrean> createState() => _ProductDetailsScreanState();
+}
+
+class _ProductDetailsScreanState extends State<ProductDetailsScrean> {
+  final _commentController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
+  late ProductProvider pro;
+  double rate = 1;
+
+  @override
+  void initState() {
+    pro = Provider.of<ProductProvider>(context, listen: false);
+    pro.getOneProduct(widget.product.id).then((value) {
+      if (widget.product.desc == null || (value.rating ?? []).isEmpty) {
+        widget.product.desc = value.desc;
+        widget.product.rating = value.rating ?? [];
+        setState(() {});
+      }
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    final pro = Provider.of<ProductProvider>(context, listen: false);
-    double rate = 1;
     return Scaffold(
       appBar: PrimaryAppBar(),
       body: ListView(
         children: [
-          ProductCarousel(product.images ?? [], product.id!),
+          ProductCarousel(
+              widget.product.images ?? [], widget.product.id!, widget.uniqueId),
           ListTile(
             title: PrimaryText(
-              text: product.name,
+              text: widget.product.name,
               fontSizeRatio: 1.2,
               fontWeight: FontWeight.bold,
             ),
             trailing:
                 Consumer<UserProvider>(builder: (context, userProvider, child) {
-              bool isFav = userProvider.favProductsIds.contains(product.id);
+              bool isFav =
+                  userProvider.favProductsIds.contains(widget.product.id);
               return PrimaryIconButton(
                   isFav ? Icons.favorite : Icons.favorite_border,
                   color: isFav ? kred : null, onTap: () async {
                 if (!isAuth) {
                   return Alert.showAuthAlert();
                 }
-                await userProvider.addAndRemoveProductFavId(product.id);
+                await userProvider.addAndRemoveProductFavId(widget.product.id);
               });
             }),
           ),
           SizedBox(height: defultPadding),
-          Row(
-            children: [
-              SizedBox(width: defultPadding),
-              Expanded(
-                child: PrimaryText(
-                  text: '${product.category!.name}',
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: defultPadding * 1.1),
+            child: Wrap(
+              runSpacing: defultPadding / 2,
+              alignment: WrapAlignment.spaceBetween,
+              children: [
+                PrimaryText(
+                  text: '${widget.product.category!.name}',
                   fontWeight: FontWeight.w500,
                   color: kgrey,
                   onTap: () => Nav.goToScrean(
-                      ProductsScrean(category: product.category!)),
+                      ProductsScrean(category: widget.product.category!)),
                 ),
-              ),
-              Icon(Icons.store, size: 20, color: kprimary),
-              SizedBox(width: defultPadding / 2),
-              PrimaryText(
-                text: '${product.storeName}',
-                fontWeight: FontWeight.w500,
-                color: kgrey,
-                onTap: () {},
-              ),
-              SizedBox(width: defultPadding),
-            ],
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Icon(Icons.store, size: 20, color: kprimary),
+                    SizedBox(width: defultPadding / 2),
+                    PrimaryText(
+                      text: '${widget.product.storeName}',
+                      fontWeight: FontWeight.w500,
+                      color: kgrey,
+                      onTap: () => Nav.goToScrean(StoreDetailsScrean(
+                          storeName: widget.product.storeName!)),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
           SizedBox(height: defultPadding * 2),
           ListTile(
             trailing: PrimaryText(
-              text: '${product.price} ج م',
+              text: '${widget.product.price} ج م',
               fontSizeRatio: 1.2,
               fontWeight: FontWeight.bold,
             ),
             title: StatefulBuilder(
               builder: (context, setState) {
-                int totalAmount = product.amount.available.toInt();
-                int cartAmount = product.cartAmount;
+                int totalAmount = widget.product.amount.available.toInt();
+                int cartAmount = widget.product.cartAmount;
 
                 return Row(
                   children: [
@@ -95,7 +131,7 @@ class ProductDetailsScrean extends StatelessWidget {
                           ? null
                           : () {
                               if (cartAmount < totalAmount) {
-                                product.cartAmount++;
+                                widget.product.cartAmount++;
                                 setState(() {});
                               }
                             },
@@ -111,7 +147,7 @@ class ProductDetailsScrean extends StatelessWidget {
                           borderRadius: BorderRadius.circular(15),
                           border: Border.all(width: 2, color: kwgrey)),
                       child: PrimaryText(
-                        text: '${product.cartAmount}',
+                        text: '${widget.product.cartAmount}',
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -121,7 +157,7 @@ class ProductDetailsScrean extends StatelessWidget {
                         onTap: cartAmount > 1
                             ? () {
                                 if (cartAmount > 1) {
-                                  product.cartAmount--;
+                                  widget.product.cartAmount--;
                                   setState(() {});
                                 }
                               }
@@ -132,17 +168,11 @@ class ProductDetailsScrean extends StatelessWidget {
             ),
           ),
           SizedBox(height: defultPadding),
-          StatefulBuilder(builder: (context, setState) {
-            pro.getOneProduct(product.id).then((value) {
-              if (product.desc == null) {
-                product.desc = value.desc;
-                setState(() {});
-              }
-            });
+          StatefulBuilder(builder: (_, setState) {
             return CustomExpanantialTile(
                 isExpand: true,
                 title: 'تفاصيل المنتج',
-                children: [product.desc ?? ""]);
+                children: [widget.product.desc ?? ""]);
           }),
           SizedBox(height: defultPadding),
           StatefulBuilder(builder: (context, setState) {
@@ -151,7 +181,7 @@ class ProductDetailsScrean extends StatelessWidget {
               rate: Directionality(
                 textDirection: TextDirection.ltr,
                 child: RatingBarIndicator(
-                  rating: product.rate!.toDouble(),
+                  rating: widget.product.rate!.toDouble(),
                   itemBuilder: (context, index) =>
                       Icon(Icons.star, color: Colors.amber),
                   itemCount: 5,
@@ -160,7 +190,21 @@ class ProductDetailsScrean extends StatelessWidget {
                 ),
               ),
               childrenWidget: [
+                ...(widget.product.rating ?? [])
+                    .map<Widget>((e) => CommentItem(data: e))
+                    .toList(),
                 SizedBox(height: defultPadding),
+                Form(
+                  key: _formKey,
+                  child: PrimaryInputField(
+                    hintText: 'اكتب تعليقك ...',
+                    controller: _commentController,
+                    headerText: 'تعليقك',
+                    hasTextHeader: false,
+                    maxLines: 2,
+                  ),
+                ),
+                SizedBox(height: defultPadding * 2),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -170,9 +214,12 @@ class ProductDetailsScrean extends StatelessWidget {
                         if (!isAuth) {
                           return Alert.showAuthAlert();
                         }
-                        final res = await pro.rateProduct(product.id!, rate);
-                        product.rate = res['rate'];
-                        setState(() {});
+                        if (_formKey.currentState!.validate()) {
+                          final res = await pro.rateProduct(widget.product.id!,
+                              rate, _commentController.text.trim());
+                          widget.product.rate = res['rate'];
+                          setState(() {});
+                        }
                       },
                       child: PrimaryText(
                         text: 'قيم الآن',
@@ -207,10 +254,10 @@ class ProductDetailsScrean extends StatelessWidget {
               padding: EdgeInsets.all(defultPadding),
               child: PrimaryButton(
                 text: 'اضف للسلة',
-                onTap: userProvider.isExistInCart(product.id)
+                onTap: userProvider.isExistInCart(widget.product.id)
                     ? null
                     : () async {
-                        userProvider.addToCart(product);
+                        userProvider.addToCart(widget.product);
                       },
               ),
             );

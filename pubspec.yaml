@@ -32,6 +32,7 @@ dependencies:
   provider:
   dio: ^4.0.4
   shared_preferences:
+  carousel_slider:
   flutter_rating_bar:
   cached_network_image: 
   url_launcher: ^6.0.20
@@ -43,9 +44,15 @@ dependencies:
   
 
 dev_dependencies:
+  flutter_launcher_icons: "^0.9.2"
   flutter_lints: ^1.0.0
   flutter_test:
     sdk: flutter
+
+flutter_icons:
+  image_path: "assets/images/logo.png"  
+  android: true
+  ios: true
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
