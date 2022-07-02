@@ -107,8 +107,11 @@ class UserProvider extends ChangeNotifier {
     final json = await _userRepository.getAllFavouriteProducts();
     return json.map<Product>((e) => Product.fromJson(e)).toList();
   }
-  
-  
-  
 
+  Future<bool> contactUs(name, phone, msg, type) async {
+    final data = {'name': name, 'phone': phone, 'msg': msg, 'msgType': type};
+    final json = await _userRepository.contactUs(data);
+    if (json != null) return true;
+    return false;
+  }
 }

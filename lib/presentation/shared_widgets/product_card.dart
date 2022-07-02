@@ -124,13 +124,38 @@ class _ProductCardState extends State<ProductCard> {
                     Row(
                       children: [
                         Expanded(
-                          child: PrimaryText(
-                            text: '${widget.product.price}' ' ' 'ج م',
-                            color: kblack,
-                            fontWeight: FontWeight.bold,
-                            fontSizeRatio: 0.9,
-                            maxlines: 1,
-                            overflow: TextOverflow.ellipsis,
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              PrimaryText(
+                                text:
+                                    '${widget.product.priceBefore!.toStringAsFixed(2)}'
+                                    ' '
+                                    'ج م',
+                                color: widget.product.hasOffer!
+                                    ? kblack.withOpacity(0.6)
+                                    : kblack,
+                                fontWeight: FontWeight.w600,
+                                fontSizeRatio:
+                                    widget.product.hasOffer! ? 0.7 : 0.8,
+                                maxlines: 1,
+                                hasOffer: widget.product.hasOffer!,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                              if (widget.product.hasOffer!)
+                                PrimaryText(
+                                  text:
+                                      '${widget.product.price!.toStringAsFixed(2)}'
+                                      ' '
+                                      'ج م',
+                                  color: kprimary,
+                                  fontWeight: FontWeight.w600,
+                                  fontSizeRatio: 0.8,
+                                  maxlines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                            ],
                           ),
                         ),
                         Consumer<UserProvider>(

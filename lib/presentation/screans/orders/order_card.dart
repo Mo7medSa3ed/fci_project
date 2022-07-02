@@ -10,6 +10,14 @@ class OrderCard extends StatelessWidget {
 
   final Order order;
 
+  String calcToTal() {
+    num total = 0.0;
+    for (var item in order.items!) {
+      total += item['price'] * item['amount'];
+    }
+    return total.toString();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -28,6 +36,7 @@ class OrderCard extends StatelessWidget {
             buildRowForDetails('الموبايل', order.user!['tel']),
             buildRowForDetails('العنوان', order.user!['address']),
             buildRowForDetails('طريقة الدفع', order.user!['payment']),
+            buildRowForDetails('الاجمالى', calcToTal()),
             SizedBox(height: defultPadding),
             ExpansionTile(
               tilePadding: EdgeInsets.zero,
@@ -43,6 +52,8 @@ class OrderCard extends StatelessWidget {
                         title: PrimaryText(
                           text: e['name'],
                           fontSizeRatio: 0.85,
+                          maxlines: 1,
+                          overflow: TextOverflow.ellipsis,
                         ),
                         subtitle: PrimaryText(
                           text: 'الكمية: ${e['amount']}  قطع',
@@ -58,7 +69,7 @@ class OrderCard extends StatelessWidget {
                         trailing: PrimaryText(
                           text: '${e['price'] * e['amount']} ج.م',
                         ),
-                        onTap: () {}),
+                        onTap: null),
                   )
                   .toList(),
             ),

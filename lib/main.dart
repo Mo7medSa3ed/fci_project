@@ -89,7 +89,7 @@ class MyApp extends StatelessWidget {
             builder: (BuildContext context, Widget? child) {
               final MediaQueryData data = MediaQuery.of(context);
               return MediaQuery(
-                  data: data.copyWith(textScaleFactor: isWeb ? 1.2 : 1.2),
+                  data: data.copyWith(textScaleFactor: 1),
                   child: Directionality(
                     textDirection: TextDirection.rtl,
                     child: child!,

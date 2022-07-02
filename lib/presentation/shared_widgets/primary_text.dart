@@ -14,6 +14,7 @@ class PrimaryText extends StatelessWidget {
     this.maxlines,
     this.overflow,
     this.textStyle,
+    this.hasOffer = false,
     this.fontWeight = FontWeight.normal,
   }) : super(key: key);
   final String? text;
@@ -25,7 +26,7 @@ class PrimaryText extends StatelessWidget {
   final TextOverflow? overflow;
   final TextStyle? textStyle;
   final VoidCallback? onTap;
-
+  final bool hasOffer;
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -41,6 +42,8 @@ class PrimaryText extends StatelessWidget {
             TextStyle(
                 color: color ?? kprimary,
                 fontSize: kdefaultTextSize * fontSizeRatio,
+                decoration:
+                    hasOffer ? TextDecoration.lineThrough : TextDecoration.none,
                 fontWeight: fontWeight ?? FontWeight.bold),
       ),
     );

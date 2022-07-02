@@ -9,10 +9,13 @@ class Product {
   String? storeName;
   List? images;
   num? price;
+  num? priceBefore;
   String? url;
   num? views;
   num? ordered;
   bool? visible;
+  bool? hasOffer;
+  num? offerAmount;
   List? rating;
   num? rate;
   String? createdAt;
@@ -28,6 +31,7 @@ class Product {
     required this.amount,
     this.desc,
     this.images,
+    this.priceBefore,
     this.ordered,
     this.price,
     this.rating,
@@ -35,6 +39,8 @@ class Product {
     this.updatedAt,
     this.url,
     this.rate,
+    this.offerAmount = 0.0,
+    this.hasOffer = false,
     this.views,
     this.visible,
     this.cartAmount = 1,
@@ -51,10 +57,15 @@ class Product {
         desc: json['desc'],
         images: json['images'],
         ordered: json['ordered'],
-        price: json['price'],
-        rating: (json['rating']??[]),
+        priceBefore: json['price'],
+        price: json['hasOffer']
+            ? ((json['offerAmount'] / 100) * json['price']!)
+            : json['price'],
+        rating: (json['rating'] ?? []),
         storeName: json['storeName'],
         url: json['url'],
+        hasOffer: json['hasOffer'],
+        offerAmount: json['offerAmount'] ?? 0.0,
         views: json['views'],
         rate: json['actualRating'] ?? 0,
         createdAt: json['createdAt'],
@@ -66,8 +77,13 @@ class Product {
         amount: Amount.fromJson(json['amount'] ?? {}),
         category: json['category'],
         desc: json['desc'],
+        priceBefore: json['price'],
         images: json['images'],
-        price: json['price'],
+        price: json['hasOffer']
+            ? ((json['offerAmount'] / 100) * json['price']!)
+            : json['price'],
+        hasOffer: json['hasOffer'],
+        offerAmount: json['offerAmount'] ?? 0.0,
         rating: json['rating'],
         rate: json['rate'],
         storeName: json['storeName'],

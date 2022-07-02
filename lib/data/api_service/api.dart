@@ -96,7 +96,6 @@ class ApiServices {
     late Response response;
     try {
       if (id != null) url += '/$id';
-
       response = await _dio!.get(containBaseUrl ? baseUrl + url : url,
           options: Options(
             headers: {

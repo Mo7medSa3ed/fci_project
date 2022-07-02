@@ -6,17 +6,22 @@ import 'package:flutter/material.dart';
 
 class ProductSection extends StatelessWidget {
   const ProductSection(
-      {this.fText='', this.lText='', this.onTap, required this.type, this.products, Key? key})
+      {this.fText = '',
+      this.lText = '',
+      this.onTap,
+      required this.type,
+      this.products,
+      Key? key})
       : super(key: key);
   final String fText;
   final String lText;
   final String type;
   final VoidCallback? onTap;
-  final List<Product>? products ;
+  final List<Product>? products;
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-        height: kheight * 0.5,
+        height: kheight * 0.52,
         child: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -25,8 +30,8 @@ class ProductSection extends StatelessWidget {
             Padding(
               padding: EdgeInsets.symmetric(horizontal: kpadding * 2),
               child: HeaderText(
-                fText: fText ,
-                lText: lText ,
+                fText: fText,
+                lText: lText,
                 onTap: onTap,
               ),
             ),
@@ -35,9 +40,11 @@ class ProductSection extends StatelessWidget {
               child: GridView.builder(
                 physics: BouncingScrollPhysics(),
                 scrollDirection: Axis.horizontal,
-                itemCount: (products??[]).length,
+                itemCount: (products ?? []).length,
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 1, childAspectRatio: 16 / 9),
+                  crossAxisCount: 1,
+                  childAspectRatio: 16 / 9,
+                ),
                 itemBuilder: (context, index) {
                   return ProductCard(
                     product: products![index],

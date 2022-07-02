@@ -41,6 +41,7 @@ class CustomExpanantialTile extends StatelessWidget {
                 (index) => PrimaryText(
                   text: children![index],
                   fontWeight: FontWeight.w500,
+                  fontSizeRatio: 0.8,
                   color: kgrey,
                 ),
               ) +

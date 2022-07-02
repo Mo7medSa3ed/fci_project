@@ -16,8 +16,10 @@ class PrimaryInputField extends StatefulWidget {
     this.onSaved,
     this.controller,
     this.maxLines,
+    this.hideBorder = false,
     this.max,
     this.headerText,
+    this.autoValidate = AutovalidateMode.onUserInteraction,
     this.keyboardType = TextInputType.text,
   }) : super(key: key);
 
@@ -25,6 +27,7 @@ class PrimaryInputField extends StatefulWidget {
   final String? headerText;
   final bool? hasTextHeader;
   final bool? isSecure;
+  final bool? hideBorder;
   final IconData? icon;
   final dynamic validator;
   final dynamic onSaved;
@@ -32,6 +35,7 @@ class PrimaryInputField extends StatefulWidget {
   final TextInputType? keyboardType;
   final int? max;
   final int? maxLines;
+  final AutovalidateMode autoValidate;
 
   @override
   State<PrimaryInputField> createState() => _PrimaryInputFieldState();
@@ -40,6 +44,11 @@ class PrimaryInputField extends StatefulWidget {
 class _PrimaryInputFieldState extends State<PrimaryInputField> {
   bool showPass = false;
   bool isValid = false;
+  @override
+  void initState() {
+    showPass = widget.isSecure!;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -58,9 +67,9 @@ class _PrimaryInputFieldState extends State<PrimaryInputField> {
           onSaved: widget.onSaved,
           obscureText: showPass,
           maxLength: widget.max,
-          maxLines: widget.maxLines,
+          maxLines: widget.isSecure! ? 1 : widget.maxLines,
           maxLengthEnforcement: MaxLengthEnforcement.enforced,
-          autovalidateMode: AutovalidateMode.onUserInteraction,
+          autovalidateMode: widget.autoValidate,
           keyboardType: widget.keyboardType,
           onChanged: (String? value) {
             if (widget.max == 10 &&
@@ -95,6 +104,7 @@ class _PrimaryInputFieldState extends State<PrimaryInputField> {
               },
           decoration: InputDecoration(
               isDense: true,
+              border: widget.hideBorder! ? InputBorder.none : null,
               hintText: widget.hintText,
               counterText: '',
               suffixText:

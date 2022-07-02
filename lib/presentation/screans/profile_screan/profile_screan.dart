@@ -1,8 +1,8 @@
 import 'package:fci_project/helper/constants.dart';
 import 'package:fci_project/helper/navigator.dart';
 import 'package:fci_project/main.dart';
-import 'package:fci_project/presentation/screans/about_us/about_us.dart';
 import 'package:fci_project/presentation/screans/orders/order_screan.dart';
+import 'package:fci_project/presentation/screans/support_screan/help.dart';
 import 'package:fci_project/presentation/shared_widgets/card_item.dart';
 import 'package:fci_project/presentation/screans/register_screan/register_screan.dart';
 import 'package:fci_project/presentation/shared_widgets/primary_icon.dart';
@@ -61,9 +61,9 @@ class ProfileScrean extends StatelessWidget {
         ),
         Divider(height: defultPadding / 2),
         BuildListCardForProfileScrean(
-          title: 'عنا',
+          title: 'تواصل معنا',
           image: PrimaryIcon(Icons.error_outline, color: kblack),
-          onTap: () => Nav.goToScrean(AboutUsScrean()),
+          onTap: () => Nav.goToScrean(HelpScrean()),
         ),
         Divider(height: 0),
         BuildListCardForProfileScrean(

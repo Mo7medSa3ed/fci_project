@@ -3,7 +3,7 @@ import 'package:fci_project/data/models/product.dart';
 import 'package:fci_project/helper/alert_dialog.dart';
 import 'package:fci_project/helper/navigator.dart';
 import 'package:fci_project/main.dart';
-import 'package:fci_project/presentation/shared_widgets/primary_icon_button.dart';
+import 'package:fci_project/presentation/shared_widgets/primary_icon.dart';
 import 'package:fci_project/presentation/shared_widgets/primary_image.dart';
 import 'package:fci_project/presentation/shared_widgets/primary_round_button.dart';
 import 'package:fci_project/presentation/shared_widgets/primary_text.dart';
@@ -25,7 +25,6 @@ class CartCard extends StatelessWidget {
         margin: EdgeInsets.all(kpadding),
         padding: EdgeInsets.all(0),
         width: double.infinity,
-        height: kheight * 0.15,
         child: Row(
           children: [
             PrimaryImage(
@@ -42,7 +41,9 @@ class CartCard extends StatelessWidget {
                 PrimaryText(
                   text: product.name,
                   fontWeight: FontWeight.bold,
-                  fontSizeRatio: 0.9,
+                  fontSizeRatio: 0.8,
+                  maxlines: 1,
+                  overflow: TextOverflow.ellipsis,
                 ),
                 SizedBox(height: kpadding),
                 Consumer<UserProvider>(builder: (context, userProvider, child) {
@@ -96,8 +97,7 @@ class CartCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                  PrimaryIconButton(
-                    Icons.close,
+                  InkWell(
                     onTap: () {
                       Alert.showConfirmDialog(
                           title: 'عربة التسوق',
@@ -107,7 +107,11 @@ class CartCard extends StatelessWidget {
                             Nav.pop();
                           });
                     },
+                    child: PrimaryIcon(
+                      Icons.close,
+                    ),
                   ),
+                  SizedBox(height: defultPadding),
                   PrimaryText(
                     text: '${product.price} ج.م',
                     fontWeight: FontWeight.bold,

@@ -1,7 +1,6 @@
 import 'package:fci_project/bussniss_logic/product_provider.dart';
 import 'package:fci_project/bussniss_logic/user_provider.dart';
 import 'package:fci_project/data/models/product.dart';
-import 'package:fci_project/data/models/store.dart';
 import 'package:fci_project/helper/alert_dialog.dart';
 import 'package:fci_project/helper/navigator.dart';
 import 'package:fci_project/main.dart';
@@ -34,8 +33,8 @@ class ProductDetailsScrean extends StatefulWidget {
 class _ProductDetailsScreanState extends State<ProductDetailsScrean> {
   final _commentController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
-  late ProductProvider pro;
   double rate = 1;
+  late ProductProvider pro;
 
   @override
   void initState() {
@@ -52,6 +51,7 @@ class _ProductDetailsScreanState extends State<ProductDetailsScrean> {
 
   @override
   Widget build(BuildContext context) {
+    
     return Scaffold(
       appBar: PrimaryAppBar(),
       body: ListView(

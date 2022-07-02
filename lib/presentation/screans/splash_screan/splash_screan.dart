@@ -23,6 +23,8 @@ class SplashScrean extends StatelessWidget {
     final res = (await LocalStorage.getString(user));
     if (res.isNotEmpty) {
       currantUser = User.fromJson(jsonDecode(res));
+    } else {
+      currantUser = User();
     }
     if (tok.isNotEmpty) {
       isAuth = true;

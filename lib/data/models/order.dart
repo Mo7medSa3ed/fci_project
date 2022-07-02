@@ -50,6 +50,7 @@ class Order {
                 '_id': e.id,
                 'name': e.name,
                 'amount': e.cartAmount,
+                'offerAmount': e.offerAmount,
                 'price': e.price,
                 'img': e.images!.first,
                 'storeName': e.storeName

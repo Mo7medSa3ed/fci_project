@@ -21,8 +21,7 @@ class FavouriteCard extends StatelessWidget {
       elevation: 2,
       child: ListTile(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-        contentPadding:
-            EdgeInsets.symmetric(horizontal: kpadding, vertical: kpadding),
+        contentPadding: EdgeInsets.symmetric(horizontal: kpadding * 2),
         leading: Container(
           height: 50,
           width: 50,
@@ -40,7 +39,9 @@ class FavouriteCard extends StatelessWidget {
               child: PrimaryText(
                 text: favProduct.name,
                 fontWeight: FontWeight.bold,
-                fontSizeRatio: 0.9,
+                fontSizeRatio: 0.8,
+                maxlines: 1,
+                overflow: TextOverflow.ellipsis,
               ),
             ),
             InkWell(

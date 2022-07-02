@@ -8,8 +8,14 @@ class StoreRepository {
   }
 
   Future getStore(String storeName) async {
-    final res =
-        await _apiServices!.get(url: '/stores/one/$storeName', showAlert: false);
+    final res = await _apiServices!
+        .get(url: '/stores/one/$storeName', showAlert: false);
+    return res;
+  }
+
+  Future rateStore(String id, Map<String, dynamic> data) async {
+    final res = await _apiServices!
+        .patch(url: '/stores/rate', id: id, data: data, showAlert: true);
     return res;
   }
 }

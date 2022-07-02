@@ -9,7 +9,6 @@ import 'package:fci_project/presentation/screans/register_screan/widgets/click_t
 import 'package:fci_project/presentation/shared_widgets/primary_button.dart';
 import 'package:fci_project/presentation/shared_widgets/primary_future_widget.dart';
 import 'package:fci_project/presentation/shared_widgets/primary_icon_button.dart';
-import 'package:fci_project/presentation/shared_widgets/primary_inputfield.dart';
 import 'package:fci_project/presentation/shared_widgets/primary_text.dart';
 import 'package:fci_project/presentation/shared_widgets/success_order_dialog.dart';
 import 'package:fci_project/style/colors.dart';

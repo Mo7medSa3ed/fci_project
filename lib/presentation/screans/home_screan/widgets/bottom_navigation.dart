@@ -13,7 +13,7 @@ class BottomNavigation extends StatelessWidget {
         currentIndex: _homeProvider.currantIndex,
         onTap: _homeProvider.changeIndexForHome,
         items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.store), label: 'الرئيسئة'),
+          BottomNavigationBarItem(icon: Icon(Icons.store), label: 'الرئيسية'),
           BottomNavigationBarItem(icon: Icon(Icons.search), label: 'استكشف'),
           BottomNavigationBarItem(
               icon: Icon(Icons.shopping_cart_sharp), label: 'السلة'),

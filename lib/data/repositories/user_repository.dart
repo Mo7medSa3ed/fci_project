@@ -19,5 +19,9 @@ class UserRepository {
     return res;
   }
 
-  
+  Future contactUs(data) async {
+    final res = await _apiServices!
+        .post(url: '/contactUs', data: data, showAlert: true);
+    return res;
+  }
 }

@@ -44,6 +44,7 @@ class Alert {
         cancelBtnText: 'الغاء',
         confirmBtnText: 'تم',
         onConfirmBtnTap: ontap,
+        confirmBtnColor: kprimary,
         text: desc ?? '',
         title: title ?? '');
   }
