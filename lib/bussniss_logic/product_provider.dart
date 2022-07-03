@@ -57,6 +57,11 @@ class ProductProvider extends ChangeNotifier {
     return json.map((e) => Product.fromJson(e)).toList();
   }
 
+  Future<Map> getAllRecommendedProducts(productId) async {
+    final json = await _productRepository.getAllRecommendedProducts(productId);
+    return json;
+  }
+
   Future<Product> getOneProduct(id) async {
     final json = await _productRepository.getOneOrAllProducts(id: id);
     return Product.fromJson(json);

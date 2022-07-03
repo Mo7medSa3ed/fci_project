@@ -8,6 +8,7 @@ import 'package:fci_project/helper/localstorage.dart';
 import 'package:fci_project/helper/navigator.dart';
 import 'package:fci_project/main.dart';
 import 'package:fci_project/presentation/screans/home_screan/home_screan.dart';
+import 'package:fci_project/presentation/screans/interests_screan/interests_screan.dart';
 import 'package:fci_project/presentation/screans/login_screan/login_screan.dart';
 import 'package:flutter/foundation.dart';
 
@@ -30,7 +31,12 @@ class AuthProvider extends ChangeNotifier {
       tok = response['token'];
       isAuth = true;
       currantUser = User.fromJson(response['user']);
-      Nav.goToScreanAndRemoveUntill(HomeScrean());
+      if (currantUser.interests != null && currantUser.interests!.isNotEmpty) {
+        Nav.goToScreanAndRemoveUntill(HomeScrean());
+      } else {
+        Nav.goToScreanAndRemoveUntill(InterestsScrean(showBack: false));
+      }
+
       return;
     }
   }
@@ -90,6 +96,30 @@ class AuthProvider extends ChangeNotifier {
         ontap: () => Nav.pop(),
       );
 
+      return;
+    }
+  }
+
+  Future<void> saveInterests(List<String> interests, bool isFromProfile) async {
+    if (interests.isEmpty) {
+      return;
+    }
+
+    final res =
+        await _authRepository.editUser(User.toJsonForSaveInterests(interests));
+    if (res != null) {
+      Alert.showSuccessDialog(
+        title: 'تعديل اهتماماتك',
+        desc: 'تم تعديل اهتماماتك بنجاح',
+        ontap: () {
+          Nav.pop();
+          if (isFromProfile) {
+            Nav.pop();
+          } else {
+            Nav.goToScreanAndRemoveUntill(HomeScrean());
+          }
+        },
+      );
       return;
     }
   }

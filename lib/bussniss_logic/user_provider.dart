@@ -114,4 +114,10 @@ class UserProvider extends ChangeNotifier {
     if (json != null) return true;
     return false;
   }
+
+  Future<List> getAllContacts() async {
+    final json = await _userRepository.getAllContacts();
+
+    return json;
+  }
 }

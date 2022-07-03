@@ -4,6 +4,7 @@ import 'package:fci_project/data/models/product.dart';
 import 'package:fci_project/helper/alert_dialog.dart';
 import 'package:fci_project/helper/navigator.dart';
 import 'package:fci_project/main.dart';
+import 'package:fci_project/presentation/screans/main_screan/widgets/product_section.dart';
 import 'package:fci_project/presentation/screans/product_details_screan/widgets/comment_widget.dart';
 import 'package:fci_project/presentation/screans/product_details_screan/widgets/expanantial_tile_widget.dart';
 import 'package:fci_project/presentation/screans/product_details_screan/widgets/product_carousel.dart';
@@ -11,6 +12,7 @@ import 'package:fci_project/presentation/screans/productsbycategory_screan/produ
 import 'package:fci_project/presentation/screans/store_Screan/store_screan.dart';
 import 'package:fci_project/presentation/shared_widgets/primary_appbar.dart';
 import 'package:fci_project/presentation/shared_widgets/primary_button.dart';
+import 'package:fci_project/presentation/shared_widgets/primary_future_widget.dart';
 import 'package:fci_project/presentation/shared_widgets/primary_icon_button.dart';
 import 'package:fci_project/presentation/shared_widgets/primary_inputfield.dart';
 import 'package:fci_project/presentation/shared_widgets/primary_text.dart';
@@ -43,7 +45,7 @@ class _ProductDetailsScreanState extends State<ProductDetailsScrean> {
       if (widget.product.desc == null || (value.rating ?? []).isEmpty) {
         widget.product.desc = value.desc;
         widget.product.rating = value.rating ?? [];
-        setState(() {});
+        if (mounted) setState(() {});
       }
     });
     super.initState();
@@ -51,9 +53,22 @@ class _ProductDetailsScreanState extends State<ProductDetailsScrean> {
 
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
       appBar: PrimaryAppBar(),
+      bottomNavigationBar:
+          Consumer<UserProvider>(builder: (context, userProvider, child) {
+        return Padding(
+          padding: EdgeInsets.all(defultPadding),
+          child: PrimaryButton(
+            text: 'اضف للسلة',
+            onTap: userProvider.isExistInCart(widget.product.id)
+                ? null
+                : () async {
+                    userProvider.addToCart(widget.product);
+                  },
+          ),
+        );
+      }),
       body: ListView(
         children: [
           ProductCarousel(
@@ -249,19 +264,46 @@ class _ProductDetailsScreanState extends State<ProductDetailsScrean> {
             );
           }),
           SizedBox(height: defultPadding),
-          Consumer<UserProvider>(builder: (context, userProvider, child) {
-            return Padding(
-              padding: EdgeInsets.all(defultPadding),
-              child: PrimaryButton(
-                text: 'اضف للسلة',
-                onTap: userProvider.isExistInCart(widget.product.id)
-                    ? null
-                    : () async {
-                        userProvider.addToCart(widget.product);
-                      },
-              ),
-            );
-          })
+          PrimaryFutureWidget<Map>(
+              future: pro.getAllRecommendedProducts(widget.product.id),
+              data: (data) {
+                final productsFromSameProvider =
+                    data['productsFromSameProvider']
+                        .map<Product>((e) => Product.fromJson(e))
+                        .toList();
+                final usersAlsoWatched = data['usersAlsoWatched']
+                    .map<Product>((e) => Product.fromJson(e))
+                    .toList();
+                final productsFromSameCategory =
+                    data['productsFromSameCategory']
+                        .map<Product>((e) => Product.fromJson(e))
+                        .toList();
+                return Column(
+                  children: [
+                    if (usersAlsoWatched.isNotEmpty) ...[
+                      ProductSection(
+                          fText: "شاهد العملاء ايضاً",
+                          type: 'usersAlsoWatched',
+                          products: usersAlsoWatched),
+                      SizedBox(height: defultPadding),
+                    ],
+                    if (productsFromSameCategory.isNotEmpty) ...[
+                      ProductSection(
+                          fText: "قد يعجبك ايضاً",
+                          type: 'productsFromSameCategory',
+                          products: productsFromSameCategory),
+                      SizedBox(height: defultPadding),
+                    ],
+                    if (productsFromSameProvider.isNotEmpty) ...[
+                      ProductSection(
+                          fText: "مزيد من المنتجات",
+                          type: 'productsFromSameProvider',
+                          products: productsFromSameProvider),
+                      SizedBox(height: defultPadding),
+                    ]
+                  ],
+                );
+              })
         ],
       ),
     );

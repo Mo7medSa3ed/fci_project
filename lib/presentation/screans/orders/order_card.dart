@@ -1,14 +1,17 @@
 import 'package:fci_project/data/models/order.dart';
 import 'package:fci_project/main.dart';
+import 'package:fci_project/presentation/shared_widgets/primary_button.dart';
 import 'package:fci_project/presentation/shared_widgets/primary_image.dart';
 import 'package:fci_project/presentation/shared_widgets/primary_text.dart';
 import 'package:fci_project/style/colors.dart';
 import 'package:flutter/material.dart';
 
 class OrderCard extends StatelessWidget {
-  const OrderCard({required this.order, Key? key}) : super(key: key);
+  const OrderCard({required this.order, this.onCancelPress, Key? key})
+      : super(key: key);
 
   final Order order;
+  final VoidCallback? onCancelPress;
 
   String calcToTal() {
     num total = 0.0;
@@ -26,16 +29,26 @@ class OrderCard extends StatelessWidget {
         padding: EdgeInsets.all(defultPadding),
         child: Column(
           mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            PrimaryText(
-                text: '\u{25CF}\tتفاصيل المستخدم:',
-                fontWeight: FontWeight.w600),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const PrimaryText(
+                    text: '\u{25CF}\tتفاصيل المستخدم:',
+                    fontWeight: FontWeight.w600),
+                PrimaryText(
+                    text: order.state,
+                    fontWeight: FontWeight.w600,
+                    color: order.state == 'ملغي' ? kred : kprimary),
+              ],
+            ),
             SizedBox(height: defultPadding),
             buildRowForDetails('الاسم', order.user!['name']),
             buildRowForDetails('الموبايل', order.user!['tel']),
             buildRowForDetails('العنوان', order.user!['address']),
             buildRowForDetails('طريقة الدفع', order.user!['payment']),
+            buildRowForDetails('حالة الطلب', order.state),
             buildRowForDetails('الاجمالى', calcToTal()),
             SizedBox(height: defultPadding),
             ExpansionTile(
@@ -73,6 +86,8 @@ class OrderCard extends StatelessWidget {
                   )
                   .toList(),
             ),
+            SizedBox(height: defultPadding / 2),
+            PrimaryButton(text: 'الغاء الطلب', onTap: onCancelPress)
           ],
         ),
       ),

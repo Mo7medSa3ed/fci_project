@@ -13,6 +13,12 @@ class OrderRepository {
     return res;
   }
 
+  Future cancelOrder(String id) async {
+    final res = await _apiServices!.patch(
+        url: '/orders', id: id, data: {"state": 'ملغي'}, showAlert: true);
+    return res;
+  }
+
   Future getAllOrders() async {
     final res =
         await _apiServices!.get(url: '/users/all/orders', showAlert: false);

@@ -10,6 +10,7 @@ class User {
   String? password;
   List? fav;
   List? orders;
+  List? interests;
   String? storeName;
   String? createdAt;
   String? updatedAt;
@@ -29,6 +30,7 @@ class User {
     this.orders,
     this.password,
     this.storeName,
+    this.interests,
   });
 
   factory User.fromJson(Map json) => User(
@@ -45,6 +47,7 @@ class User {
         fav: json['fav'],
         orders: json['orders'],
         password: json['password'],
+        interests: json['intersts'] ?? [],
         storeName: json['storeName'],
       );
 
@@ -63,6 +66,12 @@ class User {
     if (country != null && country!.isNotEmpty) json['country'] = country;
     if (address != null && address!.isNotEmpty) json['address'] = address;
     if (password != null && password!.isNotEmpty) json['password'] = password;
+    return json;
+  }
+
+  static Map<String, dynamic> toJsonForSaveInterests(List<String> interstsIds) {
+    Map<String, dynamic> json = {};
+    json['intersts'] = interstsIds;
     return json;
   }
 }

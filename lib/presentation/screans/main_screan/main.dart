@@ -48,8 +48,10 @@ class MainScrean extends StatelessWidget {
                     fText: "الاكثر مشاهدة",
                     lText: "مشاهدة المزيد",
                     type: 'mostViewedProducts',
-                    onTap: () => Nav.goToScrean(ProductsScrean(
-                        category: Category(), type: 'mostViewedProducts')),
+                    onTap: () => Nav.goToScrean(
+                          ProductsScrean(
+                              category: Category(), type: 'mostViewedProducts'),
+                        ),
                     products: data.mostViewedProducts),
                 SizedBox(height: defultPadding),
                 ProductSection(
@@ -64,7 +66,6 @@ class MainScrean extends StatelessWidget {
                     fText: "الأكثر طلباً",
                     lText: "مشاهدة المزيد",
                     type: 'mostOrderedProducts',
-
                     onTap: () => Nav.goToScrean(ProductsScrean(
                         category: Category(), type: 'mostOrderedProducts')),
                     products: data.mostOrderedProducts),

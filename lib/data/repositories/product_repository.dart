@@ -19,6 +19,12 @@ class ProductRepository {
     return res;
   }
 
+  Future getAllRecommendedProducts(id) async {
+    final res = await _apiServices!
+        .get(url: '/products/recommendation', id: id, showAlert: false);
+    return res;
+  }
+
   Future searchProduct(String term) async {
     final res = await _apiServices!
         .get(url: '/products/filter/name?text=$term', showAlert: false);

@@ -9,9 +9,14 @@ import 'package:fci_project/style/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class OrderScrean extends StatelessWidget {
+class OrderScrean extends StatefulWidget {
   const OrderScrean({Key? key}) : super(key: key);
 
+  @override
+  State<OrderScrean> createState() => _OrderScreanState();
+}
+
+class _OrderScreanState extends State<OrderScrean> {
   @override
   Widget build(BuildContext context) {
     final pro = Provider.of<OrderProvider>(context, listen: false);
@@ -26,12 +31,22 @@ class OrderScrean extends StatelessWidget {
               if (orders.isEmpty) {
                 return Center(child: PrimaryText(text: 'ليس لديك طلبات'));
               }
-              
+
               return ListView.builder(
                 physics: BouncingScrollPhysics(),
                 padding: EdgeInsets.symmetric(horizontal: kpadding),
                 itemCount: orders.length,
-                itemBuilder: (ctx, idx) => OrderCard(order: orders[idx]),
+                itemBuilder: (ctx, idx) => OrderCard(
+                  order: orders[idx],
+                  onCancelPress: orders[idx].state == 'ملغي'
+                      ? null
+                      : () async {
+                          await Provider.of<OrderProvider>(context,
+                                  listen: false)
+                              .cancelOrder(orders[idx].id!)
+                              .then((value) => setState(() {}));
+                        },
+                ),
               );
             }));
   }

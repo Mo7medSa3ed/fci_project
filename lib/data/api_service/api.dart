@@ -153,6 +153,7 @@ class ApiServices {
       response = await _dio!.patch('$baseUrl$url',
           data: data,
           options: Options(headers: {"x-auth-token": tok, 'device': 'app'}));
+
       return _processResponse(
           response: response,
           msg: checkKeyContain(response.data),

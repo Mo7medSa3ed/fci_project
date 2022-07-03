@@ -1,6 +1,8 @@
 import 'package:fci_project/helper/constants.dart';
 import 'package:fci_project/helper/navigator.dart';
 import 'package:fci_project/main.dart';
+import 'package:fci_project/presentation/screans/complaints_suggestions/complaints_suggestions.dart';
+import 'package:fci_project/presentation/screans/interests_screan/interests_screan.dart';
 import 'package:fci_project/presentation/screans/orders/order_screan.dart';
 import 'package:fci_project/presentation/screans/support_screan/help.dart';
 import 'package:fci_project/presentation/shared_widgets/card_item.dart';
@@ -55,6 +57,11 @@ class ProfileScrean extends StatelessWidget {
                 )),
         Divider(height: defultPadding / 2),
         BuildListCardForProfileScrean(
+            title: 'تعديل اهتماماتك',
+            image: PrimaryIcon(Icons.edit_outlined, color: kblack),
+            onTap: () => Nav.goToScrean(InterestsScrean(showBack: true))),
+        Divider(height: defultPadding / 2),
+        BuildListCardForProfileScrean(
           title: 'طلباتى',
           image: PrimaryIcon(Icons.shopping_bag_outlined, color: kblack),
           onTap: () => Nav.goToScrean(OrderScrean()),
@@ -64,6 +71,12 @@ class ProfileScrean extends StatelessWidget {
           title: 'تواصل معنا',
           image: PrimaryIcon(Icons.error_outline, color: kblack),
           onTap: () => Nav.goToScrean(HelpScrean()),
+        ),
+        Divider(height: defultPadding / 2),
+        BuildListCardForProfileScrean(
+          title: 'الشكاوى و المقترحات',
+          image: PrimaryIcon(Icons.error_outline, color: kblack),
+          onTap: () => Nav.goToScrean(ComplaintsAndSuggestionsScrean()),
         ),
         Divider(height: 0),
         BuildListCardForProfileScrean(
