@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:fci_project/data/api_service/api.dart';
 
 class ProductRepository {
@@ -25,6 +26,12 @@ class ProductRepository {
     return res;
   }
 
+  Future getAllRecommendedProductsFormHome() async {
+    final res =
+        await _apiServices!.get(url: '/home/recommended', showAlert: false);
+    return res;
+  }
+
   Future searchProduct(String term) async {
     final res = await _apiServices!
         .get(url: '/products/filter/name?text=$term', showAlert: false);
@@ -47,5 +54,11 @@ class ProductRepository {
     final res = await _apiServices!
         .post(url: '/products/rate', id: id, data: data, showAlert: true);
     return res;
+  }
+
+  Future getReviewSementalAnalysis(List data) async {
+    final res = await Dio()
+        .post("https://aqueous-retreat-48897.herokuapp.com", data: data);
+    return res.data;
   }
 }

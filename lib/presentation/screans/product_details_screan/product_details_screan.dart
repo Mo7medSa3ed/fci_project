@@ -37,24 +37,43 @@ class _ProductDetailsScreanState extends State<ProductDetailsScrean> {
   final _formKey = GlobalKey<FormState>();
   double rate = 1;
   late ProductProvider pro;
+  List reviews = [];
 
   @override
   void initState() {
     pro = Provider.of<ProductProvider>(context, listen: false);
-    pro.getOneProduct(widget.product.id).then((value) {
-      if (widget.product.desc == null || (value.rating ?? []).isEmpty) {
+    pro.getOneProduct(widget.product.id).then((value) async {
+      if (widget.product.desc == null) {
         widget.product.desc = value.desc;
-        widget.product.rating = value.rating ?? [];
         if (mounted) setState(() {});
       }
+      if ((widget.product.rating ?? []).isEmpty) {
+        widget.product.rating = value.rating ?? [];
+      }
+      await getReviews(value.rating ?? []);
     });
     super.initState();
+  }
+
+  Future<void> getRating() async {
+    await pro.getOneProduct(widget.product.id).then((value) async {
+      widget.product.rating = value.rating ?? [];
+      await getReviews(value.rating ?? []);
+    });
+  }
+
+  getReviews(List reviewsList) async {
+    final res = reviewsList.map<String>((e) => e['comment']).toList();
+    reviews = await pro.getReviewSementalAnalysis(res);
+    if (mounted) setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: PrimaryAppBar(),
+      appBar: PrimaryAppBar(
+        shareLink: widget.product.name ?? "",
+      ),
       bottomNavigationBar:
           Consumer<UserProvider>(builder: (context, userProvider, child) {
         return Padding(
@@ -192,6 +211,7 @@ class _ProductDetailsScreanState extends State<ProductDetailsScrean> {
           SizedBox(height: defultPadding),
           StatefulBuilder(builder: (context, setState) {
             return CustomExpanantialTile(
+              isExpand: true,
               title: 'التعليقات',
               rate: Directionality(
                 textDirection: TextDirection.ltr,
@@ -206,7 +226,11 @@ class _ProductDetailsScreanState extends State<ProductDetailsScrean> {
               ),
               childrenWidget: [
                 ...(widget.product.rating ?? [])
-                    .map<Widget>((e) => CommentItem(data: e))
+                    .map<Widget>((e) => CommentItem(
+                        data: e,
+                        symentText: reviews.isNotEmpty
+                            ? reviews[widget.product.rating!.indexOf(e)]['msg']
+                            : ''))
                     .toList(),
                 SizedBox(height: defultPadding),
                 Form(
@@ -233,7 +257,10 @@ class _ProductDetailsScreanState extends State<ProductDetailsScrean> {
                           final res = await pro.rateProduct(widget.product.id!,
                               rate, _commentController.text.trim());
                           widget.product.rate = res['rate'];
+                          _commentController.clear();
+                          rate = 1;
                           setState(() {});
+                          await getRating();
                         }
                       },
                       child: PrimaryText(

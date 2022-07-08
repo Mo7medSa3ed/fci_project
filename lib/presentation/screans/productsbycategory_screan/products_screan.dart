@@ -26,6 +26,8 @@ class ProductsScrean extends StatelessWidget {
       case 'mostViewedProducts':
       case 'mostLovedProducts':
         return productProvider.getProductsByTerm(type);
+      case 'mostRecommendedProducts':
+        return productProvider.getAllRecommendedProductsFormHome();
       case 'AllProducts':
         return Future.value(products);
       default:
@@ -41,6 +43,8 @@ class ProductsScrean extends StatelessWidget {
         return 'الأكثر تقييماً';
       case 'mostViewedProducts':
         return 'الاعلى مشاهدة';
+      case 'mostRecommendedProducts':
+        return 'المنتجات المقترحة';
       case 'AllProducts':
         return 'جميع المنتجات';
       default:

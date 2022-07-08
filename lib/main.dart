@@ -6,7 +6,6 @@ import 'package:fci_project/bussniss_logic/store_provider.dart';
 import 'package:fci_project/bussniss_logic/user_provider.dart';
 import 'package:fci_project/data/models/user.dart';
 import 'package:fci_project/helper/constants.dart';
-import 'package:fci_project/helper/localstorage.dart';
 import 'package:fci_project/presentation/screans/splash_screan/splash_screan.dart';
 import 'package:fci_project/style/colors.dart';
 import 'package:fci_project/style/text_style.dart';
@@ -30,7 +29,7 @@ late User currantUser;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  LocalStorage.clear.call();
+
   runApp(const MyApp());
 }
 

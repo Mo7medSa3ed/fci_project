@@ -1,4 +1,5 @@
 import 'package:fci_project/data/models/home.dart';
+import 'package:fci_project/data/models/product.dart';
 import 'package:fci_project/data/repositories/home_repository.dart';
 import 'package:fci_project/helper/alert_dialog.dart';
 import 'package:fci_project/main.dart';
@@ -26,5 +27,10 @@ class HomeProvider extends ChangeNotifier {
   Future<Home> getHomePage() async {
     final res = await _homeRepository.getHome();
     return Home.fromJson(res);
+  }
+
+  Future<List<Product>> getHomeRecommended() async {
+    final res = await _homeRepository.getHomeRecommended();
+    return res.map<Product>((p) => Product.fromJson(p)).toList();
   }
 }

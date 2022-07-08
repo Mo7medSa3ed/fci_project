@@ -1,9 +1,13 @@
 import 'package:fci_project/helper/navigator.dart';
 import 'package:fci_project/presentation/shared_widgets/primary_icon_button.dart';
 import 'package:flutter/material.dart';
+import 'package:share_plus/share_plus.dart';
 
 class PrimaryAppBar extends StatefulWidget implements PreferredSizeWidget {
-  PrimaryAppBar({Key? key}) : super(key: key);
+  PrimaryAppBar({this.shareLink = '', Key? key}) : super(key: key);
+
+  final String shareLink;
+
   @override
   final Size preferredSize = Size(double.infinity, 60);
   @override
@@ -23,7 +27,13 @@ class _PrimaryAppBarState extends State<PrimaryAppBar> {
         children: [
           PrimaryIconButton(
             Icons.share,
-            onTap: () {},
+            onTap: widget.shareLink.isEmpty
+                ? null
+                : () async {
+                    await Share.share(
+                        "https://fci-proj.herokuapp.com/store/product/" +
+                            widget.shareLink);
+                  },
           ),
           PrimaryIconButton(
             Icons.arrow_forward_ios,

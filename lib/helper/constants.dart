@@ -42,6 +42,32 @@ setStatusColor({color, isDark = false}) {
   ));
 }
 
+IconData? getEmoji(String msg) {
+  switch (msg) {
+    case 'Positive Review':
+      return Icons.check_circle_rounded;
+    case 'Negative Review':
+      return Icons.dangerous;
+    case 'Nature Review':
+      return null;
+    default:
+      return null;
+  }
+}
+
+Color? getEmojiColor(String msg) {
+  switch (msg) {
+    case 'Positive Review':
+      return kprimary;
+    case 'Negative Review':
+      return kred;
+    case 'Nature Review':
+      return null;
+    default:
+      return null;
+  }
+}
+
 logout() async {
   return Alert.showConfirmDialog(
       title: 'تسجيل خروج',

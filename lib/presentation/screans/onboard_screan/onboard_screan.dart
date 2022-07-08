@@ -2,7 +2,6 @@ import 'package:fci_project/helper/constants.dart';
 import 'package:fci_project/helper/localstorage.dart';
 import 'package:fci_project/helper/navigator.dart';
 import 'package:fci_project/main.dart';
-import 'package:fci_project/presentation/screans/interests_screan/interests_screan.dart';
 import 'package:fci_project/presentation/screans/login_screan/login_screan.dart';
 import 'package:fci_project/presentation/shared_widgets/app_logo.dart';
 import 'package:fci_project/presentation/shared_widgets/primary_button.dart';

@@ -22,6 +22,7 @@ class CustomExpanantialTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ExpansionTile(
+      key: ObjectKey(childrenWidget),
       initiallyExpanded: isExpand,
       expandedAlignment: Alignment.centerRight,
       childrenPadding: EdgeInsets.symmetric(horizontal: defultPadding),

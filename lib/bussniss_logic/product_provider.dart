@@ -54,12 +54,17 @@ class ProductProvider extends ChangeNotifier {
 
   Future<List<Product>> getAllProducts() async {
     final json = await _productRepository.getOneOrAllProducts();
-    return json.map((e) => Product.fromJson(e)).toList();
+    return json.map<Product>((e) => Product.fromJson(e)).toList();
   }
 
   Future<Map> getAllRecommendedProducts(productId) async {
     final json = await _productRepository.getAllRecommendedProducts(productId);
     return json;
+  }
+
+  Future<List<Product>> getAllRecommendedProductsFormHome() async {
+    final json = await _productRepository.getAllRecommendedProductsFormHome();
+    return json.map<Product>((e) => Product.fromJson(e)).toList();
   }
 
   Future<Product> getOneProduct(id) async {
@@ -75,6 +80,12 @@ class ProductProvider extends ChangeNotifier {
       'comment': comment
     };
     final json = await _productRepository.rateProduct(productId, data);
+    return json;
+  }
+
+  Future<List> getReviewSementalAnalysis(List reviews) async {
+    final json = await _productRepository.getReviewSementalAnalysis(reviews);
+
     return json;
   }
 

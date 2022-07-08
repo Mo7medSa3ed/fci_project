@@ -11,4 +11,10 @@ class HomeRepository {
     final res = await _apiServices!.get(url: '/home', showAlert: false);
     return res;
   }
+
+  Future getHomeRecommended() async {
+    final res = await _apiServices!
+        .get(url: '/home/recommended?page=home', showAlert: false);
+    return res;
+  }
 }
