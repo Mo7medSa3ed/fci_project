@@ -32,7 +32,6 @@ class ApiServices {
   _handleError(error, {required msg, required url, bool showAlert = false}) {
     if (showAlert) Nav.pop();
     late String message;
-
     if (error is DioError) {
       switch (error.type) {
         case DioErrorType.receiveTimeout:

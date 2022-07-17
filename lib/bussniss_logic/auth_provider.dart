@@ -101,10 +101,6 @@ class AuthProvider extends ChangeNotifier {
   }
 
   Future<void> saveInterests(List<String> interests, bool isFromProfile) async {
-    if (interests.isEmpty) {
-      return;
-    }
-
     final res =
         await _authRepository.editUser(User.toJsonForSaveInterests(interests));
     if (res != null) {

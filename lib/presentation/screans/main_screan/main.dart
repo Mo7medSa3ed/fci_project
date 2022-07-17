@@ -1,5 +1,6 @@
 import 'package:fci_project/bussniss_logic/home_provider.dart';
 import 'package:fci_project/data/models/category.dart';
+import 'package:fci_project/data/models/product.dart';
 import 'package:fci_project/helper/navigator.dart';
 import 'package:fci_project/main.dart';
 import 'package:fci_project/presentation/screans/main_screan/widgets/categories_section.dart';
@@ -31,10 +32,14 @@ class MainScrean extends StatelessWidget {
         ),
         SizedBox(height: defultPadding),
         PrimaryFutureWidget<List>(
-          future: Future.wait([_pro.getHomePage(), _pro.getHomeRecommended()]),
+          future: Future.wait(
+              [_pro.getHomePage(), if (isAuth) _pro.getHomeRecommended()]),
           data: (returned) {
             final data = returned[0];
-            final recommended = returned[1];
+            List<Product> recommended = [];
+            if (isAuth) {
+              recommended = returned[1];
+            }
 
             return Column(
               mainAxisSize: MainAxisSize.min,
@@ -45,17 +50,19 @@ class MainScrean extends StatelessWidget {
                   onTap: () => _pro.changeIndexForHome(1),
                   categories: data.categories,
                 ),
-                SizedBox(height: defultPadding),
-                ProductSection(
-                    fText: "المنتجات المقترحة",
-                    lText: "مشاهدة المزيد",
-                    type: 'mostRecommendedProducts',
-                    onTap: () => Nav.goToScrean(
-                          ProductsScrean(
-                              category: Category(),
-                              type: 'mostRecommendedProducts'),
-                        ),
-                    products: recommended),
+                if (isAuth) ...[
+                  SizedBox(height: defultPadding),
+                  ProductSection(
+                      fText: "المنتجات المقترحة",
+                      lText: "مشاهدة المزيد",
+                      type: 'mostRecommendedProducts',
+                      onTap: () => Nav.goToScrean(
+                            ProductsScrean(
+                                category: Category(),
+                                type: 'mostRecommendedProducts'),
+                          ),
+                      products: recommended)
+                ],
                 SizedBox(height: defultPadding),
                 ProductSection(
                     fText: "الاكثر مشاهدة",

@@ -42,26 +42,26 @@ setStatusColor({color, isDark = false}) {
   ));
 }
 
-IconData? getEmoji(String msg) {
+IconData? getEmoji(int msg) {
   switch (msg) {
-    case 'Positive Review':
-      return Icons.check_circle_rounded;
-    case 'Negative Review':
-      return Icons.dangerous;
-    case 'Nature Review':
+    case 1:
+      return Icons.thumb_up;
+    case -1:
+      return Icons.thumb_down;
+    case 0:
       return null;
     default:
       return null;
   }
 }
 
-Color? getEmojiColor(String msg) {
+Color? getEmojiColor(int msg) {
   switch (msg) {
-    case 'Positive Review':
+    case 1:
       return kprimary;
-    case 'Negative Review':
+    case -1:
       return kred;
-    case 'Nature Review':
+    case 0:
       return null;
     default:
       return null;

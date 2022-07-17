@@ -63,8 +63,7 @@ class _ProductDetailsScreanState extends State<ProductDetailsScrean> {
   }
 
   getReviews(List reviewsList) async {
-    final res = reviewsList.map<String>((e) => e['comment']).toList();
-    reviews = await pro.getReviewSementalAnalysis(res);
+    reviews = await pro.getReviewSementalAnalysis(reviewsList);
     if (mounted) setState(() {});
   }
 
@@ -225,13 +224,7 @@ class _ProductDetailsScreanState extends State<ProductDetailsScrean> {
                 ),
               ),
               childrenWidget: [
-                ...(widget.product.rating ?? [])
-                    .map<Widget>((e) => CommentItem(
-                        data: e,
-                        symentText: reviews.isNotEmpty
-                            ? reviews[widget.product.rating!.indexOf(e)]['msg']
-                            : ''))
-                    .toList(),
+                ...reviews.map<Widget>((e) => CommentItem(data: e)).toList(),
                 SizedBox(height: defultPadding),
                 Form(
                   key: _formKey,

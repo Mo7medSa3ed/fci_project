@@ -6,12 +6,11 @@ import 'package:fci_project/style/colors.dart';
 import 'package:flutter/material.dart';
 
 class CommentItem extends StatelessWidget {
-  const CommentItem({Key? key, required this.data, this.symentText = ''})
-      : super(key: key);
+  const CommentItem({Key? key, required this.data}) : super(key: key);
   final Map data;
-  final String? symentText;
   @override
   Widget build(BuildContext context) {
+    if ((data['comment'].toString().trim()).isEmpty) return SizedBox();
     return ListTile(
         contentPadding: EdgeInsets.zero,
         leading: CircleAvatar(
@@ -24,19 +23,26 @@ class CommentItem extends StatelessWidget {
           children: [
             Text(data['userId']['name'].toString()),
             SizedBox(width: defultPadding),
-            ...List.generate(
-                data['rate'],
-                (index) => PrimaryIcon(
-                      Icons.star,
-                      color: Colors.amber,
-                      iconSizeRatio: 0.5,
-                    )),
+            Row(
+              children: [
+                PrimaryText(
+                  text: data['rate'].toString(),
+                  fontSizeRatio: 0.8,
+                ),
+                SizedBox(width: 4),
+                PrimaryIcon(
+                  Icons.star,
+                  color: Colors.amber,
+                  iconSizeRatio: 0.5,
+                ),
+              ],
+            ),
           ],
         ),
         subtitle: Text((data['comment'] ?? '').toString()),
-        trailing: getEmoji(symentText ?? '') != null
-            ? PrimaryIcon(getEmoji(symentText ?? ''),
-                iconSizeRatio: 1.2, color: getEmojiColor(symentText ?? ''))
+        trailing: getEmoji(data['msg']) != null
+            ? PrimaryIcon(getEmoji(data['msg']),
+                iconSizeRatio: 1.2, color: getEmojiColor(data['msg']))
             : null);
   }
 }
