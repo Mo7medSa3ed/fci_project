@@ -208,7 +208,7 @@ class _ProductDetailsScreanState extends State<ProductDetailsScrean> {
                 children: [widget.product.desc ?? ""]);
           }),
           SizedBox(height: defultPadding),
-          StatefulBuilder(builder: (context, setState) {
+          StatefulBuilder(builder: (_, setState) {
             return CustomExpanantialTile(
               isExpand: true,
               title: 'التعليقات',
@@ -265,18 +265,20 @@ class _ProductDetailsScreanState extends State<ProductDetailsScrean> {
                     Directionality(
                         textDirection: TextDirection.ltr,
                         child: RatingBar.builder(
-                            initialRating: 1,
-                            maxRating: 5,
-                            minRating: 1,
-                            itemSize: 25,
-                            allowHalfRating: true,
-                            glowColor: kprimary,
-                            itemBuilder: (context, index) =>
-                                Icon(Icons.star, color: Colors.amber),
-                            onRatingUpdate: (double rating) {
-                              rate = rating;
-                              setState(() {});
-                            })),
+                          initialRating: 1,
+                          minRating: 1,
+                          maxRating: 5,
+                          allowHalfRating: true,
+                          itemCount: 5,
+                          itemSize: 25,
+                          itemBuilder: (context, _) => Icon(
+                            Icons.star,
+                            color: Colors.amber,
+                          ),
+                          onRatingUpdate: (double rating) {
+                            rate = rating;
+                          },
+                        )),
                   ],
                 ),
                 SizedBox(height: defultPadding)
@@ -287,34 +289,39 @@ class _ProductDetailsScreanState extends State<ProductDetailsScrean> {
           PrimaryFutureWidget<Map>(
               future: pro.getAllRecommendedProducts(widget.product.id),
               data: (data) {
-                final productsFromSameProvider =
+                List<Product> productsFromSameProvider =
                     data['productsFromSameProvider']
                         .map<Product>((e) => Product.fromJson(e))
                         .toList();
-                final usersAlsoWatched = data['usersAlsoWatched']
+                List<Product> usersAlsoWatched = data['usersAlsoWatched']
                     .map<Product>((e) => Product.fromJson(e))
                     .toList();
-                final productsFromSameCategory =
+                List<Product> productsFromSameCategory =
                     data['productsFromSameCategory']
                         .map<Product>((e) => Product.fromJson(e))
                         .toList();
+                productsFromSameProvider
+                    .removeWhere((p) => p.id == widget.product.id);
+                usersAlsoWatched.removeWhere((p) => p.id == widget.product.id);
+                productsFromSameCategory
+                    .removeWhere((p) => p.id == widget.product.id);
                 return Column(
                   children: [
-                    if (usersAlsoWatched.isNotEmpty) ...[
+                    if ((usersAlsoWatched).isNotEmpty) ...[
                       ProductSection(
                           fText: "شاهد العملاء ايضاً",
                           type: 'usersAlsoWatched',
                           products: usersAlsoWatched),
                       SizedBox(height: defultPadding),
                     ],
-                    if (productsFromSameCategory.isNotEmpty) ...[
+                    if ((productsFromSameCategory).isNotEmpty) ...[
                       ProductSection(
                           fText: "قد يعجبك ايضاً",
                           type: 'productsFromSameCategory',
                           products: productsFromSameCategory),
                       SizedBox(height: defultPadding),
                     ],
-                    if (productsFromSameProvider.isNotEmpty) ...[
+                    if ((productsFromSameProvider).isNotEmpty) ...[
                       ProductSection(
                           fText: "مزيد من المنتجات",
                           type: 'productsFromSameProvider',

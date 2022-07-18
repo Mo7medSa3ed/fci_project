@@ -32,9 +32,7 @@ class _InterestsScreanState extends State<InterestsScrean> {
   onSubmit() async {
     await Provider.of<AuthProvider>(context, listen: false)
         .saveInterests(seleccted, widget.showBack);
-    if (!widget.showBack) {
-      currantUser.interests = [...seleccted];
-    }
+    currantUser.interests = [...seleccted];
   }
 
   @override

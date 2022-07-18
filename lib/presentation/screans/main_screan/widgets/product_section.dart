@@ -20,6 +20,7 @@ class ProductSection extends StatelessWidget {
   final List<Product>? products;
   @override
   Widget build(BuildContext context) {
+    if ((products ?? []).isEmpty) return SizedBox();
     return SizedBox(
         height: kheight * 0.52,
         child: Column(
