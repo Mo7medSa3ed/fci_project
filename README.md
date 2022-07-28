@@ -1,8 +1,13 @@
 
-# Cloud Based Ecommerce System For Tiny And Small Projects
+# Cloud-based E-commerce management system for tiny and small businesses
 
+This project aims to make the job owner make his own store in our system that makes him able to practice his job smoothly and serve customers as much as possible. Customers will be able to login to this store and practice their activity as users this will make the process of buying and selling more fixable and more comfortable.
 
-In general, there are three available cloud-based solutions for e-commerce that allow retailers to manage customer data, product data, inventory data, website hosting, digital transactions, and many other e-commerce needs
+And our system based on three parts:<br/>
+●<b> Owner part</b>: owner will make his store using our system that will help him to sell his goads. <br/>
+●<b> Customer part</b>: he will login our system and  interact with the owner store to find or buy a specific product or to get a specific services.<br/>
+●<b> Admin part</b>: he will check for owner validation details to find the store’s status which is activate or deactivate.<br/>
+
 ## 🔗 Links
 
 [![Google Play](https://img.shields.io/badge/Google_play-000?style=for-the-badge&logo=Googleplay&logoColor=fff)](https://play.google.com/store/apps/details?id=com.mo7med.fci_project)
