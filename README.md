@@ -1,6 +1,5 @@
 # fci_project
-
-A new Flutter project.
+Cloud Based Ecommerce System For Tiny And Small Projects
 
 ## Getting Started
 
