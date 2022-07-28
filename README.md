@@ -17,7 +17,6 @@ And our system based on three parts:<br/>
 
 ## Screenshots
 
-![App Screenshot](https://play-lh.googleusercontent.com/cbCD6C-aSkd4dG5mRlvfK1kkkEcDHQjzm6drv-Y5oaf3m4vjVlQR0l7qtjKBnEfRiLnu=w416-h235-rw) <br/>
 ![App Screenshot](https://play-lh.googleusercontent.com/UdbgoeSov7zJMeBwyZxencrzehTX2VLLWSDaVmFkj2aLieTQ_HIaXzzurepRtQCcvyQ=w526-h296-rw)
 ![App Screenshot](https://play-lh.googleusercontent.com/lPPlmoqxupd71hke540jwo50_fAmpl4STX0_YO9RbrIFdVm59I4VRdB64nS8Ra3G0A=w526-h296-rw)
 ![App Screenshot](https://play-lh.googleusercontent.com/95Jsiw3SSaxCzF7i30Rr3agA_VNPEmRAOm-iQzKYe9Ja6dN1DCmabxi2wEWRcXnl-lA=w526-h296-rw)
