@@ -10,9 +10,9 @@ And our system based on three parts:<br/>
 
 ## 🔗 Links
 
-[![Google Play](https://img.shields.io/badge/Google_play-000?style=for-the-badge&logo=Googleplay&logoColor=fff)](https://play.google.com/store/apps/details?id=com.mo7med.fci_project)
+[![Google Play](https://img.shields.io/badge/Google_play-fff?style=for-the-badge&logo=Googleplay&logoColor=000)](https://play.google.com/store/apps/details?id=com.mo7med.fci_project)
 
-[![Google Earth](https://img.shields.io/badge/website-000?style=for-the-badge&logo=Google-Earth&logoColor=fff)](https://fci-proj.herokuapp.com/)
+[![Google Earth](https://img.shields.io/badge/website-fff?style=for-the-badge&logo=Google-Earth&logoColor=000)](https://fci-proj.herokuapp.com/)
 
 
 ## Screenshots
